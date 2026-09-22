@@ -884,7 +884,11 @@ a.sci-timeline__text:hover { opacity: .6; }
 
 /* Врезка со ссылкой на источник */
 
+/* врезка едет вместе со скроллом, пока слева идёт текст */
 .prj-aside {
+  position: sticky;
+  top: 80px;
+  align-self: start;
   padding: 28px 30px 30px;
   background: var(--grey);
 }
