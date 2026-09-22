@@ -61,13 +61,12 @@
       </dl>
     </div>
 
-    <!-- TODO: обложка ждёт съёмку объекта -->
     <div class="container prj-head__cover">
       <figure style="flex: 1.5">
-        <div class="ph ph--ratio" style="--ratio: 66.7%"></div>
+        <img src="assets/img/projects/dlt/dlt-fasad-posle-moskvin-8.jpg" alt="Воссозданная гербовая композиция с двуглавым орлом на аттике ДЛТ">
       </figure>
-      <figure style="flex: 1.5">
-        <div class="ph ph--ratio" style="--ratio: 66.7%"></div>
+      <figure style="flex: 0.667">
+        <img src="assets/img/projects/dlt/dlt-fasad-posle-moskvin-2.jpg" alt="Фасад Дома Ленинградской торговли с керамическим декором">
       </figure>
     </div>
   </section>
@@ -123,14 +122,90 @@
     </div>
   </section>
 
-  <!-- TODO: блок «Как шли работы» добавится вместе со съёмкой -->
+  <!-- КАК ШЛИ РАБОТЫ -->
+  <section class="prj-stages">
+    <div class="container">
+      <div class="prj-stages__head">
+        <h2 class="h-section prj-stages__title">Как шли работы</h2>
+        <div class="prj-stages__tabs js-stages-tabs">
+          <button class="prj-stages__tab is-active" type="button" data-stage="before">До реставрации</button>
+          <button class="prj-stages__tab" type="button" data-stage="process">В процессе</button>
+          <button class="prj-stages__tab" type="button" data-stage="after">Результат</button>
+        </div>
+      </div>
+
+      <div class="prj-stages__panels js-stages-panels">
+
+        <div class="prj-stages__panel is-active" data-stage="before">
+          <figure style="flex: 0.53">
+            <img src="assets/img/projects/dlt/risunok2.jpg" alt="Маскарон фасада до реставрации">
+            <figcaption>Маскарон до реставрации: поверхность потемнела, металлизация не читается</figcaption>
+          </figure>
+          <figure style="flex: 0.972">
+            <img src="assets/img/projects/dlt/risunok4.jpg" alt="Медальон с венком до реставрации">
+            <figcaption>Медальон с венком до расчистки</figcaption>
+          </figure>
+          <figure style="flex: 1.334">
+            <img src="assets/img/projects/dlt/risunok5.jpg" alt="Фрагмент декора со шлемом и знамёнами до реставрации">
+            <figcaption>Фрагмент композиции со шлемом и знамёнами до реставрации</figcaption>
+          </figure>
+        </div>
+        <div class="prj-stages__panel" data-stage="process">
+          <figure style="flex: 1.334">
+            <img src="assets/img/projects/dlt/risunok9.jpg" alt="Леса и конструкция крепления на фасаде">
+            <figcaption>Подготовка основания и креплений на аттике</figcaption>
+          </figure>
+          <figure style="flex: 1.335">
+            <img src="assets/img/projects/dlt/risunok7.jpg" alt="Монтаж крыла гербовой композиции на аттике">
+            <figcaption>Монтаж крыльев воссозданной гербовой композиции</figcaption>
+          </figure>
+          <figure style="flex: 1.542">
+            <img src="assets/img/projects/dlt/risunok10.jpg" alt="Монтаж фрагмента гербовой композиции">
+            <figcaption>Сборка композиции на месте</figcaption>
+          </figure>
+        </div>
+        <div class="prj-stages__panel prj-stages__panel--slider" data-stage="after">
+          <div class="prj-stages__slider js-slider">
+            <div class="prj-stages__track js-slider-track">
+              <figure style="--r: 0.532">
+                <img src="assets/img/projects/dlt/risunok1.jpg" alt="Отреставрированный маскарон фасада">
+                <figcaption>Тот же маскарон после реставрации: металлизированная майолика вновь читается как бронза</figcaption>
+              </figure>
+              <figure style="--r: 1.01">
+                <img src="assets/img/projects/dlt/risunok3.jpg" alt="Отреставрированный медальон с венком">
+                <figcaption>Медальон после реставрации</figcaption>
+              </figure>
+              <figure style="--r: 1.334">
+                <img src="assets/img/projects/dlt/risunok6.jpg" alt="Отреставрированный фрагмент декора со шлемом">
+                <figcaption>Фрагмент со шлемом и знамёнами после реставрации</figcaption>
+              </figure>
+              <figure style="--r: 1.599">
+                <img src="assets/img/projects/dlt/risunok8.jpg" alt="Аттик здания с воссозданной гербовой композицией">
+                <figcaption>Аттик с вернувшимся двуглавым орлом</figcaption>
+              </figure>
+              <figure style="--r: 1.5">
+                <img src="assets/img/projects/dlt/dlt-fasad-posle-moskvin-82.jpg" alt="Керамический декор над входом в здание">
+                <figcaption>Керамический декор входной группы</figcaption>
+              </figure>
+            </div>
+
+            <button class="prj-stages__arrow prj-stages__arrow--prev js-slider-prev" type="button" aria-label="Предыдущий кадр" disabled>←</button>
+            <button class="prj-stages__arrow prj-stages__arrow--next js-slider-next" type="button" aria-label="Следующий кадр">→</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
 
   <!-- ПЕРЕХОДЫ -->
   <section class="prj-cta">
     <div class="container">
 
       <a class="prj-next" href="project-ikonostas-matrony.html">
-        <div class="prj-next__media ph"></div>
+        <div class="prj-next__media">
+          <img src="assets/img/projects/ikonostas-matrony/matrona-07.jpg" alt="Керамический иконостас храма Матроны Московской">
+        </div>
         <div class="prj-next__text">
           <div class="prj-next__label">Следующий проект</div>
           <div class="prj-next__title">Иконостас храма Матроны Московской</div>
