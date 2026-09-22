@@ -44,7 +44,9 @@
       var first = track.children[0];
       if (!first) return 0;
       var gap = parseInt(getComputedStyle(track).columnGap || getComputedStyle(track).gap, 10) || 0;
-      return first.getBoundingClientRect().width + gap;
+      /* offsetWidth — в CSS-пикселях, как и transform ниже: getBoundingClientRect
+         вернул бы ширину с учётом body { zoom }, и шаг уезжал бы за карточку */
+      return first.offsetWidth + gap;
     }
 
     function maxOffset() {
