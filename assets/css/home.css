@@ -219,8 +219,20 @@
   padding: 20px;
 }
 
+/* порядковый номер проекта — левый верхний угол карточки */
+.pf-card__num {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  font-family: var(--font-head);
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: .06em;
+  opacity: .35;
+}
+
 .pf-card__text {
-  width: 300px;
+  width: 330px;
   padding-bottom: 0;
 }
 
