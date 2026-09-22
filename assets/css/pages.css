@@ -766,8 +766,7 @@ a.sci-timeline__text:hover { opacity: .6; }
 
 .contacts-page__form-wrap {
   background: var(--grey);
-  padding: 30px 40px 40px;
-  min-height: 365px;
+  padding: 30px 40px 36px;
   margin-top: 10px;
 }
 
@@ -779,3 +778,146 @@ a.sci-timeline__text:hover { opacity: .6; }
   background: var(--accent);
   color: var(--white);
 }
+
+
+/* ==========================================================================
+   Страница проекта
+   ========================================================================== */
+
+.prj-head { padding-top: 105px; }
+
+.prj-head__grid {
+  display: grid;
+  grid-template-columns: 570px 1fr;
+  align-items: start;
+}
+
+.prj-head__back {
+  display: inline-block;
+  margin-bottom: 18px;
+  font-size: 12px;
+  line-height: 1;
+  text-transform: uppercase;
+  opacity: .5;
+  transition: opacity .2s ease;
+}
+
+.prj-head__back:hover { opacity: 1; }
+
+.prj-head__title {
+  width: 470px;
+  line-height: 1.25;
+}
+
+.prj-meta { margin: 0; }
+
+.prj-meta__row + .prj-meta__row { margin-top: 20px; }
+
+.prj-meta dt {
+  font-size: 14px;
+  line-height: 1.55;
+  opacity: .6;
+}
+
+.prj-meta dd {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.prj-head__cover {
+  margin-top: 45px;
+}
+
+.prj-head__cover img {
+  width: 1120px;
+  height: 560px;
+  object-fit: cover;
+  background: var(--grey);
+}
+
+/* Описание */
+
+.prj-text { padding-top: 55px; }
+
+.prj-text__grid {
+  display: grid;
+  grid-template-columns: 740px 1fr;
+  column-gap: 20px;
+  align-items: start;
+}
+
+.prj-text__body p {
+  font-size: 16px;
+  line-height: 1.55;
+  margin-bottom: 20px;
+}
+
+.prj-text__body p:last-child { margin-bottom: 0; }
+
+.prj-aside {
+  padding: 24px;
+  background: var(--grey);
+}
+
+.prj-aside__label {
+  font-size: 12px;
+  line-height: 1;
+  text-transform: uppercase;
+  opacity: .6;
+  margin-bottom: 14px;
+}
+
+.prj-aside__source {
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.prj-aside__doi {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--accent);
+  transition: opacity .2s ease;
+}
+
+.prj-aside__doi:hover { opacity: .7; }
+
+/* Галерея */
+
+.prj-gallery { padding-top: 75px; }
+
+.prj-gallery__title {
+  font-size: 18px;
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+.prj-gallery__grid {
+  display: grid;
+  column-gap: 20px;
+  row-gap: 20px;
+  margin-bottom: 55px;
+}
+
+.prj-gallery__grid--two { grid-template-columns: repeat(2, 550px); }
+.prj-gallery__grid--three { grid-template-columns: repeat(3, 360px); }
+
+.prj-gallery__grid figure {
+  margin: 0;
+  background: var(--grey);
+  overflow: hidden;
+}
+
+.prj-gallery__grid--two img { width: 550px; height: 360px; object-fit: cover; }
+.prj-gallery__grid--three img { width: 360px; height: 360px; object-fit: cover; }
+
+/* Переходы */
+
+.prj-cta { padding: 20px 0 100px; }
+
+.prj-cta__inner { display: flex; gap: 10px; }
+
+.prj-cta__inner .btn { min-width: 200px; }

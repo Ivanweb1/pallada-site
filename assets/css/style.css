@@ -469,6 +469,67 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
 
 .cform__field input::placeholder { color: rgba(255, 255, 255, .8); }
 
+/* Прикрепление файла, согласие и сообщение об отправке */
+.cform__file {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  cursor: pointer;
+}
+
+.cform__file input { position: absolute; width: 0; height: 0; opacity: 0; }
+
+.cform__file-btn {
+  flex: 0 0 auto;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 14px;
+  font-size: 12px;
+  line-height: 1;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+  opacity: .8;
+  transition: opacity .2s ease;
+}
+
+.cform__file:hover .cform__file-btn { opacity: 1; }
+
+.cform__file-name {
+  font-size: 13px;
+  line-height: 1.3;
+  opacity: .6;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cform__agree {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 18px;
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: .8;
+  cursor: pointer;
+}
+
+.cform__agree input {
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  margin: 2px 0 0;
+  accent-color: currentColor;
+}
+
+.cform__done {
+  margin-top: 14px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
 .cform__submit {
   height: 48px;
   min-width: 165px;
@@ -480,7 +541,7 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
   text-transform: uppercase;
   letter-spacing: .02em;
   transition: opacity .2s ease;
-  margin-top: 14px;
+  margin-top: 2px;
 }
 
 .cform__submit:hover { opacity: .85; }

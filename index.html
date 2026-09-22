@@ -46,7 +46,7 @@
         <img class="hero__img" src="assets/img/6164333_02_1_1.png" alt="">
         <div class="hero__shade"></div>
         <div class="container hero__inner">
-          <h1 class="hero__title">Архитектурная керамика полного цикла</h1>
+          <h1 class="hero__title">Архитектурная и художественная керамика — от исследования до монтажа</h1>
           <p class="hero__text">С 2001 года проектируем, производим и монтируем керамику для фасадов
             и интерьеров. Работаем в двух направлениях: научная реставрация наследия и создание
             современных изделий — от авторских художественных решений до серийных элементов</p>
@@ -66,6 +66,11 @@
         </div>
       </article>
 
+    </div>
+
+    <div class="container hero__cta">
+      <a class="btn btn--filled" href="portfolio.html">Смотреть проекты</a>
+      <a class="btn" href="contacts.html">Обсудить задачу</a>
     </div>
   </section>
 
@@ -250,6 +255,9 @@
             этапе реализации проекта:</p>
         </div>
 
+        <p class="cycle__note">Состав работ зависит от задачи. Проект может включать весь цикл
+          или отдельные этапы.</p>
+
         <ol class="cycle__list">
           <li class="cycle__item">
             <span class="cycle__num">01</span>
@@ -300,9 +308,9 @@
     <div class="container film__grid">
       <h2 class="h-section film__title">Фрагмент фильма «Птицы радости и печали»</h2>
       <div class="film__meta">
-        <span class="film__role">Режиссер</span>
-        <span class="film__name">Василиса Кузьмина</span>
-        <span class="film__note">(съёмки в мастерских)</span>
+        <p class="film__descr">Процесс создания в наших мастерских копии знаменитого камина
+          «Встреча Вольги и Микулы» по эскизу М. А. Врубеля. Фрагмент фильма «Птицы радости
+          и печали» (режиссёр Василиса Кузьмина).</p>
       </div>
     </div>
   </section>
@@ -359,18 +367,34 @@
       </div>
 
       <div class="contacts-home__form-wrap">
-        <form class="cform" action="#" method="post">
+        <form class="cform js-cform" action="#" method="post" novalidate>
           <label class="cform__field">
-            <input type="text" name="name" placeholder="Имя" autocomplete="name">
+            <input type="text" name="name" placeholder="Имя" autocomplete="name" required>
           </label>
           <label class="cform__field cform__field--phone">
-            <span class="cform__flag" aria-hidden="true">🇷🇺</span>
+            <span class="cform__flag" aria-hidden="true">RU</span>
             <input type="tel" name="phone" placeholder="+7 (000) 000-00-00" autocomplete="tel">
+          </label>
+          <label class="cform__field">
+            <input type="email" name="email" placeholder="E-mail" autocomplete="email" required>
           </label>
           <label class="cform__field">
             <input type="text" name="comment" placeholder="Комментарий">
           </label>
+
+          <label class="cform__file">
+            <input type="file" name="file" class="js-cform-file">
+            <span class="cform__file-btn">Прикрепить файл</span>
+            <span class="cform__file-name js-cform-filename">Файл не выбран</span>
+          </label>
+
+          <label class="cform__agree">
+            <input type="checkbox" name="agree" required checked>
+            <span>Согласен на обработку персональных данных</span>
+          </label>
+
           <button class="cform__submit" type="submit">Отправить</button>
+          <p class="cform__done js-cform-done" hidden>Спасибо! Заявка отправлена — мы свяжемся с вами.</p>
         </form>
       </div>
 
@@ -448,7 +472,7 @@
 
   <div class="footer__bottom">
     <div class="container">
-      <span>Паллада 2026, все права защищены</span>
+      <span>© 2026 ООО «Паллада». Все права защищены.</span>
       <a href="#">Политика конфиденциальности</a>
     </div>
   </div>

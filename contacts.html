@@ -61,18 +61,34 @@
       </div>
 
       <div class="contacts-page__form-wrap">
-        <form class="cform" action="#" method="post">
+        <form class="cform js-cform" action="#" method="post" novalidate>
           <label class="cform__field">
-            <input type="text" name="name" placeholder="Имя" autocomplete="name">
+            <input type="text" name="name" placeholder="Имя" autocomplete="name" required>
           </label>
           <label class="cform__field cform__field--phone">
-            <span class="cform__flag" aria-hidden="true">🇷🇺</span>
+            <span class="cform__flag" aria-hidden="true">RU</span>
             <input type="tel" name="phone" placeholder="+7 (000) 000-00-00" autocomplete="tel">
+          </label>
+          <label class="cform__field">
+            <input type="email" name="email" placeholder="E-mail" autocomplete="email" required>
           </label>
           <label class="cform__field">
             <input type="text" name="comment" placeholder="Комментарий">
           </label>
+
+          <label class="cform__file">
+            <input type="file" name="file" class="js-cform-file">
+            <span class="cform__file-btn">Прикрепить файл</span>
+            <span class="cform__file-name js-cform-filename">Файл не выбран</span>
+          </label>
+
+          <label class="cform__agree">
+            <input type="checkbox" name="agree" required checked>
+            <span>Согласен на обработку персональных данных</span>
+          </label>
+
           <button class="cform__submit" type="submit">Отправить</button>
+          <p class="cform__done js-cform-done" hidden>Спасибо! Заявка отправлена — мы свяжемся с вами.</p>
         </form>
       </div>
 
@@ -148,7 +164,7 @@
 
   <div class="footer__bottom">
     <div class="container">
-      <span>Паллада 2026, все права защищены</span>
+      <span>© 2026 ООО «Паллада». Все права защищены.</span>
       <a href="#">Политика конфиденциальности</a>
     </div>
   </div>

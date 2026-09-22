@@ -56,8 +56,8 @@
   font-family: var(--font-head);
   position: absolute;
   left: var(--gutter);
-  top: 357px;
-  width: 322px;
+  top: 330px;
+  width: 470px;
   margin: 0;
   font-size: 30px;
   line-height: 1.15;
@@ -69,7 +69,7 @@
 
 .hero__text {
   position: absolute;
-  left: 420px;
+  left: 560px;
   top: 357px;
   width: 417px;
   font-size: 14px;
@@ -78,6 +78,16 @@
 }
 
 .hero__text--narrow { left: 420px; top: 382px; width: 281px; opacity: .8; }
+
+/* Кнопки под слайдером — по просьбе заказчика */
+.hero__cta {
+  display: flex;
+  gap: 10px;
+  padding-top: 30px;
+  padding-bottom: 10px;
+}
+
+.hero__cta .btn { min-width: 200px; }
 
 .hero__counter {
   position: absolute;
@@ -271,6 +281,14 @@
 
 .cycle__figure img { width: 100%; height: 100%; object-fit: cover; }
 
+.cycle__note {
+  width: 740px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  line-height: 1.4;
+  opacity: .6;
+}
+
 .cycle__list { border-top: 0; }
 
 .cycle__item {
@@ -320,7 +338,14 @@
   line-height: 1.25;
 }
 
-.film__meta { padding-top: 36px; }
+.film__meta { padding-top: 6px; }
+
+.film__descr {
+  width: 360px;
+  font-size: 14px;
+  line-height: 1.4;
+  opacity: .6;
+}
 
 .film__role {
   display: block;
@@ -396,7 +421,6 @@
 .contacts-home__form-wrap {
   background: var(--accent);
   color: var(--white);
-  padding: 30px 40px 40px;
-  min-height: 365px;
+  padding: 30px 40px 36px;
   margin-top: 7px;
 }

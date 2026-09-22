@@ -77,6 +77,27 @@
     });
   });
 
+  /* ---- Формы: имя выбранного файла и сообщение об отправке ---- */
+  Array.prototype.forEach.call(document.querySelectorAll('.js-cform'), function (form) {
+    var file = form.querySelector('.js-cform-file');
+    var fileName = form.querySelector('.js-cform-filename');
+    var done = form.querySelector('.js-cform-done');
+
+    if (file && fileName) {
+      file.addEventListener('change', function () {
+        fileName.textContent = file.files && file.files[0] ? file.files[0].name : 'Файл не выбран';
+      });
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      form.reset();
+      if (fileName) fileName.textContent = 'Файл не выбран';
+      if (done) done.hidden = false;
+    });
+  });
+
   /* ---- Фильтры портфолио ---- */
   var filters = document.querySelectorAll('.js-pf-filter');
   Array.prototype.forEach.call(filters, function (btn) {
