@@ -1122,9 +1122,7 @@ a.sci-timeline__text:hover { opacity: .6; }
 
 /* Одиночный кадр. На всю ширину его растягивать нельзя: вертикальный снимок
    в 1120 px стал бы полотном в полтора экрана. Показываем в рост ленты,
-   по центру панели. */
-.prj-stages__panel--single.is-active { justify-content: center; }
-
+   по левому краю — вровень с вкладками и остальными панелями. */
 .prj-stages__panel--single figure { width: calc(700px * var(--r)); }
 
 .prj-stages figcaption {
