@@ -40,16 +40,19 @@
     <div class="container">
       <h1 class="h-section pf-page__title">Портфолио</h1>
 
+      <!-- Ярлыки короткие, чтобы фильтры вставали в один ряд: полные названия
+           направлений остаются в подвале, на главной и в карточках проектов.
+           title раскрывает сокращение при наведении. -->
       <div class="pf-page__filters">
-        <button class="pf-filter is-active js-pf-filter" type="button" data-filter="all">Все проекты</button>
-        <button class="pf-filter js-pf-filter" type="button" data-filter="restoration">Реставрация</button>
-        <button class="pf-filter js-pf-filter" type="button" data-filter="tile">Метлахская плитка</button>
-        <button class="pf-filter js-pf-filter" type="button" data-filter="roof">Черепица</button>
-        <button class="pf-filter js-pf-filter" type="button" data-filter="facade">Фасадные отделочные материалы</button>
-        <button class="pf-filter js-pf-filter" type="button" data-filter="stove">Печи и камины</button>
-        <button class="pf-filter js-pf-filter" type="button" data-filter="panno">Панно</button>
-        <button class="pf-filter js-pf-filter" type="button" data-filter="church">Церковная керамика</button>
-        <button class="pf-filter js-pf-filter" type="button" data-filter="other">Другие услуги</button>
+        <button class="pf-filter is-active js-pf-filter" type="button" data-filter="all" title="Все проекты">Все</button>
+        <button class="pf-filter js-pf-filter" type="button" data-filter="restoration" title="Реставрация архитектурной керамики">Реставрация</button>
+        <button class="pf-filter js-pf-filter" type="button" data-filter="tile" title="Метлахская плитка">Метлах</button>
+        <button class="pf-filter js-pf-filter" type="button" data-filter="roof" title="Керамическая черепица">Черепица</button>
+        <button class="pf-filter js-pf-filter" type="button" data-filter="facade" title="Фасадные отделочные материалы">Фасады</button>
+        <button class="pf-filter js-pf-filter" type="button" data-filter="stove" title="Печи и камины">Печи</button>
+        <button class="pf-filter js-pf-filter" type="button" data-filter="panno" title="Панно">Панно</button>
+        <button class="pf-filter js-pf-filter" type="button" data-filter="church" title="Церковная керамика">Церковная</button>
+        <button class="pf-filter js-pf-filter" type="button" data-filter="other" title="Другие услуги">Другое</button>
       </div>
 
       <div class="pf-page__grid js-pf-grid">
