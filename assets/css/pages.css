@@ -1003,6 +1003,10 @@ a.sci-timeline__text:hover { opacity: .6; }
 
 .prj-head__cover figure { margin: 0; min-width: 0; }
 
+/* Одиночный вертикальный кадр на всю ширину контейнера вырастает выше экрана,
+   поэтому ширину задаём от высоты: как и в блоке этапов, 700px * стороны кадра. */
+.prj-head__cover--single figure { width: calc(700px * var(--r)); }
+
 .prj-head__cover img {
   width: 100%;
   height: auto;
