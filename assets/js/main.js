@@ -268,5 +268,14 @@
         if (pfEmpty) pfEmpty.hidden = shown > 0;
       });
     });
+
+    /* со страницы направления приходят с готовым фильтром: portfolio.html?filter=tile.
+       Нажимаем нужную кнопку, когда обработчики уже навешены. */
+    var wanted = new URLSearchParams(location.search).get('filter');
+    if (wanted) {
+      Array.prototype.forEach.call(filters, function (b) {
+        if (b.dataset.filter === wanted) b.click();
+      });
+    }
   }
 })();
