@@ -100,6 +100,41 @@
       next.disabled = max <= 1 || track.scrollLeft >= max - 1;
     }
 
+    /* Своя прокрутка вместо scrollTo({ behavior: 'smooth' }): у ленты
+       scroll-snap-type: x mandatory, и браузер доснапывает кадр уже поверх
+       нативной анимации — шаг выходит рывками и иногда не доезжает.
+       На время анимации снап выключаем, после — возвращаем. */
+    var anim = 0;
+
+    function scrollTo(target) {
+      if (anim) { cancelAnimationFrame(anim); anim = 0; }
+      var from = track.scrollLeft;
+      var dist = target - from;
+      if (Math.abs(dist) < 1) return;
+
+      /* во вкладке без отрисовки requestAnimationFrame не вызывается —
+         там просто становимся на место */
+      if (document.hidden) { track.scrollLeft = target; update(); return; }
+
+      var snap = track.style.scrollSnapType;
+      track.style.scrollSnapType = 'none';
+      var start = performance.now();
+      var dur = 380;
+
+      anim = requestAnimationFrame(function frame(now) {
+        var k = Math.min(1, (now - start) / dur);
+        var e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+        track.scrollLeft = from + dist * e;
+        if (k < 1) {
+          anim = requestAnimationFrame(frame);
+        } else {
+          anim = 0;
+          track.style.scrollSnapType = snap;
+          update();
+        }
+      });
+    }
+
     /* ближайший кадр, который сейчас не стоит у левого края.
        Макет масштабируется через body { zoom }, поэтому экранные координаты
        переводим обратно в CSS-пиксели — в них считается scrollLeft. */
@@ -117,7 +152,7 @@
           break;
         }
       }
-      track.scrollTo({ left: target, behavior: 'smooth' });
+      scrollTo(target);
     }
 
     prev.addEventListener('click', function () { step(-1); });
