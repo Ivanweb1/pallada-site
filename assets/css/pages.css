@@ -941,16 +941,16 @@ a.sci-timeline__text:hover { opacity: .6; }
 
 .prj-stages { padding-top: 75px; }
 
-.prj-stages__head {
+.prj-stages__head { margin-bottom: 25px; }
+
+.prj-stages__title { line-height: 1; margin-bottom: 20px; }
+
+/* переключатель этапов — по левому краю, вровень с фотографией */
+.prj-stages__tabs {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 25px;
+  justify-content: flex-start;
+  gap: 10px;
 }
-
-.prj-stages__title { line-height: 1; }
-
-.prj-stages__tabs { display: flex; gap: 10px; }
 
 .prj-stages__tab {
   height: 40px;
@@ -960,15 +960,16 @@ a.sci-timeline__text:hover { opacity: .6; }
   font-weight: 600;
   line-height: 1;
   text-transform: uppercase;
-  border: 1px solid transparent;
-  transition: border-color .2s ease, opacity .2s ease;
+  border: 1px solid rgba(0, 0, 0, .2);
+  transition: border-color .2s ease, background-color .2s ease, color .2s ease;
 }
 
-.prj-stages__tab:hover { opacity: .6; }
+.prj-stages__tab:hover { border-color: var(--accent); }
 
 .prj-stages__tab.is-active {
+  background: var(--accent);
   border-color: var(--accent);
-  opacity: 1;
+  color: var(--white);
 }
 
 .prj-stages__panel { display: none; }
@@ -980,29 +981,40 @@ a.sci-timeline__text:hover { opacity: .6; }
   align-items: start;
 }
 
-.prj-stages__panel figure { margin: 0; }
+.prj-stages__panel figure {
+  margin: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-height: 0;
+}
+
+/* обе колонки одной высоты — фото не выходят за блок */
+.prj-stages__main { height: 480px; }
 
 .prj-stages__main img {
   width: 740px;
-  height: 480px;
+  height: 100%;
+  min-height: 0;
   object-fit: cover;
   background: var(--grey);
 }
 
 .prj-stages__side {
   display: grid;
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
   row-gap: 20px;
+  height: 480px;
 }
 
 .prj-stages__side img {
   width: 360px;
-  height: 230px;
+  height: 100%;
+  min-height: 0;
   object-fit: cover;
   background: var(--grey);
 }
 
-/* когда на этапе одна боковая фотография — тянем её на всю высоту */
-.prj-stages__side figure:only-child img { height: 480px; }
+.prj-stages__side figure:only-child { grid-row: span 2; }
 
 .prj-stages figcaption {
   margin-top: 10px;
@@ -1010,6 +1022,8 @@ a.sci-timeline__text:hover { opacity: .6; }
   line-height: 1.4;
   opacity: .6;
 }
+
+.prj-stages__side figcaption { margin-top: 8px; }
 
 /* Переходы */
 
