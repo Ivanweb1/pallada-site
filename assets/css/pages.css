@@ -569,22 +569,41 @@ a.pf-item:hover .pf-item__title { color: var(--accent); }
 
 .article { padding: 105px 0 0; }
 
-.article__date {
-  margin-bottom: 10px;
-  font-size: 12px;
-  line-height: 1.4;
-  opacity: .4;
-}
-
-.article__title {
-  width: 800px;
-  line-height: 1.25;
+.article__head {
+  display: grid;
+  grid-template-columns: 800px 1fr;
+  align-items: baseline;
+  column-gap: 20px;
   margin-bottom: 40px;
 }
 
-.article__cover { margin-bottom: 45px; }
+.article__title { line-height: 1.25; }
 
-.article__body { width: 700px; }
+.article__date {
+  font-family: var(--font-head);
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  opacity: .4;
+}
+
+.article__cover { margin-bottom: 55px; }
+
+.article__grid {
+  display: grid;
+  grid-template-columns: 700px 400px;
+  column-gap: 20px;
+  align-items: start;
+}
+
+/* первый абзац крупнее — как лид на странице проекта.
+   Через .article__body, иначе правило ниже перебивает размер. */
+.article__body .article__lead {
+  font-size: 20px;
+  line-height: 1.45;
+  opacity: 1;
+}
 
 .article__body p {
   font-size: 16px;
@@ -592,52 +611,61 @@ a.pf-item:hover .pf-item__title { color: var(--accent); }
   opacity: .8;
 }
 
-.article__body p + p { margin-top: 16px; }
+.article__body p + p { margin-top: 18px; }
 
-.article__facts {
-  margin: 34px 0 0;
-  padding-top: 24px;
-  border-top: 1px solid rgba(0, 0, 0, .2);
+.article__body .article__lead + p { margin-top: 28px; }
+
+.article__aside { top: 100px; }
+
+.article__facts { margin: 0; }
+
+.article__fact + .article__fact {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(0, 0, 0, .12);
 }
 
-.article__fact { display: grid; grid-template-columns: 160px 1fr; }
-
-.article__fact + .article__fact { margin-top: 14px; }
-
 .article__fact dt {
-  font-size: 14px;
-  line-height: 1.55;
-  opacity: .6;
+  font-size: 12px;
+  line-height: 1.3;
+  text-transform: uppercase;
+  opacity: .5;
+  margin-bottom: 6px;
 }
 
 .article__fact dd {
   margin: 0;
-  font-size: 16px;
-  line-height: 1.55;
-}
-
-.article__fact a {
-  border-bottom: 1px solid rgba(0, 0, 0, .3);
-  transition: color .2s ease, border-color .2s ease;
-}
-
-.article__fact a:hover { color: var(--accent); border-color: var(--accent); }
-
-.article__link {
-  display: inline-block;
-  margin-top: 34px;
-  padding-top: 24px;
-  border-top: 1px solid rgba(0, 0, 0, .2);
   font-size: 14px;
-  font-weight: 500;
-  line-height: 1.3;
-  color: var(--accent);
-  transition: opacity .2s ease;
+  line-height: 1.45;
 }
 
-.article__link::after { content: ' →'; }
+/* Другие новости */
 
-.article__link:hover { opacity: .7; }
+.article-more { padding: 90px 0 0; }
+
+.article-more__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 22px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+}
+
+.article-more__head .h-section { line-height: 1; }
+
+.article-more__all {
+  font-size: 12px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  opacity: .5;
+  transition: opacity .2s ease, color .2s ease;
+}
+
+.article-more__all::after { content: ' →'; }
+
+.article-more__all:hover { opacity: 1; color: var(--accent); }
 
 /* --------------------------------------------------------------------------
    Процессы

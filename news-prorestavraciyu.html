@@ -40,27 +40,39 @@
   <article class="article">
     <div class="container">
       <a class="prj-head__back" href="news.html">← Новости</a>
-      <div class="article__date">24–27 сентября 2026</div>
-      <h1 class="h-section article__title">Петербургская парадная едет в Москву</h1>
+
+      <div class="article__head">
+        <h1 class="h-section article__title">Петербургская парадная едет в Москву</h1>
+        <div class="article__date">24–27 сентября 2026</div>
+      </div>
 
       <!-- TODO: фотография к новости -->
-      <div class="article__cover ph ph--ratio" style="--ratio: 45%"></div>
+      <div class="article__cover ph ph--ratio" style="--ratio: 42%"></div>
+    </div>
 
+    <div class="container article__grid">
       <div class="article__body">
-        <p>С 24 по 27 сентября 2026 года «Паллада» участвует в V профильной выставке «ПРОреставрацию.
+        <p class="article__lead">С 24 по 27 сентября 2026 года «Паллада» участвует в V профильной выставке «ПРОреставрацию.
           Импортозамещение в реставрационных материалах и технологиях».</p>
+
         <p>На нашем стенде мы соберём настоящую петербургскую парадную с печью и настенной плиткой!
           Москвичи, уставшие от подъездов, приходите!</p>
+
         <p>Расскажем о реставрации и воссоздании исторической керамики, подборе керамических масс и
           глазурей, изготовлении утраченных элементов и работе с объектами культурного наследия. Покажем
           отдельные процессы и предложим посетителям попробовать реставрационную расчистку изразцов — в
           том числе элементов той самой печи.</p>
+
         <p>Выставка объединит реставраторов, архитекторов, представителей музеев, проектных институтов,
           производственных компаний и профильных учебных заведений. В программе — более 220
           мастер-классов, лекций, презентаций и деловых сессий.</p>
+
         <p>Будем рады встретиться с коллегами, партнёрами и всеми, кому интересны архитектурная керамика и
           сохранение наследия.</p>
+      </div>
 
+      <aside class="prj-aside article__aside">
+        <div class="prj-aside__label">Коротко</div>
         <dl class="article__facts">
           <div class="article__fact">
             <dt>Даты</dt>
@@ -68,23 +80,48 @@
           </div>
           <div class="article__fact">
             <dt>Место</dt>
-            <dd>Москва, Типография Сытина, Пятницкая улица, 71/5, стр. 1</dd>
+            <dd>Москва, Типография Сытина<br>Пятницкая улица, 71/5, стр. 1</dd>
           </div>
           <div class="article__fact">
-            <dt>Регистрация</dt>
-            <dd>Открыта на официальном сайте выставки —
-              <a href="https://xn--80aafgfdgjhdbhw0a6l.xn--p1ai/" target="_blank" rel="noopener">прореставрацию.рф</a></dd>
+            <dt>Программа</dt>
+            <dd>Более 220 мастер-классов, лекций, презентаций и деловых сессий</dd>
           </div>
         </dl>
-      </div>
+        <a class="prj-aside__link" href="https://xn--80aafgfdgjhdbhw0a6l.xn--p1ai/" target="_blank" rel="noopener">Регистрация на выставку</a>
+        <span class="prj-aside__hint">Официальный сайт — прореставрацию.рф</span>
+      </aside>
     </div>
   </article>
+
+  <!-- ДРУГИЕ НОВОСТИ -->
+  <section class="article-more">
+    <div class="container">
+      <div class="article-more__head">
+        <h2 class="h-section">Другие новости</h2>
+        <a class="article-more__all" href="news.html">Все новости</a>
+      </div>
+
+      <div class="news-feed__grid">
+        <a class="news-card" href="news-dom-severova.html">
+          <div class="news-card__media ph"></div>
+          <div class="news-card__date">2026</div>
+          <h2 class="news-card__title">Завершена реставрация исторических печей Дома Северова</h2>
+        </a>
+
+        <a class="news-card" href="news-vichuga-panno.html">
+          <div class="news-card__media ph"></div>
+          <div class="news-card__date">2024</div>
+          <h2 class="news-card__title">В Вичуге смонтировано воссозданное майоликовое панно</h2>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <section class="prj-cta">
     <div class="container">
       <div class="prj-cta__inner">
         <a class="btn btn--filled" href="contacts.html">Обсудить задачу</a>
-        <a class="btn" href="news.html">Все новости</a>
+        <a class="btn" href="portfolio.html">Смотреть проекты</a>
       </div>
     </div>
   </section>
