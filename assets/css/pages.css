@@ -362,20 +362,36 @@
 
 .pf-filter { flex: 0 0 auto; white-space: nowrap; }
 
+/* Те же вкладки, что и в «как шли работы» на страницах проектов:
+   рамка всегда видна, выбранный раздел залит акцентом. */
 .pf-filter {
-  height: 50px;
-  padding: 0 24px;
-  font-size: 14px;
+  height: 40px;
+  padding: 0 20px;
+  font-size: 12px;
   font-weight: 600;
-  line-height: 1.55;
+  line-height: 1;
+  letter-spacing: .04em;
   text-transform: uppercase;
-  border: 1px solid transparent;
-  transition: border-color .2s ease, opacity .2s ease;
+  border: 1px solid rgba(0, 0, 0, .2);
+  transition: border-color .2s ease, background-color .2s ease, color .2s ease;
 }
 
-.pf-filter:hover { opacity: .6; }
+.pf-filter:hover { border-color: var(--accent); }
 
-.pf-filter.is-active { border-color: rgba(0, 0, 0, .15); }
+.pf-filter.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+}
+
+.pf-item.is-hidden { display: none; }
+
+.pf-page__empty {
+  padding-top: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+  opacity: .5;
+}
 
 .pf-page__grid {
   display: grid;
@@ -832,7 +848,11 @@ a.sci-timeline__text:hover { opacity: .6; }
 
 .prj-meta { margin: 0; }
 
-.prj-meta__row + .prj-meta__row { margin-top: 20px; }
+.prj-meta__row + .prj-meta__row {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, .12);
+}
 
 .prj-meta dt {
   font-size: 14px;
@@ -1100,19 +1120,12 @@ a.sci-timeline__text:hover { opacity: .6; }
   pointer-events: none;
 }
 
-/* текстовое пояснение рядом с одиночным кадром */
-.prj-stages__note {
-  flex: 1;
-  padding-top: 4px;
-}
+/* Одиночный кадр. На всю ширину его растягивать нельзя: вертикальный снимок
+   в 1120 px стал бы полотном в полтора экрана. Показываем в рост ленты,
+   по центру панели. */
+.prj-stages__panel--single.is-active { justify-content: center; }
 
-.prj-stages__note p {
-  font-size: 16px;
-  line-height: 1.55;
-  opacity: .8;
-}
-
-.prj-stages__note p + p { margin-top: 14px; }
+.prj-stages__panel--single figure { width: calc(700px * var(--r)); }
 
 .prj-stages figcaption {
   margin-top: 10px;
@@ -1123,13 +1136,86 @@ a.sci-timeline__text:hover { opacity: .6; }
 
 /* Переходы */
 
-.prj-cta { padding: 20px 0 100px; }
+.prj-cta { padding: 70px 0 100px; }
 
-/* две кнопки во всю ширину контента, по половине каждая */
-.prj-cta__inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 20px;
+/* Переход к соседнему проекту: со страницы должен быть путь дальше,
+   а не только назад в портфолио. */
+.prj-next {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 22px 0;
+  border-top: 1px solid rgba(0, 0, 0, .2);
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
 }
 
-.prj-cta__inner .btn { width: 100%; }
+.prj-next__media {
+  flex: 0 0 auto;
+  width: 160px;
+  height: 108px;
+  overflow: hidden;
+  background: var(--grey);
+}
+
+.prj-next__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(var(--z, 1));
+  transform-origin: var(--z-origin, center);
+  transition: transform .5s ease;
+}
+
+.prj-next:hover .prj-next__media img { transform: scale(calc(var(--z, 1) * 1.05)); }
+
+.prj-next__text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.prj-next__label {
+  font-size: 12px;
+  line-height: 1;
+  text-transform: uppercase;
+  opacity: .5;
+  margin-bottom: 12px;
+}
+
+.prj-next__title {
+  font-family: var(--font-head);
+  font-size: 18px;
+  line-height: 1.3;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  transition: color .2s ease;
+}
+
+.prj-next:hover .prj-next__title { color: var(--accent); }
+
+.prj-next__meta {
+  font-size: 14px;
+  line-height: 1.4;
+  opacity: .6;
+}
+
+.prj-next__arrow {
+  flex: 0 0 auto;
+  display: inline-block;
+  font-size: 20px;
+  line-height: 1;
+  opacity: .4;
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+.prj-next:hover .prj-next__arrow {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
+/* кнопки по содержимому, а не растянутые на половину экрана каждая */
+.prj-cta__inner {
+  display: flex;
+  gap: 20px;
+  margin-top: 40px;
+}
