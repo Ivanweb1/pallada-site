@@ -53,6 +53,7 @@
 }
 
 .hero__title {
+  font-family: var(--font-head);
   position: absolute;
   left: var(--gutter);
   top: 357px;
@@ -129,6 +130,7 @@
 }
 
 .numbers__value {
+  font-family: var(--font-head);
   font-size: 60px;
   line-height: 1;
   color: var(--accent);
@@ -137,6 +139,7 @@
 }
 
 .numbers__unit {
+  font-family: var(--font-head);
   font-size: 16px;
   line-height: 1;
   vertical-align: baseline;
@@ -304,7 +307,7 @@
    Фрагмент фильма
    -------------------------------------------------------------------------- */
 
-.film { padding: 110px 0 20px; }
+.film { padding: 110px 0 10px; }
 
 .film__grid {
   display: grid;

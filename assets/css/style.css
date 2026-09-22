@@ -9,7 +9,13 @@
   --grey: #eeeeee;
   --white: #ffffff;
 
-  --font: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  /* Оригинал: --t-headline-font: Tahoma, --t-text-font: Manrope.
+     Веб-шрифт tahoma.woff на Tilda битый (OTS: incorrect file size in WOFF header)
+     и не грузится даже на самом сайте — фактически везде берётся системная Tahoma.
+     Поэтому подключаем её системно, Verdana как метрически близкий запасной. */
+  --font-head: 'Tahoma', Verdana, Arial, sans-serif;
+  --font-text: 'Manrope', Arial, sans-serif;
+  --font: var(--font-text);
 
   --container: 1200px;
   --gutter: 40px;
@@ -61,6 +67,7 @@ h1, h2, h3, h4, p { margin: 0; }
    -------------------------------------------------------------------------- */
 
 .h-section {
+  font-family: var(--font-head);
   font-size: 30px;
   line-height: 1.25;
   font-weight: 400;
@@ -68,6 +75,7 @@ h1, h2, h3, h4, p { margin: 0; }
 }
 
 .h-card {
+  font-family: var(--font-head);
   font-size: 18px;
   line-height: 1.3;
   font-weight: 400;
@@ -172,6 +180,7 @@ h1, h2, h3, h4, p { margin: 0; }
 }
 
 .header__nav a {
+  font-family: var(--font-head);
   font-size: 11px;
   line-height: 1.5;
   text-transform: uppercase;
@@ -185,6 +194,7 @@ h1, h2, h3, h4, p { margin: 0; }
 .header__nav--right { margin-left: auto; }
 
 .header__phone {
+  font-family: var(--font-head);
   font-size: 13px;
   line-height: 1.5;
   text-transform: uppercase;
@@ -235,20 +245,25 @@ h1, h2, h3, h4, p { margin: 0; }
 
 .footer__cols {
   display: grid;
-  grid-template-columns: 234px 172px 240px 268px 1fr;
+  grid-template-columns: 234px 172px 240px 268px 140px 1fr;
   padding-bottom: 52px;
 }
 
+.footer__col-title a { opacity: 1; display: inline; }
+
 .footer__col-title {
+  font-family: var(--font-head);
   font-size: 11px;
   line-height: 1.5;
   text-transform: uppercase;
-  margin-bottom: 7px;
+  margin-bottom: 10.5px;
 }
 
-.footer__col li + li { margin-top: 5px; }
+.footer__col li + li { margin-top: 5.5px; }
 
 .footer__col a {
+  display: block;
+  font-family: var(--font-head);
   font-size: 11px;
   line-height: 1.5;
   opacity: .6;
@@ -257,7 +272,7 @@ h1, h2, h3, h4, p { margin: 0; }
 
 .footer__col a:hover { opacity: 1; }
 
-.footer__col--last .footer__col-title + .footer__col-title { margin-top: 13px; }
+.footer__col--last .footer__col-title + .footer__col-title { margin-top: 9px; }
 
 .footer__bottom {
   background: var(--white);
@@ -273,6 +288,7 @@ h1, h2, h3, h4, p { margin: 0; }
 
 .footer__bottom span,
 .footer__bottom a {
+  font-family: var(--font-head);
   font-size: 11px;
   line-height: 1.5;
   text-transform: uppercase;
@@ -335,6 +351,7 @@ h1, h2, h3, h4, p { margin: 0; }
 }
 
 .tile__title {
+  font-family: var(--font-head);
   font-size: 18px;
   line-height: 1.25;
   text-transform: uppercase;
@@ -402,7 +419,7 @@ h1, h2, h3, h4, p { margin: 0; }
 
 .social:hover { background: #7a1c1e; }
 
-.social img { filter: grayscale(100%) brightness(0) invert(1); }
+.social img { filter: saturate(0%); }
 
 .social span {
   font-size: 14px;

@@ -20,6 +20,7 @@
 }
 
 .cmp-intro__year {
+  font-family: var(--font-head);
   font-size: 60px;
   line-height: 1;
   color: var(--accent);
@@ -546,6 +547,7 @@
 .prod-block__title { line-height: 1.1; width: 444px; }
 
 .prod-block__subtitle {
+  font-family: var(--font-head);
   margin-top: 25px;
   font-size: 12px;
   line-height: 1;
