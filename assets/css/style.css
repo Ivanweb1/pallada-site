@@ -165,18 +165,28 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
   background: var(--white);
 }
 
+/* Пункты меню стоят по координатам сетки оригинала:
+   40 / 141 / 247 / 334 слева и 714 / 878 / 958 / 1055 справа */
 .header__inner {
   position: relative;
   height: var(--header-h);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
 .header__nav {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+  position: absolute;
+  top: 21px;
+  display: grid;
+  align-items: start;
+}
+
+.header__nav--left {
+  left: var(--gutter);
+  grid-template-columns: 101px 106px 87px auto;
+}
+
+.header__nav--right {
+  left: 714px;
+  grid-template-columns: 164px 80px 97px auto;
 }
 
 .header__nav a {
@@ -190,10 +200,8 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
 
 .header__nav a:hover { opacity: .5; }
 
-.header__nav--left { margin-right: auto; }
-.header__nav--right { margin-left: auto; }
-
 .header__phone {
+  margin-top: -1px;
   font-family: var(--font-head);
   font-size: 13px;
   line-height: 1.5;
@@ -256,7 +264,7 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
   font-size: 11px;
   line-height: 1.5;
   text-transform: uppercase;
-  margin-bottom: 10.5px;
+  margin-bottom: 13.5px;
 }
 
 .footer__col li + li { margin-top: 5.5px; }
@@ -272,7 +280,7 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
 
 .footer__col a:hover { opacity: 1; }
 
-.footer__col--last .footer__col-title + .footer__col-title { margin-top: 9px; }
+.footer__col--last .footer__col-title + .footer__col-title { margin-top: -10px; margin-bottom: 0; }
 
 .footer__bottom {
   background: var(--white);
