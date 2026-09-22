@@ -1026,6 +1026,17 @@ a.sci-timeline__text:hover { opacity: .6; }
 
 .prj-head__cover--single figure img { width: 100%; height: auto; }
 
+/* Горизонтальный кадр занимает всю ширину контейнера, а в экран его вводит
+   подрезка сверху и снизу. Вертикальным так нельзя — от них осталась бы
+   узкая полоса, поэтому они остаются на правиле выше. */
+.prj-head__cover--wide figure { width: 100%; }
+
+.prj-head__cover--wide figure img {
+  height: 520px;
+  object-fit: cover;
+  object-position: center;
+}
+
 .prj-head__cover img {
   width: 100%;
   height: auto;
