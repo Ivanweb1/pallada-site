@@ -239,8 +239,8 @@
 .cycle__grid {
   display: grid;
   grid-template-columns: 740px 360px;
-  column-gap: 21px;
-  align-items: start;
+  column-gap: 20px;
+  align-items: stretch;
 }
 
 .cycle__head {
@@ -264,7 +264,7 @@
 .cycle__figure {
   margin: 0;
   width: 360px;
-  height: 625px;
+  height: 100%;
   background: var(--grey);
   overflow: hidden;
 }
@@ -275,7 +275,7 @@
 
 .cycle__item {
   display: grid;
-  grid-template-columns: 24px 356px 1fr;
+  grid-template-columns: 24px 356px 360px;
   align-items: start;
   padding: 16px 0;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
@@ -395,6 +395,7 @@
 
 .contacts-home__form-wrap {
   background: var(--accent);
+  color: var(--white);
   padding: 30px 40px 40px;
   min-height: 365px;
   margin-top: 7px;

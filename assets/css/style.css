@@ -52,7 +52,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 ul, ol { margin: 0; padding: 0; list-style: none; }
 
-h1, h2, h3, h4, p { margin: 0; }
+h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
 
 /* Контейнер повторяет сетку Tilda: 1200 с полями 40 */
 .container {
@@ -429,6 +429,8 @@ h1, h2, h3, h4, p { margin: 0; }
 
 .cform { display: block; }
 
+.cform { color: inherit; }
+
 .cform__field {
   display: flex;
   align-items: center;
@@ -438,7 +440,12 @@ h1, h2, h3, h4, p { margin: 0; }
   margin-bottom: 26px;
 }
 
-.cform__flag { font-size: 16px; line-height: 1; }
+.cform__flag {
+  font-size: 15px;
+  line-height: 1;
+  color: inherit;
+  opacity: .8;
+}
 
 .cform__field input {
   width: 100%;

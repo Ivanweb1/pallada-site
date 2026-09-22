@@ -449,11 +449,14 @@
 .media-pubs { padding: 110px 0 130px; }
 
 .media-pubs__head {
-  display: flex;
-  align-items: flex-start;
-  gap: 80px;
+  display: grid;
+  grid-template-columns: 570px 1fr;
+  align-items: center;
   margin-bottom: 20px;
 }
+
+.media-pubs__head .h-section { line-height: 1; order: 2; }
+.media-pubs__head .arrows { order: 1; }
 
 .media-card {
   position: relative;
@@ -528,9 +531,9 @@
 .proc-steps { padding: 110px 0 130px; }
 
 .proc-steps__head {
-  display: flex;
+  display: grid;
+  grid-template-columns: 570px 1fr;
   align-items: center;
-  gap: 90px;
   margin-bottom: 20px;
 }
 
@@ -676,9 +679,9 @@ a.sci-timeline__text:hover { opacity: .6; }
 .sci-edu { padding: 110px 0 130px; }
 
 .sci-edu__head {
-  display: flex;
+  display: grid;
+  grid-template-columns: 570px 1fr;
   align-items: center;
-  gap: 90px;
   margin-bottom: 20px;
 }
 

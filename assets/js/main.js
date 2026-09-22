@@ -48,8 +48,6 @@
     function apply() {
       offset = Math.min(Math.max(offset, 0), maxOffset());
       track.style.transform = 'translate3d(' + -offset + 'px, 0, 0)';
-      prev.disabled = offset <= 0;
-      next.disabled = offset >= maxOffset() - 1;
     }
 
     prev.addEventListener('click', function () { offset -= step(); apply(); });
