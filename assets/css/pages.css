@@ -827,11 +827,16 @@ a.sci-timeline__text:hover { opacity: .6; }
 }
 
 .prj-head__cover {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
   margin-top: 45px;
 }
 
+.prj-head__cover figure { margin: 0; min-width: 0; }
+
 .prj-head__cover img {
-  width: 1120px;
+  width: 100%;
   height: auto;
   display: block;
   background: var(--grey);
@@ -904,6 +909,22 @@ a.sci-timeline__text:hover { opacity: .6; }
   font-size: 14px;
   line-height: 1.45;
   margin-bottom: 16px;
+}
+
+.prj-aside__list li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.prj-aside__list li + li { margin-top: 10px; }
+
+.prj-aside__list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  opacity: .5;
 }
 
 .prj-aside__source {
@@ -997,6 +1018,26 @@ a.sci-timeline__text:hover { opacity: .6; }
   display: block;
   background: var(--grey);
 }
+
+/* панель из нескольких рядов */
+.prj-stages__panel--rows.is-active {
+  display: block;
+}
+
+.prj-stages__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.prj-stages__row + .prj-stages__row { margin-top: 20px; }
+
+/* ряд из одного-двух вертикальных кадров: фиксируем высоту, а не ширину */
+.prj-stages__panel--fixed.is-active { align-items: flex-start; }
+
+.prj-stages__panel--fixed figure { flex: 0 0 auto; max-width: 550px; }
+
+.prj-stages__panel--fixed img { height: 520px; width: auto; }
 
 .prj-stages figcaption {
   margin-top: 10px;
