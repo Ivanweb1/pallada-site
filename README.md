@@ -62,7 +62,11 @@ Zero Block с `upscale: window` пропорционально масштаби�
 | `--grey`   | `#eeeeee` | фоны секций и плейсхолдеры фото      |
 | `--white`  | `#ffffff` | фон страницы                         |
 
-Шрифт — Manrope (300/400/500/600/700), подключён с Google Fonts.
+Шрифты — как в оригинале: заголовочный **Tahoma** (`--t-headline-font`),
+текстовый **Manrope** (`--t-text-font`, Google Fonts). Файл `tahoma.woff`
+на Tilda битый (`OTS: incorrect file size in WOFF header`) и не грузится даже
+на самом сайте, поэтому Tahoma подключена системно — визуально это то же,
+что видно на оригинале.
 
 ## Что осталось от прототипа как есть
 
