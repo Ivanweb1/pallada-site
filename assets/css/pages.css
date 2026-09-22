@@ -590,7 +590,18 @@ a.pf-item:hover .pf-item__title { color: var(--accent); }
   opacity: .4;
 }
 
-.article__cover { margin-bottom: 55px; }
+.article__cover { margin: 0 0 55px; }
+
+/* Вертикальная обложка на всю ширину вырастает выше экрана, поэтому кадр
+   ограничен по высоте — той же величиной, что и одиночный кадр проекта.
+   Горизонтальные снимки ниже этого предела и занимают ширину как раньше. */
+.article__cover img {
+  width: auto;
+  max-width: 100%;
+  max-height: 700px;
+  height: auto;
+  display: block;
+}
 
 .article__grid {
   display: grid;
