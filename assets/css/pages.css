@@ -489,7 +489,7 @@ a.pf-item:hover .pf-item__title { color: var(--accent); }
 }
 
 .news-card__title {
-  margin-top: 8px;
+  margin-top: 16px;
   transition: color .2s ease;
   font-size: 16px;
   font-weight: 500;
@@ -579,6 +579,8 @@ a.pf-item:hover .pf-item__title { color: var(--accent); }
 
 .article__title { line-height: 1.25; }
 
+/* дата ждёт настоящую дату публикации: в документе заказчика её нет,
+   а годы работ и даты выставки — не она */
 .article__date {
   font-family: var(--font-head);
   font-size: 12px;
