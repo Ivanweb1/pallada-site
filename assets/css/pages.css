@@ -832,8 +832,8 @@ a.sci-timeline__text:hover { opacity: .6; }
 
 .prj-head__cover img {
   width: 1120px;
-  height: 560px;
-  object-fit: cover;
+  height: auto;
+  display: block;
   background: var(--grey);
 }
 
@@ -978,47 +978,25 @@ a.sci-timeline__text:hover { opacity: .6; }
 
 .prj-stages__panel { display: none; }
 
+/* Фотографии показываются целиком, без кадрирования: ширины пропорциональны
+   сторонам кадра (flex = ширина/высота), высота в ряду получается одинаковой. */
 .prj-stages__panel.is-active {
-  display: grid;
-  grid-template-columns: 740px 360px;
-  column-gap: 20px;
-  align-items: start;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
 }
 
 .prj-stages__panel figure {
   margin: 0;
-  display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
-  min-height: 0;
+  min-width: 0;
 }
 
-/* обе колонки одной высоты — фото не выходят за блок */
-.prj-stages__main { height: 480px; }
-
-.prj-stages__main img {
-  width: 740px;
-  height: 100%;
-  min-height: 0;
-  object-fit: cover;
+.prj-stages__panel img {
+  width: 100%;
+  height: auto;
+  display: block;
   background: var(--grey);
 }
-
-.prj-stages__side {
-  display: grid;
-  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
-  row-gap: 20px;
-  height: 480px;
-}
-
-.prj-stages__side img {
-  width: 360px;
-  height: 100%;
-  min-height: 0;
-  object-fit: cover;
-  background: var(--grey);
-}
-
-.prj-stages__side figure:only-child { grid-row: span 2; }
 
 .prj-stages figcaption {
   margin-top: 10px;
@@ -1026,8 +1004,6 @@ a.sci-timeline__text:hover { opacity: .6; }
   line-height: 1.4;
   opacity: .6;
 }
-
-.prj-stages__side figcaption { margin-top: 8px; }
 
 /* Переходы */
 
