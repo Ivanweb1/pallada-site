@@ -83,6 +83,50 @@
     });
   });
 
+  /* ---- Лента кадров: прокрутка стрелками по одному снимку ---- */
+  var sliderUpdates = [];
+
+  Array.prototype.forEach.call(document.querySelectorAll('.js-slider'), function (slider) {
+    var track = slider.querySelector('.js-slider-track');
+    var prev = slider.querySelector('.js-slider-prev');
+    var next = slider.querySelector('.js-slider-next');
+    if (!track || !prev || !next) return;
+
+    function update() {
+      var max = track.scrollWidth - track.clientWidth;
+      prev.disabled = track.scrollLeft <= 1;
+      next.disabled = max <= 1 || track.scrollLeft >= max - 1;
+    }
+
+    /* ближайший кадр, который сейчас не стоит у левого края.
+       Макет масштабируется через body { zoom }, поэтому экранные координаты
+       переводим обратно в CSS-пиксели — в них считается scrollLeft. */
+    function step(dir) {
+      var box = track.getBoundingClientRect();
+      var scale = track.clientWidth ? box.width / track.clientWidth : 1;
+      var figures = Array.prototype.slice.call(track.children);
+      if (dir < 0) figures.reverse();
+
+      var target = track.scrollLeft;
+      for (var i = 0; i < figures.length; i++) {
+        var left = (figures[i].getBoundingClientRect().left - box.left) / scale + track.scrollLeft;
+        if (dir > 0 ? left > track.scrollLeft + 1 : left < track.scrollLeft - 1) {
+          target = left;
+          break;
+        }
+      }
+      track.scrollTo({ left: target, behavior: 'smooth' });
+    }
+
+    prev.addEventListener('click', function () { step(-1); });
+    next.addEventListener('click', function () { step(1); });
+    track.addEventListener('scroll', update);
+    window.addEventListener('resize', update);
+
+    sliderUpdates.push(update);
+    update();
+  });
+
   /* ---- Этапы работ на странице проекта ---- */
   var stageTabs = document.querySelector('.js-stages-tabs');
   var stagePanels = document.querySelector('.js-stages-panels');
@@ -97,6 +141,8 @@
       Array.prototype.forEach.call(stagePanels.children, function (p) {
         p.classList.toggle('is-active', p.dataset.stage === stage);
       });
+      /* скрытая панель не имеет ширины — стрелки пересчитываем после показа */
+      sliderUpdates.forEach(function (update) { update(); });
     });
   }
 

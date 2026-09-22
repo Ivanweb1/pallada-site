@@ -1019,18 +1019,65 @@ a.sci-timeline__text:hover { opacity: .6; }
   background: var(--grey);
 }
 
-/* панель из нескольких рядов */
-.prj-stages__panel--rows.is-active {
-  display: block;
+/* Панель-лента: когда кадров много, они идут одной строкой с прокруткой вправо.
+   Высота кадра фиксирована (--stage-h), ширина пропорциональна сторонам (--r),
+   поэтому снимки остаются крупными и не сжимаются под ширину контейнера. */
+.prj-stages__panel--slider.is-active { display: block; }
+
+.prj-stages__slider {
+  position: relative;
+  --stage-h: 560px;
 }
 
-.prj-stages__row {
+.prj-stages__track {
   display: flex;
   align-items: flex-start;
   gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
 }
 
-.prj-stages__row + .prj-stages__row { margin-top: 20px; }
+.prj-stages__track::-webkit-scrollbar { display: none; }
+
+.prj-stages__track figure {
+  flex: 0 0 auto;
+  width: calc(var(--stage-h) * var(--r));
+  scroll-snap-align: start;
+}
+
+/* стрелки — по центру кадра, наполовину заходят на поля контейнера */
+.prj-stages__arrow {
+  position: absolute;
+  top: calc(var(--stage-h) / 2);
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid rgba(0, 0, 0, .2);
+  border-radius: 50%;
+  transition: opacity .2s ease, border-color .2s ease, background-color .2s ease, color .2s ease;
+}
+
+.prj-stages__arrow:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+}
+
+.prj-stages__arrow--prev { left: -24px; }
+.prj-stages__arrow--next { right: -24px; }
+
+.prj-stages__arrow[disabled] {
+  opacity: 0;
+  pointer-events: none;
+}
 
 /* текстовое пояснение рядом с одиночным кадром */
 .prj-stages__note {
