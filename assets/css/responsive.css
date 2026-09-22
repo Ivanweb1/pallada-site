@@ -165,18 +165,7 @@
 
   /* ---- Главная: слайдер ---- */
 
-  /* кнопки лежат в .hero после слайдов: у секции фиксированная высота
-     и overflow: hidden, поэтому на десктопе они срезаны. В адаптиве высоту
-     держат сами слайды, а секция растёт по содержимому — кнопки видны. */
-  .hero {
-    height: auto;
-    overflow: visible;
-  }
-
-  .hero__slides {
-    height: 480px;
-    overflow: hidden;
-  }
+  .hero__slides { height: 480px; }
 
   .hero__title {
     left: var(--gutter);
