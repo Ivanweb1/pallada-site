@@ -77,6 +77,23 @@
     });
   });
 
+  /* ---- Этапы работ на странице проекта ---- */
+  var stageTabs = document.querySelector('.js-stages-tabs');
+  var stagePanels = document.querySelector('.js-stages-panels');
+  if (stageTabs && stagePanels) {
+    stageTabs.addEventListener('click', function (e) {
+      var btn = e.target.closest('.prj-stages__tab');
+      if (!btn) return;
+      var stage = btn.dataset.stage;
+      Array.prototype.forEach.call(stageTabs.children, function (b) {
+        b.classList.toggle('is-active', b === btn);
+      });
+      Array.prototype.forEach.call(stagePanels.children, function (p) {
+        p.classList.toggle('is-active', p.dataset.stage === stage);
+      });
+    });
+  }
+
   /* ---- Формы: имя выбранного файла и сообщение об отправке ---- */
   Array.prototype.forEach.call(document.querySelectorAll('.js-cform'), function (form) {
     var file = form.querySelector('.js-cform-file');

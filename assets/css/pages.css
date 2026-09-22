@@ -839,80 +839,177 @@ a.sci-timeline__text:hover { opacity: .6; }
 
 /* Описание */
 
-.prj-text { padding-top: 55px; }
+.prj-text { padding-top: 60px; }
 
 .prj-text__grid {
   display: grid;
-  grid-template-columns: 740px 1fr;
+  grid-template-columns: 700px 400px;
   column-gap: 20px;
   align-items: start;
+}
+
+.prj-text__lead {
+  font-size: 20px;
+  line-height: 1.45;
+  margin-bottom: 40px;
+}
+
+.prj-text__part {
+  padding-top: 24px;
+  border-top: 1px solid rgba(0, 0, 0, .2);
+}
+
+.prj-text__part + .prj-text__part { margin-top: 30px; }
+
+.prj-text__subtitle {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.1;
+  margin-bottom: 14px;
 }
 
 .prj-text__body p {
   font-size: 16px;
   line-height: 1.55;
-  margin-bottom: 20px;
+  opacity: .8;
 }
 
-.prj-text__body p:last-child { margin-bottom: 0; }
+.prj-text__body .prj-text__lead {
+  font-size: 20px;
+  line-height: 1.45;
+  opacity: 1;
+}
+
+.prj-text__part p + p { margin-top: 14px; }
+
+/* Врезка со ссылкой на источник */
 
 .prj-aside {
-  padding: 24px;
+  padding: 28px 30px 30px;
   background: var(--grey);
 }
 
 .prj-aside__label {
   font-size: 12px;
-  line-height: 1;
+  line-height: 1.2;
   text-transform: uppercase;
-  opacity: .6;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
+}
+
+.prj-aside__intro {
+  font-size: 14px;
+  line-height: 1.45;
+  margin-bottom: 16px;
 }
 
 .prj-aside__source {
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.45;
+  opacity: .6;
 }
 
-.prj-aside__doi {
-  display: inline-block;
-  margin-top: 12px;
-  font-size: 13px;
-  line-height: 1.4;
+.prj-aside__link {
+  display: block;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(0, 0, 0, .15);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.3;
   color: var(--accent);
   transition: opacity .2s ease;
 }
 
-.prj-aside__doi:hover { opacity: .7; }
+.prj-aside__link:hover { opacity: .7; }
 
-/* Галерея */
+.prj-aside__link::after {
+  content: ' →';
+  white-space: nowrap;
+}
 
-.prj-gallery { padding-top: 75px; }
+.prj-aside__hint {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--ink);
+  opacity: .5;
+}
 
-.prj-gallery__title {
-  font-size: 18px;
+/* Этапы работ: одно место, где видно «до — в процессе — после» */
+
+.prj-stages { padding-top: 75px; }
+
+.prj-stages__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.prj-stages__title { line-height: 1; }
+
+.prj-stages__tabs { display: flex; gap: 10px; }
+
+.prj-stages__tab {
+  height: 40px;
+  padding: 0 20px;
+  font-family: var(--font-text);
+  font-size: 12px;
+  font-weight: 600;
   line-height: 1;
-  margin-bottom: 20px;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  transition: border-color .2s ease, opacity .2s ease;
 }
 
-.prj-gallery__grid {
+.prj-stages__tab:hover { opacity: .6; }
+
+.prj-stages__tab.is-active {
+  border-color: var(--accent);
+  opacity: 1;
+}
+
+.prj-stages__panel { display: none; }
+
+.prj-stages__panel.is-active {
   display: grid;
+  grid-template-columns: 740px 360px;
   column-gap: 20px;
-  row-gap: 20px;
-  margin-bottom: 55px;
+  align-items: start;
 }
 
-.prj-gallery__grid--two { grid-template-columns: repeat(2, 550px); }
-.prj-gallery__grid--three { grid-template-columns: repeat(3, 360px); }
+.prj-stages__panel figure { margin: 0; }
 
-.prj-gallery__grid figure {
-  margin: 0;
+.prj-stages__main img {
+  width: 740px;
+  height: 480px;
+  object-fit: cover;
   background: var(--grey);
-  overflow: hidden;
 }
 
-.prj-gallery__grid--two img { width: 550px; height: 360px; object-fit: cover; }
-.prj-gallery__grid--three img { width: 360px; height: 360px; object-fit: cover; }
+.prj-stages__side {
+  display: grid;
+  row-gap: 20px;
+}
+
+.prj-stages__side img {
+  width: 360px;
+  height: 230px;
+  object-fit: cover;
+  background: var(--grey);
+}
+
+/* когда на этапе одна боковая фотография — тянем её на всю высоту */
+.prj-stages__side figure:only-child img { height: 480px; }
+
+.prj-stages figcaption {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.4;
+  opacity: .6;
+}
 
 /* Переходы */
 
