@@ -436,17 +436,32 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
   opacity: .8;
 }
 
-.cform { display: block; }
+/* Поля идут парами в два столбца — так форма ниже и не тянет секцию вниз.
+   Файл, согласие и кнопка занимают всю ширину. */
+.cform {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 20px;
+  color: inherit;
+}
 
-.cform { color: inherit; }
+.cform__file,
+.cform__agree,
+.cform__submit,
+.cform__done { grid-column: 1 / -1; }
 
 .cform__field {
   display: flex;
   align-items: center;
   gap: 10px;
   border-bottom: 1px solid rgba(255, 255, 255, .35);
-  padding: 14px 0;
-  margin-bottom: 26px;
+  padding: 10px 0;
+  margin-bottom: 18px;
+}
+
+/* в один столбец, когда рядом двум полям уже тесно */
+@media (max-width: 640px) {
+  .cform { grid-template-columns: 1fr; }
 }
 
 .cform__flag {
