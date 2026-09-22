@@ -351,16 +351,14 @@
 
 .pf-page__title { line-height: 1.55; }
 
+/* Восемь фильтров в строку шире 1120: в прототипе последний обрезался краем.
+   Переносим на вторую строку — кнопки видны целиком. */
 .pf-page__filters {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   gap: 10px;
-  margin: 21px 0 20px;
-  overflow-x: auto;
-  scrollbar-width: none;
+  margin: 21px 0 30px;
 }
-
-.pf-page__filters::-webkit-scrollbar { display: none; }
 
 .pf-filter { flex: 0 0 auto; white-space: nowrap; }
 
@@ -383,63 +381,61 @@
   display: grid;
   grid-template-columns: repeat(2, 550px);
   column-gap: 20px;
-  row-gap: 20px;
+  row-gap: 50px;
 }
 
+/* Карточка проекта: кадр сверху, подпись под ним на белом.
+   Текст поверх фотографии приходилось затемнять — на светлых снимках
+   вроде панно затемнение съедало сам кадр. */
 .pf-item {
-  position: relative;
+  display: block;
   width: 550px;
-  height: 340px;
+}
+
+.pf-item__media {
+  position: relative;
+  height: 360px;
   background: var(--grey);
   overflow: hidden;
 }
 
-.pf-item__media {
-  position: absolute;
-  inset: 0;
+/* --z приближает кадр: снимок минарета снят издалека, без него в карточке
+   остаётся в основном небо. Наведение добавляет свои 4% поверх. */
+.pf-item__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(var(--z, 1));
+  transform-origin: var(--z-origin, center);
+  transition: transform .5s ease;
 }
 
-.pf-item__media img { width: 100%; height: 100%; object-fit: cover; }
+a.pf-item:hover .pf-item__media img { transform: scale(calc(var(--z, 1) * 1.04)); }
 
-.pf-item__body {
-  position: absolute;
-  left: 30px;
-  bottom: 26px;
-  z-index: 2;
+.pf-item__body { padding-top: 18px; }
+
+.pf-item__meta {
+  font-family: var(--font-head);
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: .08em;
+  opacity: .4;
+  margin-bottom: 12px;
 }
 
-.pf-item__title { margin-bottom: 5px; }
-
-/* карточка с фотографией: затемнение снизу, чтобы подпись читалась поверх кадра */
-.pf-item--photo::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 75%;
-  background: linear-gradient(0turn,
-    rgba(0, 0, 0, .92) 0%,
-    rgba(0, 0, 0, .62) 40%,
-    rgba(0, 0, 0, 0) 100%);
+.pf-item__title {
+  margin-bottom: 6px;
+  transition: color .2s ease;
 }
 
-.pf-item--photo .pf-item__body {
-  right: 30px;
-  color: var(--white);
-}
-
-.pf-item--photo .pf-item__descr { width: auto; }
-
-.pf-item__media img { transition: transform .4s ease; }
-
-a.pf-item:hover .pf-item__media img { transform: scale(1.03); }
+a.pf-item:hover .pf-item__title { color: var(--accent); }
 
 .pf-item__descr {
-  width: 200px;
+  max-width: 420px;
   font-size: 14px;
-  line-height: 1.4;
-  opacity: .8;
+  line-height: 1.45;
+  opacity: .7;
 }
 
 /* --------------------------------------------------------------------------

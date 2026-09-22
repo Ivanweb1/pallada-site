@@ -258,7 +258,12 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  transform: scale(var(--z, 1));
+  transform-origin: var(--z-origin, center);
+  transition: transform .5s ease;
 }
+
+a.pf-card:hover .pf-card__media img { transform: scale(calc(var(--z, 1) * 1.04)); }
 
 /* карточка, у которой есть страница проекта */
 a.pf-card .h-card { transition: color .2s ease; }
