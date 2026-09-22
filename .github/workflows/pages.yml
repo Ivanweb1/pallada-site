@@ -1,0 +1,44 @@
+# Публикация статики на GitHub Pages.
+#
+# Чтобы заработало, в репозитории нужно один раз выбрать источник:
+# Settings → Pages → Build and deployment → Source: GitHub Actions.
+# После этого адрес сайта — https://ivanweb1.github.io/pallada-site/
+name: Pages
+
+on:
+  push:
+    branches:
+      - main
+      - claude/loving-keller-hdhde1
+  workflow_dispatch:
+
+# Токену нужны права на публикацию Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Параллельные деплои не нужны: публикуем последний коммит,
+# начатые ранее сборки дожидаемся, а не обрываем на полпути
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/configure-pages@v5
+
+      # сайт статический, собирать нечего — выкладываем корень репозитория
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - id: deploy
+        uses: actions/deploy-pages@v4

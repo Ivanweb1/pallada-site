@@ -46,6 +46,14 @@ python tools/build.py
 python -m http.server 4577
 ```
 
+## Где смотреть онлайн
+
+Каждый пуш в `main` или в рабочую ветку публикуется на GitHub Pages —
+`.github/workflows/pages.yml`. Адрес: https://ivanweb1.github.io/pallada-site/
+
+Один раз это нужно включить в настройках репозитория:
+Settings → Pages → Build and deployment → Source: **GitHub Actions**.
+
 ## Как устроен макет
 
 Оригинал собран на Zero-блоках Tilda с сеткой 1200 и полями 40 (контент 1120).
