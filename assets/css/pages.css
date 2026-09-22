@@ -410,6 +410,31 @@
 
 .pf-item__title { margin-bottom: 5px; }
 
+/* карточка с фотографией: затемнение снизу, чтобы подпись читалась поверх кадра */
+.pf-item--photo::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 75%;
+  background: linear-gradient(0turn,
+    rgba(0, 0, 0, .92) 0%,
+    rgba(0, 0, 0, .62) 40%,
+    rgba(0, 0, 0, 0) 100%);
+}
+
+.pf-item--photo .pf-item__body {
+  right: 30px;
+  color: var(--white);
+}
+
+.pf-item--photo .pf-item__descr { width: auto; }
+
+.pf-item__media img { transition: transform .4s ease; }
+
+a.pf-item:hover .pf-item__media img { transform: scale(1.03); }
+
 .pf-item__descr {
   width: 200px;
   font-size: 14px;

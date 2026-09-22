@@ -238,7 +238,19 @@
   top: 20px;
   width: 340px;
   height: 340px;
+  overflow: hidden;
 }
+
+.pf-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* карточка, у которой есть страница проекта */
+a.pf-card .h-card { transition: color .2s ease; }
+a.pf-card:hover .h-card { color: var(--accent); }
 
 /* --------------------------------------------------------------------------
    Производство полного цикла
