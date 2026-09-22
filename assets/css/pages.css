@@ -1360,3 +1360,141 @@ a.sci-timeline__text:hover { opacity: .6; }
   gap: 20px;
   margin-top: 40px;
 }
+
+/* ==========================================================================
+   Модальное окно (биография директора в блоке команды)
+   ========================================================================== */
+
+/* Макет масштабируется через body { zoom }, и фиксированное окно вместе с ним
+   уехало бы за экран. Возвращаем окну реальный масштаб — после этого высоту
+   можно честно мерить в vh. */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  zoom: calc(1 / var(--zoom, 1));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modal[hidden] { display: none; }
+
+.modal__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, .55);
+}
+
+.modal__box {
+  position: relative;
+  width: min(900px, 100%);
+  max-height: 88vh;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid rgba(0, 0, 0, .15);
+  transition: border-color .2s ease, color .2s ease;
+}
+
+.modal__close:hover { border-color: var(--accent); color: var(--accent); }
+.modal__close svg { width: 18px; height: 18px; }
+
+.modal__scroll {
+  overflow-y: auto;
+  padding: 44px 48px 48px;
+}
+
+/* Биография */
+
+.bio__head {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.bio__photo { margin: 0; }
+
+.bio__photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: var(--grey);
+}
+
+.bio__name {
+  line-height: 1.2;
+  margin-bottom: 10px;
+  padding-right: 48px;
+}
+
+.bio__role {
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.bio__intro p {
+  font-size: 15px;
+  line-height: 1.6;
+  opacity: .8;
+}
+
+.bio__intro .bio__lead { opacity: 1; }
+.bio__intro p + p { margin-top: 12px; }
+
+.bio__subtitle {
+  margin: 36px 0 20px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(0, 0, 0, .12);
+  font-family: var(--font-head);
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.bio__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px 28px;
+}
+
+.bio__item--wide { grid-column: 1 / -1; }
+
+.bio__item-title {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.bio__item p {
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: .8;
+}
+
+.bio__item p + p { margin-top: 10px; }
+
+@media (max-width: 760px) {
+  .bio__head { grid-template-columns: 1fr; }
+  .bio__photo { max-width: 240px; }
+  .bio__grid { grid-template-columns: 1fr; }
+  .modal__scroll { padding: 40px 24px 32px; }
+}

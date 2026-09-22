@@ -183,6 +183,43 @@
     });
   }
 
+  /* ---- Биография в модальном окне ---- */
+  var bioOpeners = document.querySelectorAll('.js-bio-open');
+  if (bioOpeners.length) {
+    var openedFrom = null;
+
+    function bioClose(modal) {
+      modal.hidden = true;
+      document.body.style.overflow = '';
+      if (openedFrom) { openedFrom.focus(); openedFrom = null; }
+    }
+
+    Array.prototype.forEach.call(bioOpeners, function (btn) {
+      var modal = document.getElementById(btn.getAttribute('aria-controls'));
+      if (!modal) return;
+
+      btn.addEventListener('click', function () {
+        openedFrom = btn;
+        modal.hidden = false;
+        /* страница под окном не должна прокручиваться вместе с ним */
+        document.body.style.overflow = 'hidden';
+        modal.querySelector('.modal__scroll').scrollTop = 0;
+        var close = modal.querySelector('.modal__close');
+        if (close) close.focus();
+      });
+
+      modal.addEventListener('click', function (e) {
+        if (e.target.closest('.js-bio-close')) bioClose(modal);
+      });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      var open = document.querySelector('.modal:not([hidden])');
+      if (open) bioClose(open);
+    });
+  }
+
   /* ---- Формы: имя выбранного файла и сообщение об отправке ---- */
   Array.prototype.forEach.call(document.querySelectorAll('.js-cform'), function (form) {
     var file = form.querySelector('.js-cform-file');
