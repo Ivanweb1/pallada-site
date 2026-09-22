@@ -1032,12 +1032,19 @@ a.sci-timeline__text:hover { opacity: .6; }
 
 .prj-stages__row + .prj-stages__row { margin-top: 20px; }
 
-/* ряд из одного-двух вертикальных кадров: фиксируем высоту, а не ширину */
-.prj-stages__panel--fixed.is-active { align-items: flex-start; }
+/* текстовое пояснение рядом с одиночным кадром */
+.prj-stages__note {
+  flex: 1;
+  padding-top: 4px;
+}
 
-.prj-stages__panel--fixed figure { flex: 0 0 auto; max-width: 550px; }
+.prj-stages__note p {
+  font-size: 16px;
+  line-height: 1.55;
+  opacity: .8;
+}
 
-.prj-stages__panel--fixed img { height: 520px; width: auto; }
+.prj-stages__note p + p { margin-top: 14px; }
 
 .prj-stages figcaption {
   margin-top: 10px;
