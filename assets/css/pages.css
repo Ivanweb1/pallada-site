@@ -980,6 +980,16 @@ a.sci-timeline__text:hover { opacity: .6; }
 
 .prj-head__back:hover { opacity: 1; }
 
+/* уточнение под заголовком направления — как подзаголовок на странице «Направления» */
+.prj-head__subtitle {
+  margin-top: 12px;
+  font-family: var(--font-head);
+  font-size: 12px;
+  line-height: 1;
+  text-transform: uppercase;
+  opacity: .6;
+}
+
 .prj-head__title {
   width: 470px;
   line-height: 1.25;
