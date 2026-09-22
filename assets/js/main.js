@@ -16,6 +16,42 @@
     new ResizeObserver(setZoom).observe(document.documentElement);
   }
 
+  /* ---- Мобильное меню ---- */
+  var burger = document.querySelector('.js-burger');
+  var headerEl = document.querySelector('.header');
+
+  if (burger && headerEl) {
+    var menu = document.getElementById(burger.getAttribute('aria-controls'));
+
+    function menuSet(open) {
+      headerEl.classList.toggle('is-open', open);
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.body.classList.toggle('is-menu-open', open);
+    }
+
+    burger.addEventListener('click', function () {
+      menuSet(!headerEl.classList.contains('is-open'));
+    });
+
+    /* переход по ссылке (в том числе к якорю на этой же странице) закрывает меню */
+    if (menu) {
+      menu.addEventListener('click', function (e) {
+        if (e.target.closest('a')) menuSet(false);
+      });
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && headerEl.classList.contains('is-open')) menuSet(false);
+    });
+
+    /* вернулись на десктоп — панель меню там не нужна */
+    window.addEventListener('resize', function () {
+      if (document.documentElement.clientWidth >= 1200 && headerEl.classList.contains('is-open')) {
+        menuSet(false);
+      }
+    });
+  }
+
   /* ---- Главный слайдер: автосмена раз в 5 секунд ---- */
   var hero = document.querySelector('.js-hero');
   if (hero) {
@@ -58,6 +94,14 @@
     }
 
     function apply() {
+      /* в адаптиве (ниже 1200) лента листается пальцем — нативной прокруткой
+         вьюпорта, а стрелки скрыты. Сдвиг снимаем, иначе он сложился бы
+         с прокруткой и лента уехала бы за край. */
+      if (document.documentElement.clientWidth < 1200) {
+        offset = 0;
+        track.style.transform = '';
+        return;
+      }
       offset = Math.min(Math.max(offset, 0), maxOffset());
       track.style.transform = 'translate3d(' + -offset + 'px, 0, 0)';
     }

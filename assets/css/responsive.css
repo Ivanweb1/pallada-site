@@ -1,0 +1,902 @@
+/* ==========================================================================
+   Адаптив: от 320px до 1199px
+   Десктоп (>=1200) не трогаем — там макет масштабируется через body { zoom }.
+   Ниже 1200 zoom отключается, и жёсткая сетка 1200 заменяется резиновой.
+
+   Брейкпоинты:
+     1199  ноутбук/планшет-альбом — резиновые колонки вместо фиксированных
+      899  планшет-портрет        — в основном одна колонка
+      599  телефон                — одна колонка, меньше кегль
+      359  узкие телефоны (320)   — финальная подгонка
+   ========================================================================== */
+
+/* ==========================================================================
+   1199 — уходим с артборда 1200 на резину
+   ========================================================================== */
+
+@media (max-width: 1199px) {
+
+  :root {
+    --gutter: 24px;
+    --header-h: 56px;
+  }
+
+  /* страховка от горизонтальной прокрутки; clip (в отличие от hidden)
+     не создаёт скролл-контейнер и не ломает sticky-шапку */
+  html,
+  body {
+    overflow-x: clip;
+    max-width: 100%;
+  }
+
+  .container { max-width: none; }
+
+  /* ---- Шапка: бургер вместо двух рядов ссылок ---- */
+
+  .header { height: var(--header-h); }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    height: var(--header-h);
+  }
+
+  .header__logo {
+    position: static;
+    width: 44px;
+    margin: 0 auto;
+    transform: none;
+  }
+
+  .header__logo img { width: 100%; height: auto; }
+
+  .header__burger {
+    position: absolute;
+    right: var(--gutter);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    padding: 0 8px;
+  }
+
+  .header__burger-line {
+    display: block;
+    height: 1.5px;
+    background: var(--ink);
+    transition: transform .25s ease, opacity .2s ease;
+  }
+
+  .header.is-open .header__burger-line:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .header.is-open .header__burger-line:nth-child(2) { opacity: 0; }
+  .header.is-open .header__burger-line:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  /* панель меню — на весь экран под шапкой */
+  .header__menu {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: var(--header-h);
+    bottom: 0;
+    z-index: 2;
+    display: block;
+    padding: 12px var(--gutter) 40px;
+    background: var(--white);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity .25s ease, transform .25s ease, visibility .25s;
+  }
+
+  .header.is-open .header__menu {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .header__nav {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    /* в базовых стилях align-items: start — в колонке это сжало бы
+       пункты по ширине текста вместе с их подчёркиванием */
+    align-items: stretch;
+    grid-template-columns: none;
+  }
+
+  .header__nav a {
+    font-size: 15px;
+    line-height: 1.3;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, .08);
+  }
+
+  .header__nav a.header__phone {
+    margin-top: 22px;
+    padding: 0;
+    border: 0;
+    font-size: 20px;
+    color: var(--accent);
+  }
+
+  /* подчёркивание по бокам от логотипа — одной линией на всю ширину */
+  .inner .header__inner::before { width: 100%; }
+  .inner .header__inner::after { display: none; }
+
+  /* ---- Карусели: нативный свайп вместо стрелок ---- */
+
+  .carousel,
+  .media-pubs__viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .carousel::-webkit-scrollbar,
+  .media-pubs__viewport::-webkit-scrollbar { display: none; }
+
+  .carousel__track,
+  .media-pubs__grid { transition: none; }
+
+  .carousel__track > *,
+  .media-pubs__grid > * { scroll-snap-align: start; }
+
+  .directions__carousel,
+  .cmp-team__carousel,
+  .portfolio-home__carousel { padding-right: var(--gutter); }
+
+  /* стрелки каруселей ниже 1200 не нужны — лента листается пальцем */
+  .directions__head .arrows,
+  .portfolio-home__controls .arrows,
+  .cmp-team__head .arrows,
+  .media-pubs__head .arrows,
+  .proc-steps__head .arrows,
+  .sci-edu__head .arrows,
+  .prod-block__arrows { display: none; }
+
+  /* ---- Главная: слайдер ---- */
+
+  /* кнопки лежат в .hero после слайдов: у секции фиксированная высота
+     и overflow: hidden, поэтому на десктопе они срезаны. В адаптиве высоту
+     держат сами слайды, а секция растёт по содержимому — кнопки видны. */
+  .hero {
+    height: auto;
+    overflow: visible;
+  }
+
+  .hero__slides {
+    height: 480px;
+    overflow: hidden;
+  }
+
+  .hero__title {
+    left: var(--gutter);
+    top: 300px;
+    width: auto;
+    max-width: 55%;
+    font-size: 26px;
+  }
+
+  .hero__title--narrow { top: 320px; max-width: 45%; }
+
+  .hero__text {
+    left: auto;
+    right: var(--gutter);
+    top: 330px;
+    width: 38%;
+  }
+
+  .hero__text--narrow { top: 350px; }
+
+  .hero__counter { top: auto; bottom: 20px; }
+
+  /* ---- Главная: цифры ---- */
+
+  .numbers { padding: 64px 0 72px; }
+
+  .numbers__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px 20px;
+  }
+
+  .numbers__value { font-size: 44px; }
+  .numbers__label { max-width: none; }
+
+  /* ---- Главная: портфолио ---- */
+
+  .portfolio-home {
+    height: auto;
+    display: block;
+    padding: 56px 0 56px;
+  }
+
+  .portfolio-home__aside {
+    width: auto;
+    padding: 0 var(--gutter);
+  }
+
+  .portfolio-home__controls {
+    position: static;
+    margin-top: 18px;
+  }
+
+  .portfolio-home__carousel {
+    padding-top: 24px;
+    padding-left: var(--gutter);
+  }
+
+  .portfolio-home__carousel .carousel__track { gap: 20px; }
+
+  .pf-card {
+    width: 620px;
+    height: 320px;
+  }
+
+  .pf-card__media {
+    width: 280px;
+    height: 280px;
+  }
+
+  .pf-card__text { width: 280px; }
+
+  /* ---- Главная: производство полного цикла ---- */
+
+  .cycle { padding-top: 64px; }
+
+  .cycle__grid {
+    grid-template-columns: minmax(0, 1fr) 300px;
+    column-gap: 20px;
+  }
+
+  .cycle__head { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .cycle__title,
+  .cycle__intro,
+  .cycle__note { width: auto; }
+
+  .cycle__figure { width: auto; }
+
+  .cycle__item { grid-template-columns: 24px minmax(0, 1fr) minmax(0, 1fr); column-gap: 12px; }
+
+  /* ---- Главная: фильм ---- */
+
+  .film { padding: 72px 0 10px; }
+
+  .film__grid { grid-template-columns: minmax(0, 1fr) 320px; column-gap: 20px; }
+  .film__title,
+  .film__descr { width: auto; }
+
+  .film-video {
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  /* ---- Главная: контакты ---- */
+
+  .contacts-home { padding: 72px 0 72px; }
+
+  .contacts-home__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 24px;
+  }
+
+  .contacts-home__socials { margin-top: 40px; }
+  .contacts-home__phones { flex-wrap: wrap; gap: 8px 24px; }
+  .contacts-home__form-wrap { padding: 26px 24px 30px; }
+
+  /* ---- Подвал ---- */
+
+  .footer { padding-top: 72px; }
+
+  .footer__logo {
+    top: -38px;
+    width: 76px;
+  }
+
+  .footer__cols {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 30px 24px;
+    padding-bottom: 40px;
+  }
+
+  /* ---- Внутренние страницы: общие заголовки ---- */
+
+  .page-intro { padding-top: 64px; }
+  .page-intro__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 24px; }
+  .page-intro__title { max-width: none; }
+
+  /* ---- О компании ---- */
+
+  .cmp-intro { padding-top: 64px; }
+  .cmp-intro__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 24px; }
+
+  .cmp-intro__media { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+
+  .cmp-intro__photo,
+  .cmp-intro__gallery {
+    width: auto;
+    height: auto;
+    aspect-ratio: 55 / 32;
+  }
+
+  .cmp-intro__gallery .carousel__track > * { flex: 0 0 100%; }
+  .cmp-intro__gallery img { width: 100%; height: 100%; }
+
+  .cmp-structure,
+  .cmp-science { padding-top: 72px; }
+
+  .cmp-structure__grid,
+  .cmp-science__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 24px; }
+
+  .cmp-structure__lead,
+  .cmp-science__left .text-lead,
+  .cmp-science__quote { width: auto; }
+
+  .cmp-structure__list li {
+    width: auto;
+    height: auto;
+    margin-bottom: 14px;
+  }
+
+  .cmp-structure__photos,
+  .cmp-science__photos { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+  .cmp-structure__photos figure,
+  .cmp-science__photos figure,
+  .sci-edu__grid figure {
+    width: auto;
+    height: auto;
+    aspect-ratio: 3 / 2;
+  }
+
+  .cmp-principles { padding-top: 72px; }
+  .cmp-principles__grid { grid-template-columns: 300px minmax(0, 1fr); column-gap: 24px; }
+  .cmp-principles__title,
+  .cmp-principles__lead { width: auto; }
+
+  .cmp-team { padding-top: 72px; }
+  .cmp-team__head { flex-wrap: wrap; gap: 12px; }
+  .cmp-team__lead { width: auto; }
+
+  .cmp-licenses { padding: 72px 0 72px; }
+  .cmp-licenses__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 20px; }
+  .cmp-licenses__left { min-height: 0; }
+  .cmp-licenses__title { margin-bottom: 20px; }
+  .cmp-licenses__text { width: auto; }
+
+  .cmp-licenses__doc {
+    width: auto;
+    height: auto;
+    aspect-ratio: 265 / 370;
+  }
+
+  /* ---- Портфолио ---- */
+
+  .pf-page { padding: 64px 0 72px; }
+
+  .pf-page__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .pf-item { width: auto; }
+
+  .pf-item__media {
+    height: auto;
+    aspect-ratio: 55 / 36;
+  }
+
+  .pf-item__descr { max-width: none; }
+
+  /* ---- Новости ---- */
+
+  .news-head { padding-top: 64px; }
+
+  .news-feed__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+  .news-card__media {
+    width: auto;
+    height: auto;
+    aspect-ratio: 3 / 2;
+  }
+
+  .media-pubs { padding: 72px 0 80px; }
+
+  .media-pubs__head {
+    grid-template-columns: minmax(0, 1fr);
+    margin-bottom: 20px;
+  }
+
+  .media-card { flex: 0 0 min(550px, 78vw); }
+
+  /* ---- Страница новости ---- */
+
+  .article { padding-top: 64px; }
+
+  .article__head { grid-template-columns: minmax(0, 1fr); row-gap: 10px; }
+  .article__cover { margin-bottom: 40px; }
+  .article__cover img { max-height: 520px; }
+
+  .article__grid { grid-template-columns: minmax(0, 1fr) 300px; }
+
+  .article-more { padding-top: 64px; }
+
+  /* ---- Процессы ---- */
+
+  .proc-intro { padding-top: 64px; }
+  .proc-intro__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 24px; }
+  .proc-intro__title,
+  .proc-intro__text { width: auto; }
+
+  .proc-intro__photos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .proc-intro__photos figure {
+    width: auto;
+    height: auto;
+    aspect-ratio: 55 / 32;
+  }
+
+  .proc-steps { padding: 72px 0 80px; }
+  .proc-steps__head { grid-template-columns: minmax(0, 1fr); }
+
+  .proc-steps__grid,
+  .sci-edu__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+  .proc-step {
+    width: auto;
+    height: auto;
+    aspect-ratio: 265 / 300;
+  }
+
+  /* ---- Производство керамики ---- */
+
+  .prod-block { padding-top: 64px; }
+  .prod-block--last { padding-bottom: 72px; }
+
+  .prod-block__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 24px; }
+  .prod-block__title,
+  .prod-block__text { width: auto; }
+
+  .prod-block__media { grid-template-columns: 2fr 1fr 1fr; }
+
+  .prod-block__media figure {
+    height: auto;
+    aspect-ratio: 55 / 38;
+  }
+
+  .prod-block__media--pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .prod-block__media--pair figure { height: auto; aspect-ratio: 55 / 32; }
+
+  /* ---- Научная деятельность ---- */
+
+  .sci-block { padding-top: 64px; }
+  .sci-block__grid,
+  .sci-timeline__row,
+  .sci-edu__head { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 24px; }
+
+  .sci-block__title,
+  .sci-block__text,
+  .sci-timeline__text,
+  .sci-list li,
+  .sci-edu__head .h-section { width: auto; }
+
+  .sci-edu { padding: 72px 0 80px; }
+  .sci-edu__head { grid-template-columns: minmax(0, 1fr); }
+
+  /* ---- Контакты ---- */
+
+  .contacts-page { padding: 64px 0 80px; }
+  .contacts-page__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 24px; }
+  .contacts-page__phone { font-size: 34px; }
+  .contacts-page__socials { margin-top: 48px; flex-wrap: wrap; }
+  .contacts-page__form-wrap { padding: 26px 24px 30px; }
+
+  /* ---- Страница проекта / направления ---- */
+
+  .prj-head { padding-top: 64px; }
+  .prj-head__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 24px; }
+  .prj-head__title { width: auto; }
+
+  .prj-head__cover { margin-top: 32px; }
+  .prj-head__cover--single figure { width: min(calc(440px * var(--r, 1)), 100%); }
+  .prj-head__cover--wide figure img { height: 380px; }
+
+  .prj-text { padding-top: 48px; }
+  .prj-text__grid { grid-template-columns: minmax(0, 1fr) 300px; }
+
+  .prj-stages { padding-top: 56px; }
+  .prj-stages__slider { --stage-h: 420px; }
+  .prj-stages__panel--single figure { width: min(calc(520px * var(--r, 1)), 100%); }
+  .prj-stages__arrow--prev { left: 8px; }
+  .prj-stages__arrow--next { right: 8px; }
+
+  .prj-cta { padding: 56px 0 72px; }
+}
+
+/* ==========================================================================
+   899 — планшет-портрет: в основном одна колонка
+   ========================================================================== */
+
+@media (max-width: 899px) {
+
+  .h-section,
+  .page-intro__title { font-size: 26px; }
+
+  /* ---- Главная ---- */
+
+  .hero__slides { height: 500px; }
+
+  .hero__shade { top: 30%; }
+
+  .hero__inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 64px;
+  }
+
+  .hero__title,
+  .hero__title--narrow,
+  .hero__text,
+  .hero__text--narrow {
+    position: static;
+    width: auto;
+    max-width: 560px;
+  }
+
+  .hero__title,
+  .hero__title--narrow {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+
+  .hero__cta { padding-top: 20px; }
+
+  .directions__head { padding-top: 64px; }
+  .directions__tile { width: 300px; height: 330px; }
+
+  .numbers__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 20px; }
+  .numbers__value { font-size: 38px; }
+
+  /* карточка проекта: кадр сверху, подпись под ним */
+  .pf-card {
+    width: min(420px, 78vw);
+    height: auto;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 16px;
+  }
+
+  .pf-card__num {
+    position: static;
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .pf-card__media {
+    position: static;
+    order: -1;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    margin-bottom: 14px;
+  }
+
+  .pf-card__text { width: auto; }
+
+  .cycle__grid { grid-template-columns: minmax(0, 1fr); row-gap: 24px; }
+  .cycle__head { grid-template-columns: minmax(0, 1fr); row-gap: 10px; }
+
+  .cycle__figure {
+    height: auto;
+    aspect-ratio: 16 / 9;
+    order: -1;
+  }
+
+  .film__grid { grid-template-columns: minmax(0, 1fr); row-gap: 16px; }
+  .film__meta { padding-top: 0; }
+
+  .contacts-home__grid { grid-template-columns: minmax(0, 1fr); row-gap: 32px; }
+  .contacts-home__socials { margin-top: 28px; }
+
+  /* ---- Подвал ---- */
+
+  .footer__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  /* ---- Внутренние страницы ---- */
+
+  .page-intro__grid,
+  .cmp-intro__grid,
+  .cmp-structure__grid,
+  .cmp-science__grid,
+  .cmp-principles__grid,
+  .proc-intro__grid,
+  .prod-block__grid,
+  .sci-block__grid,
+  .contacts-page__grid,
+  .prj-head__grid,
+  .article__grid,
+  .prj-text__grid {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 24px;
+  }
+
+  .cmp-science__right { padding-top: 0; }
+
+  .cmp-intro__media { grid-template-columns: minmax(0, 1fr); row-gap: 20px; }
+
+  .cmp-structure__photos,
+  .cmp-science__photos { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+
+  .cmp-licenses__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 20px; }
+  .cmp-licenses__left { grid-column: 1 / -1; }
+
+  .cmp-team__card { width: 230px; height: 300px; }
+
+  .news-feed__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .proc-intro__photos { grid-template-columns: minmax(0, 1fr); row-gap: 20px; }
+
+  .proc-steps__grid,
+  .sci-edu__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+
+  .prod-block__media { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  .prod-block__media figure:first-child { grid-column: 1 / -1; }
+  .prod-block__media--pair figure:first-child { grid-column: auto; }
+  .prod-block__media--pair { grid-template-columns: minmax(0, 1fr); row-gap: 20px; }
+
+  .sci-timeline__row { grid-template-columns: minmax(0, 1fr); row-gap: 6px; }
+
+  /* врезка перестаёт быть липкой — под текстом ей некуда ехать */
+  .prj-aside,
+  .article__aside {
+    position: static;
+    top: auto;
+  }
+
+  .prj-head__cover { flex-wrap: wrap; }
+  .prj-head__cover--wide figure img { height: 320px; }
+  .prj-stages__slider { --stage-h: 340px; }
+}
+
+/* ==========================================================================
+   599 — телефон
+   ========================================================================== */
+
+@media (max-width: 599px) {
+
+  :root { --gutter: 16px; }
+
+  .h-section,
+  .page-intro__title,
+  .hero__title,
+  .hero__title--narrow { font-size: 22px; }
+
+  .h-card { font-size: 16px; }
+
+  .text-lead { font-size: 15px; }
+
+  .btn {
+    height: 46px;
+    padding: 0 18px;
+    font-size: 11px;
+  }
+
+  /* ---- Главная ---- */
+
+  .hero__slides { height: 520px; }
+
+  .hero__inner { padding-bottom: 56px; }
+
+  .hero__text,
+  .hero__text--narrow { font-size: 13px; }
+
+  .hero__cta {
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 16px;
+  }
+
+  .hero__cta .btn { width: 100%; min-width: 0; }
+
+  .hero__counter {
+    right: var(--gutter);
+    bottom: 16px;
+    width: 52px;
+    height: 32px;
+    font-size: 12px;
+  }
+
+  .directions__head { padding-top: 48px; padding-bottom: 16px; }
+  .directions__tile { width: 78vw; max-width: 300px; height: 300px; }
+
+  .tile__body { left: 20px; right: 20px; bottom: 20px; }
+  .tile__title { font-size: 16px; }
+
+  .numbers { padding: 48px 0 52px; }
+  .numbers__value { font-size: 30px; }
+  .numbers__unit { font-size: 13px; }
+  .numbers__label { font-size: 13px; }
+
+  .portfolio-home { padding: 48px 0; }
+  .pf-card { width: 82vw; padding: 14px; }
+
+  .portfolio-home__controls { gap: 0; }
+  .portfolio-home__all { width: 100%; }
+
+  .cycle { padding-top: 48px; }
+
+  /* номер, название, описание — в две строки, описание под названием */
+  .cycle__item {
+    grid-template-columns: 24px minmax(0, 1fr);
+    row-gap: 4px;
+    padding: 14px 0;
+  }
+
+  .cycle__descr { grid-column: 2; }
+
+  .film { padding-top: 48px; }
+
+  .contacts-home { padding: 48px 0; }
+  .contacts-home__form-wrap { padding: 22px 16px 26px; }
+
+  /* ---- Подвал ---- */
+
+  .footer { padding-top: 60px; }
+  .footer__logo { top: -30px; width: 60px; }
+
+  .footer__cols {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    padding-bottom: 32px;
+  }
+
+  .footer__bottom { height: auto; }
+
+  .footer__bottom .container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    height: auto;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  /* ---- Внутренние страницы ---- */
+
+  .page-intro,
+  .cmp-intro,
+  .prj-head,
+  .article,
+  .proc-intro,
+  .prod-block,
+  .sci-block,
+  .news-head,
+  .contacts-page,
+  .pf-page { padding-top: 44px; }
+
+  .cmp-structure,
+  .cmp-science,
+  .cmp-principles,
+  .cmp-team,
+  .article-more,
+  .prj-text { padding-top: 48px; }
+
+  .cmp-licenses,
+  .media-pubs,
+  .proc-steps,
+  .sci-edu { padding-top: 48px; padding-bottom: 56px; }
+
+  .contacts-page { padding-bottom: 56px; }
+  .pf-page { padding-bottom: 56px; }
+  .prod-block--last { padding-bottom: 56px; }
+
+  .cmp-structure__photos,
+  .cmp-science__photos,
+  .cmp-licenses__grid,
+  .news-feed__grid,
+  .pf-page__grid,
+  .proc-steps__grid,
+  .sci-edu__grid,
+  .prod-block__media { grid-template-columns: minmax(0, 1fr); }
+
+  .prod-block__media figure:first-child { grid-column: auto; }
+
+  .cmp-intro__year,
+  .cmp-intro__title { font-size: 40px; }
+
+  .cmp-team__card { width: 74vw; max-width: 265px; height: 300px; }
+
+  .acc__head { padding: 20px 0; gap: 14px; }
+  .acc__title { font-size: 16px; }
+
+  .pf-page__filters { gap: 8px; margin-bottom: 24px; }
+  .pf-filter { height: 36px; padding: 0 12px; font-size: 11px; }
+
+  .pf-page__grid { row-gap: 32px; }
+
+  .media-card { flex: 0 0 84vw; height: 280px; }
+  .media-card__body { left: 20px; right: 20px; bottom: 20px; }
+
+  .article__cover { margin-bottom: 28px; }
+  .article__cover img { max-height: 380px; }
+  .article__body .article__lead,
+  .prj-text__lead,
+  .prj-text__body .prj-text__lead { font-size: 18px; }
+
+  .contacts-page__phone { font-size: 26px; }
+  .contacts-page__row { margin-top: 32px; }
+  .contacts-page__socials { margin-top: 32px; }
+  .contacts-page__form-wrap { padding: 22px 16px 26px; }
+
+  /* ---- Страница проекта ---- */
+
+  .prj-head__cover { flex-direction: column; margin-top: 24px; }
+  .prj-head__cover figure { width: 100%; }
+  .prj-head__cover--single figure { width: 100%; }
+  .prj-head__cover--wide figure img { height: 240px; }
+
+  .prj-text__part + .prj-text__part { margin-top: 24px; }
+
+  .prj-aside { padding: 22px 18px 24px; }
+
+  .prj-stages { padding-top: 44px; }
+  .prj-stages__slider { --stage-h: 230px; }
+  .prj-stages__panel.is-active { flex-direction: column; gap: 14px; }
+  .prj-stages__panel--single figure { width: 100%; }
+  .prj-stages__tabs { flex-wrap: wrap; gap: 8px; }
+  .prj-stages__tab { height: 36px; padding: 0 14px; font-size: 11px; }
+
+  .prj-stages__arrow { width: 40px; height: 40px; }
+
+  .prj-next { gap: 14px; padding: 16px 0; }
+  .prj-next__media { width: 96px; height: 72px; }
+  .prj-next__title { font-size: 15px; }
+  .prj-next__meta { font-size: 13px; }
+
+  .prj-cta { padding: 44px 0 56px; }
+
+  .prj-cta__inner {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 28px;
+  }
+
+  .prj-cta__inner .btn { width: 100%; }
+
+  /* ---- Модальное окно ---- */
+
+  .modal { padding: 12px; }
+  .modal__box { max-height: 92vh; }
+  .modal__scroll { padding: 40px 18px 28px; }
+}
+
+/* ==========================================================================
+   359 — узкие телефоны (320)
+   ========================================================================== */
+
+@media (max-width: 359px) {
+
+  .h-section,
+  .page-intro__title,
+  .hero__title,
+  .hero__title--narrow { font-size: 20px; }
+
+  .hero__slides { height: 540px; }
+
+  .numbers__grid { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .numbers__value { font-size: 34px; }
+
+  .contacts-page__phone { font-size: 23px; }
+
+  .directions__tile { width: 84vw; height: 290px; }
+  .pf-card { width: 86vw; }
+  .cmp-team__card { width: 80vw; }
+
+  .prj-next__media { width: 76px; height: 58px; }
+}

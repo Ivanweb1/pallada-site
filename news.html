@@ -10,27 +10,38 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap&subset=latin,cyrillic" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="assets/css/pages.css">
+<link rel="stylesheet" href="assets/css/responsive.css">
 </head>
 <body class="inner">
 
 <!--#header-->
 <header class="header">
   <div class="container header__inner">
-    <nav class="header__nav header__nav--left">
-      <a href="company.html">О компании</a>
-      <a href="#napravleniya">Направления</a>
-      <a href="process.html">Процессы</a>
-      <a href="portfolio.html">Портфолио</a>
-    </nav>
+    <button class="header__burger js-burger" type="button"
+            aria-label="Меню" aria-expanded="false" aria-controls="site-menu">
+      <span class="header__burger-line"></span>
+      <span class="header__burger-line"></span>
+      <span class="header__burger-line"></span>
+    </button>
     <a class="header__logo" href="index.html">
       <img src="assets/img/6364336_0015_2.png" alt="Паллада" width="80" height="80">
     </a>
-    <nav class="header__nav header__nav--right">
-      <a href="science.html">Научная деятельность</a>
-      <a href="news.html">Новости</a>
-      <a href="contacts.html">Контакты</a>
-      <a class="header__phone" href="tel:88003333401">8 (800) 333-34-01</a>
-    </nav>
+    <!-- обёртка нужна адаптиву: ниже 1200 она становится панелью меню.
+         На десктопе это обычный статичный блок, координаты пунктов не меняет. -->
+    <div class="header__menu" id="site-menu">
+      <nav class="header__nav header__nav--left">
+        <a href="company.html">О компании</a>
+        <a href="#napravleniya">Направления</a>
+        <a href="process.html">Процессы</a>
+        <a href="portfolio.html">Портфолио</a>
+      </nav>
+      <nav class="header__nav header__nav--right">
+        <a href="science.html">Научная деятельность</a>
+        <a href="news.html">Новости</a>
+        <a href="contacts.html">Контакты</a>
+        <a class="header__phone" href="tel:88003333401">8 (800) 333-34-01</a>
+      </nav>
+    </div>
   </div>
 </header>
 <!--#/header-->
