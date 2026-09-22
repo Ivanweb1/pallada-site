@@ -2,6 +2,9 @@
    Внутренние страницы
    ========================================================================== */
 
+/* Фото с ручным кадрированием из оригинала (background-size/position инлайном) */
+.fig-img { background-repeat: no-repeat; }
+
 /* --------------------------------------------------------------------------
    О компании — история и миссия
    -------------------------------------------------------------------------- */
@@ -103,7 +106,8 @@
   overflow: hidden;
 }
 
-.cmp-structure__photos img { width: 100%; height: 100%; object-fit: cover; }
+.cmp-structure__photos img,
+.cmp-structure__photos .fig-img { width: 100%; height: 100%; object-fit: cover; }
 
 /* --------------------------------------------------------------------------
    Наука и наследие
@@ -159,7 +163,8 @@
   overflow: hidden;
 }
 
-.cmp-science__photos img { width: 100%; height: 100%; object-fit: cover; }
+.cmp-science__photos img,
+.cmp-science__photos .fig-img { width: 100%; height: 100%; object-fit: cover; }
 
 /* --------------------------------------------------------------------------
    Принципы — аккордеон
@@ -276,25 +281,28 @@
 
 .cmp-team__card .tile__body { left: 20px; right: 20px; bottom: 18px; }
 
+/* шаг строк в карточке — 22px, как в оригинале (имя 258 / должность 280 / ссылка 302) */
 .cmp-team__name {
   font-size: 14px;
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 1;
 }
 
 .cmp-team__role {
   margin-top: 8px;
   font-size: 14px;
-  line-height: 1.4;
+  line-height: 1;
   opacity: .6;
 }
 
 .cmp-team__more {
   display: inline-block;
-  margin-top: 12px;
+  margin-top: 8px;
   font-size: 12px;
-  line-height: 1.55;
+  line-height: 1;
   text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 /* --------------------------------------------------------------------------

@@ -42,7 +42,11 @@
     }
 
     function maxOffset() {
-      return Math.max(0, track.scrollWidth - viewport.clientWidth);
+      var cs = getComputedStyle(viewport);
+      var avail = viewport.clientWidth
+        - (parseFloat(cs.paddingLeft) || 0)
+        - (parseFloat(cs.paddingRight) || 0);
+      return Math.max(0, track.scrollWidth - avail);
     }
 
     function apply() {
