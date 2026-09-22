@@ -9,6 +9,12 @@
   }
   setZoom();
   window.addEventListener('resize', setZoom);
+  window.addEventListener('load', setZoom);
+  window.addEventListener('orientationchange', setZoom);
+  // ширина окна может измениться и без события resize (эмуляция, зум, скроллбар)
+  if (window.ResizeObserver) {
+    new ResizeObserver(setZoom).observe(document.documentElement);
+  }
 
   /* ---- Главный слайдер: автосмена раз в 5 секунд ---- */
   var hero = document.querySelector('.js-hero');

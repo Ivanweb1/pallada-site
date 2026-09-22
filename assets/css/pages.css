@@ -1029,6 +1029,11 @@ a.sci-timeline__text:hover { opacity: .6; }
 
 .prj-cta { padding: 20px 0 100px; }
 
-.prj-cta__inner { display: flex; gap: 10px; }
+/* две кнопки во всю ширину контента, по половине каждая */
+.prj-cta__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 20px;
+}
 
-.prj-cta__inner .btn { min-width: 200px; }
+.prj-cta__inner .btn { width: 100%; }
