@@ -41,18 +41,19 @@
       <h1 class="h-section pf-page__title">Портфолио</h1>
 
       <div class="pf-page__filters">
-        <button class="pf-filter is-active js-pf-filter" type="button">Реставрация</button>
-        <button class="pf-filter js-pf-filter" type="button">Метлахская плитка</button>
-        <button class="pf-filter js-pf-filter" type="button">Черепица</button>
-        <button class="pf-filter js-pf-filter" type="button">Фасадные отделочные материалы</button>
-        <button class="pf-filter js-pf-filter" type="button">Печи и камины</button>
-        <button class="pf-filter js-pf-filter" type="button">Панно</button>
-        <button class="pf-filter js-pf-filter" type="button">Церковная керамика</button>
-        <button class="pf-filter js-pf-filter" type="button">Другие услуги</button>
+        <button class="pf-filter is-active js-pf-filter" type="button" data-filter="all">Все проекты</button>
+        <button class="pf-filter js-pf-filter" type="button" data-filter="restoration">Реставрация</button>
+        <button class="pf-filter js-pf-filter" type="button" data-filter="tile">Метлахская плитка</button>
+        <button class="pf-filter js-pf-filter" type="button" data-filter="roof">Черепица</button>
+        <button class="pf-filter js-pf-filter" type="button" data-filter="facade">Фасадные отделочные материалы</button>
+        <button class="pf-filter js-pf-filter" type="button" data-filter="stove">Печи и камины</button>
+        <button class="pf-filter js-pf-filter" type="button" data-filter="panno">Панно</button>
+        <button class="pf-filter js-pf-filter" type="button" data-filter="church">Церковная керамика</button>
+        <button class="pf-filter js-pf-filter" type="button" data-filter="other">Другие услуги</button>
       </div>
 
-      <div class="pf-page__grid">
-        <a class="pf-item" href="project-vichuga.html">
+      <div class="pf-page__grid js-pf-grid">
+        <a class="pf-item" href="project-vichuga.html" data-cat="restoration panno church">
           <div class="pf-item__media">
             <img src="assets/img/projects/vichuga/vichuga-04.jpg" alt="Воссозданное майоликовое панно на западном портале храма в Вичуге">
           </div>
@@ -63,7 +64,7 @@
           </div>
         </a>
 
-        <a class="pf-item" href="project-mechet.html">
+        <a class="pf-item" href="project-mechet.html" data-cat="restoration facade">
           <div class="pf-item__media">
             <img style="object-position: center 6%; --z: 1.4; --z-origin: 66% 32%" src="assets/img/projects/mechet/mechet-08.jpg" alt="Отреставрированное завершение минарета Соборной мечети">
           </div>
@@ -74,7 +75,7 @@
           </div>
         </a>
 
-        <article class="pf-item">
+        <article class="pf-item" data-cat="tile">
           <div class="pf-item__media ph"></div>
           <div class="pf-item__body">
             <div class="pf-item__meta">03</div>
@@ -83,7 +84,7 @@
           </div>
         </article>
 
-        <article class="pf-item">
+        <article class="pf-item" data-cat="stove">
           <div class="pf-item__media ph"></div>
           <div class="pf-item__body">
             <div class="pf-item__meta">04</div>
@@ -92,6 +93,8 @@
           </div>
         </article>
       </div>
+
+      <p class="pf-page__empty js-pf-empty" hidden>В этом разделе пока нет опубликованных проектов.</p>
     </div>
   </section>
 </main>

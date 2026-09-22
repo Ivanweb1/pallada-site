@@ -171,10 +171,30 @@
 
   /* ---- Фильтры портфолио ---- */
   var filters = document.querySelectorAll('.js-pf-filter');
-  Array.prototype.forEach.call(filters, function (btn) {
-    btn.addEventListener('click', function () {
-      Array.prototype.forEach.call(filters, function (b) { b.classList.remove('is-active'); });
-      btn.classList.add('is-active');
+  var pfGrid = document.querySelector('.js-pf-grid');
+  var pfEmpty = document.querySelector('.js-pf-empty');
+
+  if (filters.length && pfGrid) {
+    var pfItems = pfGrid.querySelectorAll('.pf-item');
+
+    Array.prototype.forEach.call(filters, function (btn) {
+      btn.addEventListener('click', function () {
+        Array.prototype.forEach.call(filters, function (b) {
+          b.classList.toggle('is-active', b === btn);
+        });
+
+        var want = btn.dataset.filter;
+        var shown = 0;
+
+        Array.prototype.forEach.call(pfItems, function (item) {
+          var cats = (item.dataset.cat || '').split(/\s+/);
+          var show = want === 'all' || cats.indexOf(want) !== -1;
+          item.classList.toggle('is-hidden', !show);
+          if (show) shown++;
+        });
+
+        if (pfEmpty) pfEmpty.hidden = shown > 0;
+      });
     });
-  });
+  }
 })();
