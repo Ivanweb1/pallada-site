@@ -7,6 +7,8 @@
   --ink: #000000;
   --accent: #8e2123;
   --grey: #eeeeee;
+  /* тёплый песочный — фон блока портфолио на главной */
+  --sand: #f4f1ec;
   --white: #ffffff;
 
   /* Оригинал: --t-headline-font: Tahoma, --t-text-font: Manrope.
@@ -261,7 +263,7 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
 
 .footer__col-title {
   font-family: var(--font-head);
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.5;
   text-transform: uppercase;
   margin-bottom: 13.5px;
@@ -272,7 +274,7 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
 .footer__col a {
   display: block;
   font-family: var(--font-head);
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.5;
   opacity: .6;
   transition: opacity .2s ease;
@@ -297,7 +299,7 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
 .footer__bottom span,
 .footer__bottom a {
   font-family: var(--font-head);
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.5;
   text-transform: uppercase;
 }
@@ -565,7 +567,8 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
    Кнопка мобильного меню — видна только в адаптиве (assets/css/responsive.css)
    -------------------------------------------------------------------------- */
 
-.header__burger { display: none; }
+.header__burger,
+.header__socials { display: none; }
 
 /* пока меню открыто, страница под ним не прокручивается */
 body.is-menu-open { overflow: hidden; }

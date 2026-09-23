@@ -285,6 +285,102 @@
     });
   });
 
+  /* ---- Просмотр кадров проекта во весь экран ---- */
+  var shots = Array.prototype.slice.call(
+    document.querySelectorAll('.prj-head__cover figure img, .prj-stages__panel figure img')
+  );
+
+  if (shots.length) {
+    var lbox = null;
+    var lcurrent = 0;
+    var lOpenedFrom = null;
+
+    function lboxBuild() {
+      lbox = document.createElement('div');
+      lbox.className = 'lightbox';
+      lbox.hidden = true;
+      lbox.innerHTML =
+        '<button class="lightbox__close" type="button" aria-label="Закрыть">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">' +
+            '<path d="M6 6l12 12M18 6L6 18"/></svg>' +
+        '</button>' +
+        '<button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Предыдущий кадр">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">' +
+            '<path d="M15 5l-7 7 7 7"/></svg>' +
+        '</button>' +
+        '<figure class="lightbox__figure">' +
+          '<img class="lightbox__img" alt="">' +
+          '<figcaption class="lightbox__caption"></figcaption>' +
+        '</figure>' +
+        '<button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Следующий кадр">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">' +
+            '<path d="M9 5l7 7-7 7"/></svg>' +
+        '</button>';
+      document.body.appendChild(lbox);
+
+      lbox.addEventListener('click', function (e) {
+        if (e.target.closest('.lightbox__close') || e.target === lbox) lboxClose();
+        else if (e.target.closest('.lightbox__nav--prev')) lboxShow(lcurrent - 1);
+        else if (e.target.closest('.lightbox__nav--next')) lboxShow(lcurrent + 1);
+      });
+    }
+
+    function lboxShow(i) {
+      lcurrent = (i + shots.length) % shots.length;
+      var src = shots[lcurrent];
+      var img = lbox.querySelector('.lightbox__img');
+      img.src = src.currentSrc || src.src;
+      img.alt = src.alt || '';
+
+      /* подпись берём у кадра на странице, если она есть */
+      var fig = src.closest('figure');
+      var cap = fig && fig.querySelector('figcaption');
+      var capEl = lbox.querySelector('.lightbox__caption');
+      capEl.textContent = cap ? cap.textContent.trim() : '';
+      capEl.hidden = !capEl.textContent;
+
+      var many = shots.length > 1;
+      lbox.querySelector('.lightbox__nav--prev').hidden = !many;
+      lbox.querySelector('.lightbox__nav--next').hidden = !many;
+    }
+
+    function lboxOpen(i, from) {
+      if (!lbox) lboxBuild();
+      lOpenedFrom = from || null;
+      lboxShow(i);
+      lbox.hidden = false;
+      document.body.classList.add('is-lightbox-open');
+      lbox.querySelector('.lightbox__close').focus();
+    }
+
+    function lboxClose() {
+      lbox.hidden = true;
+      document.body.classList.remove('is-lightbox-open');
+      if (lOpenedFrom) { lOpenedFrom.focus(); lOpenedFrom = null; }
+    }
+
+    shots.forEach(function (img, i) {
+      var fig = img.closest('figure');
+      var holder = fig || img;
+      holder.classList.add('is-zoomable');
+      holder.setAttribute('tabindex', '0');
+      holder.setAttribute('role', 'button');
+      holder.setAttribute('aria-label', 'Открыть кадр во весь экран');
+
+      holder.addEventListener('click', function () { lboxOpen(i, holder); });
+      holder.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); lboxOpen(i, holder); }
+      });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (!lbox || lbox.hidden) return;
+      if (e.key === 'Escape') lboxClose();
+      else if (e.key === 'ArrowLeft') lboxShow(lcurrent - 1);
+      else if (e.key === 'ArrowRight') lboxShow(lcurrent + 1);
+    });
+  }
+
   /* ---- Фильтры портфолио ---- */
   var filters = document.querySelectorAll('.js-pf-filter');
   var pfGrid = document.querySelector('.js-pf-grid');

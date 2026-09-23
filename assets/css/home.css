@@ -177,7 +177,7 @@
 
 .portfolio-home {
   position: relative;
-  background: var(--grey);
+  background: var(--sand);
   display: flex;
   height: 610px;
   overflow: hidden;
