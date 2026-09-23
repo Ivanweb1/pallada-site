@@ -597,9 +597,42 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
   margin-bottom: 18px;
 }
 
+/* Вариант для страницы контактов: почта и комментарий во всю ширину,
+   комментарий — многострочный и забирает остаток высоты. Так форма
+   занимает весь акцентный фон, а не обрывается на середине. */
+.cform--stacked {
+  min-height: 100%;
+  grid-template-rows: auto auto minmax(92px, 1fr) auto auto auto;
+}
+
+.cform__field--wide { grid-column: 1 / -1; }
+
+.cform__field--area { align-items: stretch; padding-bottom: 0; }
+
+.cform__field textarea {
+  width: 100%;
+  min-height: 72px;
+  border: 0;
+  padding: 0 0 10px;
+  background: transparent;
+  color: var(--white);
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 1.4;
+  outline: none;
+  resize: none;
+}
+
+.cform__field textarea::placeholder { color: rgba(255, 255, 255, .8); }
+
 /* в один столбец, когда рядом двум полям уже тесно */
 @media (max-width: 640px) {
   .cform { grid-template-columns: 1fr; }
+
+  /* в одну колонку рядов становится семь, и раскладка строк,
+     рассчитанная на два столбца, растянула бы не то поле */
+  .cform--stacked { grid-template-rows: none; min-height: 0; }
+  .cform--stacked .cform__field--area { padding-bottom: 10px; }
 }
 
 .cform__flag {

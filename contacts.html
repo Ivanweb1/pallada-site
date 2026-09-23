@@ -104,7 +104,7 @@
       </div>
 
       <div class="contacts-page__form-wrap">
-        <form class="cform js-cform" action="#" method="post" novalidate>
+        <form class="cform cform--stacked js-cform" action="#" method="post" novalidate>
           <label class="cform__field">
             <input type="text" name="name" placeholder="Имя" autocomplete="name" required>
           </label>
@@ -112,11 +112,11 @@
             <span class="cform__flag" aria-hidden="true">RU</span>
             <input type="tel" name="phone" placeholder="+7 (000) 000-00-00" autocomplete="tel">
           </label>
-          <label class="cform__field">
+          <label class="cform__field cform__field--wide">
             <input type="email" name="email" placeholder="E-mail" autocomplete="email" required>
           </label>
-          <label class="cform__field">
-            <input type="text" name="comment" placeholder="Комментарий">
+          <label class="cform__field cform__field--wide cform__field--area">
+            <textarea name="comment" placeholder="Комментарий" rows="3"></textarea>
           </label>
 
           <label class="cform__file">
