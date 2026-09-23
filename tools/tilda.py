@@ -13,7 +13,7 @@
 Собирает код блока уже сам пульт — tilda/index.html: там галочками
 включается шапка, подвал, CSS и JS, и код копируется одной кнопкой.
 """
-import glob, json, os, re, subprocess
+import glob, hashlib, json, os, re, subprocess
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'tilda')
@@ -38,6 +38,12 @@ BODY_CLASSES = set()
 
 # Тильда не сохраняет вайб-блок тяжелее этого (байт)
 LIMIT = 100 * 1024
+
+# Разовая сверка: эти куски изменились после того, как страницы уже
+# перенесли на Тильду. Пульт снимет с них отметку «перенесено» у тех, кто
+# отмечал страницы до появления проверки по хэшу. Дальше проверка идёт
+# сама, и список больше не нужен.
+LEGACY_STALE = ['index', 'portfolio', 'science', 'project-metlahskaya-plitka', '__css__']
 
 # страницы, скрытые с сайта, на Тильду не переносим
 SKIP = {'process.html', 'proizvodstvokeramiki.html'}
@@ -287,6 +293,19 @@ def short(full, file):
     return full.split(' — ')[0].strip()
 
 
+def digest(*chunks):
+    """Короткий хэш куска — по нему пульт видит, что код изменился."""
+    h = hashlib.sha1()
+    for chunk in chunks:
+        h.update(chunk.encode('utf-8'))
+    return h.hexdigest()[:10]
+
+
+def read(*parts):
+    path = os.path.join(PARTS, *parts)
+    return open(path, encoding='utf-8').read() if os.path.exists(path) else ''
+
+
 def body_class(src):
     m = re.search(r'<body(?:\s+class="([^"]*)")?\s*>', src)
     return (m.group(1) or '').strip() if m else ''
@@ -338,6 +357,15 @@ def main():
         open(os.path.join(PARTS, part + '.html'), 'w', encoding='utf-8').write(
             absolutize(html.strip()) + '\n')
 
+    header_html = read('header.html')
+    footer_html = read('footer.html')
+    hashes = {
+        'header': digest(header_html),
+        'footer': digest(footer_html),
+        'css': digest(*[read('css', n + '.css') for n in ('style', 'pages', 'home', 'responsive')]),
+        'js': digest(read('main.js')),
+    }
+
     pages = []
     for path in sorted(glob.glob(os.path.join(ROOT, '*.html'))):
         file = os.path.basename(path)
@@ -347,6 +375,9 @@ def main():
         slug = file[:-5]
         open(os.path.join(PARTS, file), 'w', encoding='utf-8').write(absolutize(inner(src)) + '\n')
         full = title(src)
+        cls = body_class(src)
+        block = read(file)
+        patch = read('css', 'body-' + cls.split()[0] + '.css') if cls else ''
         pages.append({
             'file': file,
             'slug': 'index' if slug == 'index' else slug,
@@ -354,8 +385,10 @@ def main():
             'seo_title': full,
             'descr': descr(src),
             'body_class': body_class(src),
-            'body_css': bool(body_class(src)) and os.path.exists(
-                os.path.join(PARTS, 'css', 'body-' + body_class(src).split()[0] + '.css')),
+            'body_css': bool(cls) and os.path.exists(
+                os.path.join(PARTS, 'css', 'body-' + cls.split()[0] + '.css')),
+            # в хэш входит всё, что попадает в код блока
+            'hash': digest(block, header_html, footer_html, patch),
             'url': BASE + ('' if file == 'index.html' else file),
             'css': page_css(src),
         })
@@ -366,7 +399,8 @@ def main():
                               p['file']))
 
     open(os.path.join(OUT, 'pages.json'), 'w', encoding='utf-8').write(
-        json.dumps({'base': BASE, 'scope': SCOPE, 'limit': LIMIT, 'pages': pages},
+        json.dumps({'base': BASE, 'scope': SCOPE, 'limit': LIMIT,
+                    'hashes': hashes, 'legacy_stale': LEGACY_STALE, 'pages': pages},
                    ensure_ascii=False, indent=2) + '\n')
     print('страниц:', len(pages))
 

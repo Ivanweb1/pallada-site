@@ -52,7 +52,7 @@
     display: grid; grid-template-columns: auto 1fr auto; gap: 10px 14px; align-items: center;
     padding: 12px 0; border-top: 1px solid var(--line);
   }
-  .row--head { grid-template-columns: 1fr auto; }
+
 
   /* отметка «страница уже на Тильде» */
   .done {
@@ -89,6 +89,9 @@
   button.b--ghost { color: var(--muted); font-weight: 500; }
 
   .row--head { background: #fbf9f7; }
+
+  .badge--stale { color: #fff; background: #b8770f; border-color: #b8770f; }
+  .row--stale .row__name { color: #8a5a06; }
   .badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .04em;
            text-transform: uppercase; color: var(--muted); border: 1px solid var(--line);
            border-radius: 999px; padding: 2px 8px; margin-left: 8px; vertical-align: 2px; }
@@ -195,45 +198,60 @@
     return CACHE[path];
   }
 
-  /* отметки «страница уже на Тильде» держим в браузере: у каждого своя галочка */
+  /* Отметки «уже на Тильде» держим в браузере вместе с хэшем кода, который
+     переносили. Правим вёрстку — хэш меняется, и галочка слетает сама:
+     видно, что блок пора обновить. */
   var DONE_KEY = 'pallada-tilda-done';
+  var MARKS = {};
 
-  function doneList() {
-    try { return JSON.parse(localStorage.getItem(DONE_KEY)) || []; } catch (e) { return []; }
+  function loadMarks() {
+    var raw;
+    try { raw = JSON.parse(localStorage.getItem(DONE_KEY)); } catch (e) { raw = null; }
+    if (!raw) return {};
+    if (Array.isArray(raw)) {                 // старый формат: просто список слагов
+      var out = {};
+      raw.forEach(function (slug) { out[slug] = 'legacy'; });
+      return out;
+    }
+    return raw.marks || {};
   }
 
-  function doneSave(list) {
-    try { localStorage.setItem(DONE_KEY, JSON.stringify(list)); } catch (e) {}
+  function saveMarks() {
+    try { localStorage.setItem(DONE_KEY, JSON.stringify({ v: 2, marks: MARKS })); } catch (e) {}
   }
 
-  function doneSet(slug, on) {
-    var list = doneList();
-    var at = list.indexOf(slug);
-    if (on && at === -1) list.push(slug);
-    if (!on && at !== -1) list.splice(at, 1);
-    doneSave(list);
-    counter();
+  /* хэш того, что реально уходит в блок */
+  function hashOf(page) {
+    if (page.kind === 'css') return DATA.hashes.css;
+    if (page.kind === 'js') return DATA.hashes.js;
+    if (page.solo) return DATA.hashes[page.part === 'header.html' ? 'header' : 'footer'];
+    return page.hash;
+  }
+
+  /* отмечена ли строка и не устарела ли отметка */
+  function markState(page) {
+    var mark = MARKS[page.slug];
+    if (!mark) return 'none';
+    if (mark === hashOf(page)) return 'done';
+    /* отметки старого формата снимаем только с того, что успели поправить */
+    if (mark === 'legacy' && (DATA.legacy_stale || []).indexOf(page.slug) === -1) return 'done';
+    return 'stale';
   }
 
   function counter() {
     var box = document.getElementById('counter');
     if (!box || !DATA) return;
     var total = DATA.pages.length;
-    var done = doneList().filter(function (slug) {
-      return DATA.pages.some(function (p) { return p.slug === slug; });
-    }).length;
+    var done = DATA.pages.filter(function (p) { return markState(p) === 'done'; }).length;
     box.textContent = 'перенесено ' + done + ' из ' + total;
     if (done) {
       var reset = document.createElement('button');
       reset.type = 'button';
       reset.textContent = 'снять отметки';
       reset.addEventListener('click', function () {
-        doneSave([]);
-        Array.prototype.forEach.call(document.querySelectorAll('.done'), function (cb) {
-          cb.checked = false;
-          cb.closest('.row').classList.remove('row--ready');
-        });
-        counter();
+        MARKS = {};
+        saveMarks();
+        render();
       });
       box.appendChild(reset);
     }
@@ -380,26 +398,40 @@
   function row(page, opts) {
     opts = opts || {};
     var el = document.createElement('div');
-    el.className = 'row' + (opts.head ? ' row--head' : '');
+    el.className = 'row';
 
-    if (!opts.head) {
-      var done = document.createElement('input');
-      done.type = 'checkbox';
-      done.className = 'done';
-      done.title = 'Отметить: страница уже добавлена на Тильду';
-      done.checked = doneList().indexOf(page.slug) !== -1;
+    var state = markState(page);
+    var done = document.createElement('input');
+    done.type = 'checkbox';
+    done.className = 'done';
+    done.title = 'Отметить: код уже вставлен на Тильду';
+    done.checked = state === 'done';
+    el.classList.toggle('row--ready', done.checked);
+    done.addEventListener('change', function () {
+      if (done.checked) MARKS[page.slug] = hashOf(page);
+      else delete MARKS[page.slug];
+      saveMarks();
       el.classList.toggle('row--ready', done.checked);
-      done.addEventListener('change', function () {
-        el.classList.toggle('row--ready', done.checked);
-        doneSet(page.slug, done.checked);
-      });
-      el.appendChild(done);
-    }
+      el.classList.remove('row--stale');
+      var old = el.querySelector('.badge--stale');
+      if (old) old.remove();
+      counter();
+    });
+    el.appendChild(done);
 
     var left = document.createElement('div');
     var name = document.createElement('div');
     name.className = 'row__name';
     name.textContent = page.title;
+
+    if (state === 'stale') {
+      el.classList.add('row--stale');
+      var flag = document.createElement('span');
+      flag.className = 'badge badge--stale';
+      flag.textContent = 'обновилось';
+      flag.title = 'Код изменился после того, как его перенесли — вставьте заново';
+      name.appendChild(flag);
+    }
 
     var size = document.createElement('span');
     size.className = 'size';
@@ -473,44 +505,52 @@
     weighTimer = window.setTimeout(weigh, 120);
   }
 
+  /* общие куски: их тоже отмечаем, у них свои хэши */
+  var COMMON = [
+    [{ kind: 'css', slug: '__css__', title: 'Общий CSS (в HEAD сайта)', url: '' },
+     { codeOnly: true, noPreview: true, noLimit: true,
+       meta: 'вставить один раз в Настройки сайта → Дополнительно → HTML-код в HEAD; галочка «CSS внутри блока» при этом снята' }],
+
+    [{ kind: 'js', slug: '__js__', title: 'Общий скрипт (в HEAD сайта)', url: '' },
+     { codeOnly: true, noPreview: true, noLimit: true,
+       meta: 'туда же, следом за стилями; сам найдёт все блоки на странице' }],
+
+    [{ file: 'header.html', part: 'header.html', solo: true, slug: '__header__',
+       css: ['style', 'responsive'], title: 'Шапка (отдельный блок)', url: '' },
+     { codeOnly: true,
+       meta: 'если шапка выносится в отдельный блок; на внутренних страницах допишите класс inner — ' +
+             '<div class="pallada inner">, тогда появятся линии по бокам логотипа' }],
+
+    [{ file: 'footer.html', part: 'footer.html', solo: true, slug: '__footer__',
+       css: ['style', 'pages', 'responsive'], title: 'Подвал (отдельный блок)', url: '' },
+     { codeOnly: true, meta: 'подвал + плашка про cookie' }]
+  ];
+
+  function render() {
+    ROWS = [];
+    var rows = document.getElementById('rows');
+    rows.innerHTML = '';
+    DATA.pages.forEach(function (p) { rows.appendChild(row(p)); });
+
+    var common = document.getElementById('common-rows');
+    common.innerHTML = '';
+    COMMON.forEach(function (pair) { common.appendChild(row(pair[0], pair[1])); });
+
+    counter();
+    weigh();
+  }
+
   fetch('pages.json').then(function (r) { return r.json(); }).then(function (data) {
     DATA = data;
     DATA.limit = DATA.limit || 100 * 1024;
+    DATA.hashes = DATA.hashes || {};
+    MARKS = loadMarks();
 
-    var rows = document.getElementById('rows');
-    rows.innerHTML = '';
-    data.pages.forEach(function (p) { rows.appendChild(row(p)); });
-
-    var common = document.getElementById('common-rows');
-    common.appendChild(row(
-      { kind: 'css', title: 'Общий CSS (в HEAD сайта)', url: '' },
-      { head: true, codeOnly: true, noPreview: true, noLimit: true,
-        meta: 'вставить один раз в Настройки сайта → Дополнительно → HTML-код в HEAD; галочка «CSS внутри блока» при этом снята' }));
-
-    common.appendChild(row(
-      { kind: 'js', title: 'Общий скрипт (в HEAD сайта)', url: '' },
-      { head: true, codeOnly: true, noPreview: true, noLimit: true,
-        meta: 'туда же, следом за стилями; сам найдёт все блоки на странице' }));
-
-    common.appendChild(row(
-      { file: 'header.html', part: 'header.html', solo: true, css: ['style', 'responsive'],
-        title: 'Шапка (отдельный блок)', url: '' },
-      { head: true, codeOnly: true,
-        meta: 'если шапка выносится в отдельный блок; на внутренних страницах допишите класс inner — ' +
-              '<div class="pallada inner">, тогда появятся линии по бокам логотипа' }));
-
-    common.appendChild(row(
-      { file: 'footer.html', part: 'footer.html', solo: true, css: ['style', 'pages', 'responsive'],
-        title: 'Подвал (отдельный блок)', url: '' },
-      { head: true, codeOnly: true,
-        meta: 'подвал + плашка про cookie' }));
+    render();
 
     ['header', 'footer', 'css', 'js', 'min'].forEach(function (name) {
       document.getElementById('o-' + name).addEventListener('change', weighSoon);
     });
-
-    counter();
-    weigh();
   }).catch(function (e) {
     document.getElementById('status').textContent =
       'Не удалось загрузить данные (' + e.message + '). Пульт работает по адресу ' +
