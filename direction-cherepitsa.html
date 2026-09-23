@@ -182,48 +182,68 @@
   </a>
 
   <div class="container">
-    <nav class="footer__nav">
-      <a href="company.html">О компании</a>
-      <a href="index.html#napravleniya">Направления</a>
-      <a href="process.html">Процессы</a>
-      <a href="portfolio.html">Портфолио</a>
-      <a href="science.html">Научная деятельность</a>
-      <a href="news.html">Новости</a>
-      <a href="contacts.html">Контакты</a>
-    </nav>
-
     <div class="footer__body">
-      <div class="footer__dirs">
+
+      <div class="footer__col footer__col--dirs">
         <div class="footer__col-title">Направления деятельности</div>
-        <ul class="footer__dirs-list">
+        <ul class="footer__list footer__list--two">
           <li><a href="direction-restavratsiya.html">Реставрация</a></li>
           <li><a href="direction-metlahskaya-plitka.html">Метлахская плитка</a></li>
           <li><a href="direction-cherepitsa.html">Черепица</a></li>
           <li><a href="direction-fasadnye-materialy.html">Фасадные отделочные материалы</a></li>
           <li><a href="direction-pechi-i-kaminy.html">Печи и камины</a></li>
-          <li><a href="#">Панно</a></li>
           <li><a href="direction-tserkovnaya-keramika.html">Церковная керамика</a></li>
-          <li><a href="#">Другие услуги</a></li>
+          <li><a href="portfolio.html?filter=panno">Панно</a></li>
+          <li><a href="portfolio.html?filter=other">Другие услуги</a></li>
         </ul>
       </div>
 
-      <div class="footer__contacts">
+      <div class="footer__col">
+        <div class="footer__col-title">Компания</div>
+        <ul class="footer__list">
+          <li><a href="company.html">О компании</a></li>
+          <li><a href="proizvodstvokeramiki.html">Производство керамики</a></li>
+          <li><a href="process.html">Процессы</a></li>
+          <li><a href="portfolio.html">Портфолио</a></li>
+          <li><a href="science.html">Научная деятельность</a></li>
+          <li><a href="news.html">Новости</a></li>
+          <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col footer__col--contacts">
         <div class="footer__col-title">Контакты</div>
-        <a class="footer__phone" href="tel:88003333401">8 (800) 333-34-01</a>
+
         <a class="footer__phone" href="tel:88123634961">8 (812) 363-49-61</a>
+        <a class="footer__phone footer__phone--soft" href="tel:88003333401">8 (800) 333-34-01</a>
         <a class="footer__mail" href="mailto:info@pallada-afina.ru">info@pallada-afina.ru</a>
+
+        <div class="footer__addr">
+          <span class="footer__addr-label">Производство</span>
+          Ликино-Дулёво, ул. Ленина, д. 15А
+        </div>
+        <div class="footer__addr">
+          <span class="footer__addr-label">Реставрационные мастерские</span>
+          Санкт-Петербург, Корабельная ул., д. 6 корп. 4
+        </div>
+
         <div class="footer__socials">
-          <a href="https://t.me/palladacompany" target="_blank" rel="noopener">Telegram</a>
-          <a href="https://vk.com/palladaafina" target="_blank" rel="noopener">ВКонтакте</a>
+          <a class="footer__social" href="https://t.me/palladacompany" target="_blank" rel="noopener" aria-label="Канал в Telegram">
+            <img src="assets/img/3963303_free-icon-telegram-4.png" alt="" width="18" height="18">
+          </a>
+          <a class="footer__social" href="https://vk.com/palladaafina" target="_blank" rel="noopener" aria-label="Группа во ВКонтакте">
+            <img src="assets/img/3430623_free-icon-vk-2111765.png" alt="" width="18" height="18">
+          </a>
         </div>
       </div>
+
     </div>
   </div>
 
   <div class="footer__bottom">
     <div class="container">
       <span>© 2026 ООО «Паллада». Все права защищены.</span>
-      <a href="#">Политика конфиденциальности</a>
+      <span class="footer__bottom-note">ОГРН 1027810305236 · ИНН 7826099652</span>
     </div>
   </div>
 </footer>

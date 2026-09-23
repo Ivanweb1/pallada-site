@@ -48,8 +48,13 @@ python -m http.server 4577
 
 ## Где смотреть онлайн
 
-Каждый пуш в `main` или в рабочую ветку публикуется на GitHub Pages —
-`.github/workflows/pages.yml`. Адрес: https://ivanweb1.github.io/pallada-site/
+На GitHub Pages публикуется только `main` — `.github/workflows/pages.yml`.
+Адрес: https://ivanweb1.github.io/pallada-site/
+
+Рабочие ветки не публикуются: параллельный прогон попадал в ту же
+группу `concurrency` и прогоны отменяли друг друга. Чтобы посмотреть
+ветку онлайн, её нужно влить в `main` либо запустить workflow вручную
+(Actions → Pages → Run workflow).
 
 Один раз это нужно включить в настройках репозитория:
 Settings → Pages → Build and deployment → Source: **GitHub Actions**.
