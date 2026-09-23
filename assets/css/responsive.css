@@ -885,6 +885,11 @@
   .portfolio-home { padding: 48px 0; }
   .pf-card { width: 82vw; padding: 14px; }
 
+  /* подпись карточки проекта набираем так же, как плашку направления:
+     заголовок 16/1.25, отступ до описания 10px, описание 14/1.3 */
+  .pf-card__text .h-card { line-height: 1.25; margin-bottom: 10px; }
+  .pf-card__descr { line-height: 1.3; }
+
   .portfolio-home__controls { gap: 0; }
   .portfolio-home__all { width: 100%; }
 
