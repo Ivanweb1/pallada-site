@@ -480,7 +480,7 @@ a.pf-item:hover .pf-item__media img { transform: scale(calc(var(--z, 1) * 1.04))
 }
 
 .pf-item__title {
-  margin-bottom: 6px;
+  margin-bottom: 10px;
   transition: color .2s ease;
 }
 
