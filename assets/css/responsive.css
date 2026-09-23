@@ -872,7 +872,10 @@
   .directions__tile { width: 78vw; max-width: 300px; height: 300px; }
 
   .tile__body { left: 20px; right: 20px; bottom: 20px; }
-  .tile__title { font-size: 16px; }
+  /* на телефоне карточка видна по одной — резерв второй строки под заголовок
+     больше не нужен, отступ до описания держим ровно 10px */
+  .tile__title { font-size: 16px; margin-bottom: 10px; }
+  .directions__tile .tile__title { min-height: 0; }
 
   .numbers { padding: 48px 0 52px; }
   .numbers__value { font-size: 30px; }
