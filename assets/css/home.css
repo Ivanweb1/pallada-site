@@ -251,7 +251,7 @@
   padding-bottom: 0;
 }
 
-.pf-card__text .h-card { margin-bottom: 10px; }
+.pf-card__text .h-card { margin-bottom: 4px; }
 
 .pf-card__descr {
   font-size: 14px;

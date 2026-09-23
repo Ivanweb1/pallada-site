@@ -102,8 +102,14 @@
     padding: 0 8px;
   }
 
+  /* Ширина задана явно: Safari заворачивает содержимое <button> в
+     анонимный бокс, поэтому align-items: stretch флекс-контейнера до
+     полосок не доходит — пустые span получают нулевую ширину и бургер
+     на iPhone не видно. */
   .header__burger-line {
     display: block;
+    width: 100%;
+    min-width: 24px;
     height: 1.5px;
     background: var(--ink);
     transition: transform .25s ease, opacity .2s ease;
