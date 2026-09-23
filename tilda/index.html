@@ -124,7 +124,9 @@
     <ol class="steps">
       <li>В Тильде создайте страницу и добавьте <b>вайб-блок</b> (или T123 «HTML-код») во всю ширину.</li>
       <li>Нажмите здесь <b>«Код блока»</b> у нужной страницы и вставьте код в блок.
-        Рядом кнопки для настроек страницы в Тильде: <b>Название</b>, <b>Title</b>, <b>Описание</b>, <b>URL</b> прототипа.</li>
+        Рядом кнопки для настроек страницы в Тильде: <b>Название</b>, <b>Title</b>, <b>Описание</b>,
+        <b>Адрес</b> (его же задайте странице в Тильде — иначе ссылки в вёрстке не совпадут)
+        и <b>URL</b> прототипа.</li>
       <li><b>Один раз на сайт:</b> скопируйте «Общий CSS» и «Общий скрипт» из блока ниже
         и вставьте их в <b>Настройки сайта → Дополнительно → HTML-код в HEAD</b>.
         Без этого код страницы весит больше 100 КБ и Тильда его не сохранит.</li>
@@ -146,13 +148,12 @@
       <label class="opt"><input type="checkbox" id="o-css"> CSS внутри блока</label>
       <label class="opt"><input type="checkbox" id="o-js"> скрипт внутри блока</label>
       <label class="opt"><input type="checkbox" id="o-min" checked> сжатый код</label>
-      <label class="field">ссылки внутри сайта:
-        <input type="text" id="o-prefix" placeholder="напр. /" value="">
-      </label>
     </div>
-    <p class="hint">Ссылки: пустое поле — остаются как в прототипе (<code>company.html</code>).
-      Введите префикс адресов Тильды — например <code>/</code>, и ссылки станут <code>/company</code>,
-      главная — <code>/</code>.<br>
+    <p class="hint">Ссылки внутри сайта в коде блока идут без <code>.html</code> и от корня домена:
+      <code>/company</code>, <code>/portfolio?filter=panno</code>, главная — <code>/</code>.
+      Такие адреса работают на любом домене, поэтому в Тильде страницам нужно задать те же
+      адреса: <code>company</code>, <code>portfolio</code>, <code>contacts</code> и так далее
+      (как в столбце ниже, без <code>.html</code>).<br>
       CSS и скрипт по умолчанию вынесены в HEAD сайта: со стилями внутри блок весит 110–170 КБ,
       а <b>Тильда не сохраняет вайб-блок тяжелее 100 КБ</b>. Вес готового кода показан у каждой
       строки, красным — если не влезет.</p>
@@ -233,7 +234,6 @@
   }
 
   function opt(name) { return document.getElementById('o-' + name).checked; }
-  function prefix() { return document.getElementById('o-prefix').value.trim(); }
 
   /* сжатый вариант лежит рядом — в parts/min/ */
   function part(name) { return 'parts/' + (opt('min') ? 'min/' : '') + name; }
@@ -242,18 +242,19 @@
     return (page.css || []).map(function (n) { return part('css/' + n + '.css'); });
   }
 
-  /* ссылки прототипа (company.html) → адреса страниц на Тильде */
+  /* ссылки прототипа (company.html) → адреса страниц сайта: /company.
+     От корня домена — тогда они одинаково работают на любом домене */
   function relink(html) {
-    var p = prefix();
-    if (!p) return html;
     return html.replace(/href="([a-z0-9-]+)\.html(\?[^"#]*)?(#[^"]*)?"/g,
       function (m, file, query, hash) {
         var known = DATA.pages.some(function (pg) { return pg.file === file + '.html'; });
         if (!known && file !== 'index') return m;
-        var path = file === 'index' ? p : p.replace(/\/$/, '') + '/' + file;
-        return 'href="' + path + (query || '') + (hash || '') + '"';
+        return 'href="' + (file === 'index' ? '/' : '/' + file) + (query || '') + (hash || '') + '"';
       });
   }
+
+  /* адрес страницы на сайте — его же задаём странице в Тильде */
+  function address(page) { return page.slug === 'index' ? '/' : '/' + page.slug; }
 
   /* все стили сайта в одном куске — для HTML-кода в HEAD */
   function allCssFiles() {
@@ -400,7 +401,7 @@
 
     var meta = document.createElement('div');
     meta.className = 'row__meta';
-    meta.textContent = opts.meta || page.url;
+    meta.textContent = opts.meta || (address(page) + '  ·  ' + page.url);
     if (!opts.codeOnly && page.seo_title) meta.title = page.seo_title;
     left.appendChild(name);
     left.appendChild(meta);
@@ -414,6 +415,7 @@
       if (page.descr) {
         btns.appendChild(btn('Описание', 'b--ghost', function (b) { copy(page.descr, b); }));
       }
+      btns.appendChild(btn('Адрес', 'b--ghost', function (b) { copy(address(page), b); }));
       btns.appendChild(btn('URL', 'b--ghost', function (b) { copy(page.url, b); }));
     }
     btns.appendChild(btn('Код блока', 'b--main', function (b) {
@@ -487,7 +489,6 @@
     ['header', 'footer', 'css', 'js', 'min'].forEach(function (name) {
       document.getElementById('o-' + name).addEventListener('change', weighSoon);
     });
-    document.getElementById('o-prefix').addEventListener('input', weighSoon);
 
     counter();
     weigh();
