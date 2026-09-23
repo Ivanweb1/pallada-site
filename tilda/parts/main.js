@@ -59,17 +59,35 @@
     });
   }
 
-  /* ---- Главный слайдер: автосмена раз в 9 секунд ---- */
+  /* ---- Главный слайдер: автосмена раз в 9 секунд и смена по клику ---- */
   var hero = SCOPE.querySelector('.js-hero');
   if (hero) {
     var slides = hero.querySelectorAll('.hero__slide');
     if (slides.length > 1) {
       var current = 0;
-      setInterval(function () {
+      var heroTimer;
+
+      function heroNext() {
         slides[current].classList.remove('is-active');
         current = (current + 1) % slides.length;
         slides[current].classList.add('is-active');
-      }, 9000);
+      }
+
+      function heroPlay() {
+        window.clearInterval(heroTimer);
+        heroTimer = window.setInterval(heroNext, 9000);
+      }
+
+      /* кнопки под слайдами лежат вне .hero__slides — клик по ним не листает */
+      var heroStage = hero.querySelector('.hero__slides');
+      if (heroStage) {
+        heroStage.addEventListener('click', function () {
+          heroNext();
+          heroPlay();            // после ручной смены отсчёт начинаем заново
+        });
+      }
+
+      heroPlay();
     }
   }
 
