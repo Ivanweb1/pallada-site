@@ -94,6 +94,12 @@
            border-radius: 999px; padding: 2px 8px; margin-left: 8px; vertical-align: 2px; }
   .err { color: var(--accent); font-size: 14px; }
 
+  .addr {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12px; color: var(--accent); background: #fbf4f4;
+    border: 1px solid #f0e2e2; border-radius: 6px; padding: 1px 6px;
+  }
+
   .size {
     margin-left: 10px; font-size: 12px; font-weight: 600; color: var(--muted);
     border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; vertical-align: 1px;
@@ -125,8 +131,8 @@
       <li>В Тильде создайте страницу и добавьте <b>вайб-блок</b> (или T123 «HTML-код») во всю ширину.</li>
       <li>Нажмите здесь <b>«Код блока»</b> у нужной страницы и вставьте код в блок.
         Рядом кнопки для настроек страницы в Тильде: <b>Название</b>, <b>Title</b>, <b>Описание</b>,
-        <b>Адрес</b> (его же задайте странице в Тильде — иначе ссылки в вёрстке не совпадут)
-        и <b>URL</b> прототипа.</li>
+        <b>Адрес</b> — его задайте странице в Тильде (Настройки страницы → Адрес страницы),
+        иначе ссылки в вёрстке не совпадут.</li>
       <li><b>Один раз на сайт:</b> скопируйте «Общий CSS» и «Общий скрипт» из блока ниже
         и вставьте их в <b>Настройки сайта → Дополнительно → HTML-код в HEAD</b>.
         Без этого код страницы весит больше 100 КБ и Тильда его не сохранит.</li>
@@ -253,8 +259,8 @@
       });
   }
 
-  /* адрес страницы на сайте — его же задаём странице в Тильде */
-  function address(page) { return page.slug === 'index' ? '/' : '/' + page.slug; }
+  /* адрес страницы для Тильды: company, главная — / */
+  function address(page) { return page.slug === 'index' ? '/' : page.slug; }
 
   /* все стили сайта в одном куске — для HTML-кода в HEAD */
   function allCssFiles() {
@@ -401,8 +407,22 @@
 
     var meta = document.createElement('div');
     meta.className = 'row__meta';
-    meta.textContent = opts.meta || (address(page) + '  ·  ' + page.url);
-    if (!opts.codeOnly && page.seo_title) meta.title = page.seo_title;
+    if (opts.meta) {
+      meta.textContent = opts.meta;
+    } else {
+      var addr = document.createElement('code');
+      addr.className = 'addr';
+      addr.textContent = address(page);
+      var link = document.createElement('a');
+      link.href = page.url;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.textContent = 'открыть в прототипе';
+      meta.appendChild(addr);
+      meta.appendChild(document.createTextNode('  ·  '));
+      meta.appendChild(link);
+      if (page.seo_title) meta.title = page.seo_title;
+    }
     left.appendChild(name);
     left.appendChild(meta);
 
@@ -416,7 +436,6 @@
         btns.appendChild(btn('Описание', 'b--ghost', function (b) { copy(page.descr, b); }));
       }
       btns.appendChild(btn('Адрес', 'b--ghost', function (b) { copy(address(page), b); }));
-      btns.appendChild(btn('URL', 'b--ghost', function (b) { copy(page.url, b); }));
     }
     btns.appendChild(btn('Код блока', 'b--main', function (b) {
       build(page).then(function (code) { copy(code, b); },
