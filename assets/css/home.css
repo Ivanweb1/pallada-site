@@ -251,11 +251,13 @@
   padding-bottom: 0;
 }
 
-.pf-card__text .h-card { margin-bottom: 4px; }
+/* подпись набираем как плашку направления: заголовок 18/1.25,
+   отступ до описания 8px (на телефоне — 10px, см. responsive.css) */
+.pf-card__text .h-card { line-height: 1.25; margin-bottom: 8px; }
 
 .pf-card__descr {
   font-size: 14px;
-  line-height: 1.2;
+  line-height: 1.3;
   opacity: .8;
 }
 
