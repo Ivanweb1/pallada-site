@@ -644,6 +644,46 @@
     });
   }
 
+  /* ---- Телефон в формах: +7 появляется сразу и цифры встают в маску ---- */
+
+  function phoneDigits(value) {
+    var d = String(value || '').replace(/\D/g, '');
+    while (d.length > 10 && (d.charAt(0) === '7' || d.charAt(0) === '8')) d = d.slice(1);
+    if (d.charAt(0) === '7' || d.charAt(0) === '8') d = d.slice(1);
+    return d.slice(0, 10);
+  }
+
+  function phoneFormat(d) {
+    if (!d) return '+7 ';
+    var out = '+7 (' + d.slice(0, 3);
+    if (d.length > 3) out += ') ' + d.slice(3, 6);
+    if (d.length > 6) out += '-' + d.slice(6, 8);
+    if (d.length > 8) out += '-' + d.slice(8, 10);
+    return out;
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('.js-cform input[type="tel"]'), function (input) {
+    input.addEventListener('focus', function () {
+      if (!input.value) input.value = '+7 ';
+    });
+
+    input.addEventListener('input', function () {
+      input.value = phoneFormat(phoneDigits(input.value));
+      try { input.setSelectionRange(input.value.length, input.value.length); } catch (e) {}
+    });
+
+    /* ушли из пустого поля — не оставляем одинокий код страны */
+    input.addEventListener('blur', function () {
+      if (!phoneDigits(input.value)) input.value = '';
+    });
+  });
+
+  /* ссылка на политику лежит внутри подписи к чекбоксу: клик по ней
+     не должен переключать согласие */
+  Array.prototype.forEach.call(document.querySelectorAll('.cform__agree a'), function (link) {
+    link.addEventListener('click', function (e) { e.stopPropagation(); });
+  });
+
   /* ---- Формы: имя выбранного файла, отправка, сообщение ---- */
   Array.prototype.forEach.call(document.querySelectorAll('.js-cform'), function (form) {
     var file = form.querySelector('.js-cform-file');

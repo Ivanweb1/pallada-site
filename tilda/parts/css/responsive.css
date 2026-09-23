@@ -138,6 +138,7 @@
     position: static;
     display: flex;
     flex-direction: column;
+    gap: 0;
     /* в базовых стилях align-items: start — в колонке это сжало бы
        пункты по ширине текста вместе с их подчёркиванием */
     align-items: stretch;

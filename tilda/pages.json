@@ -5,8 +5,8 @@
   "hashes": {
     "header": "f49d230f45",
     "footer": "d0676de5d0",
-    "css": "3523d35e7a",
-    "js": "f0f46b96d7"
+    "css": "7341ce7708",
+    "js": "d31847c841"
   },
   "legacy_stale": [
     "index",
@@ -24,7 +24,7 @@
       "descr": "Архитектурная керамика полного цикла: научная реставрация наследия, производство фасадной, церковной и интерьерной керамики, изразцовые печи и камины.",
       "body_class": "",
       "body_css": false,
-      "hash": "08de4bbe84",
+      "hash": "ba859079c5",
       "url": "https://ivanweb1.github.io/pallada-site/",
       "css": [
         "style",
@@ -104,7 +104,7 @@
       "descr": "Телефон, адрес и форма связи с группой компаний «Паллада».",
       "body_class": "inner",
       "body_css": true,
-      "hash": "65097798ca",
+      "hash": "3fa598b96d",
       "url": "https://ivanweb1.github.io/pallada-site/contacts.html",
       "css": [
         "style",

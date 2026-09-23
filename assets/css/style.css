@@ -163,8 +163,10 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
   background: var(--white);
 }
 
-/* Пункты меню стоят по координатам сетки оригинала:
-   40 / 141 / 247 / 334 слева и 714 / 878 / 958 / 1055 справа */
+/* Раньше пункты стояли по координатам сетки оригинала (40 / 141 / 247 / 334
+   слева и 714 / 878 / 958 / 1055 справа). Подписи с тех пор менялись, и
+   жёсткие колонки давали разные просветы, поэтому меню собрано флексом с
+   одинаковым шагом: правая группа прижата к правому полю, левая — к левому. */
 .header__inner {
   position: relative;
   height: var(--header-h);
@@ -173,19 +175,14 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
 .header__nav {
   position: absolute;
   top: 21px;
-  display: grid;
-  align-items: start;
+  display: flex;
+  align-items: flex-start;
+  gap: 26px;
 }
 
-.header__nav--left {
-  left: var(--gutter);
-  grid-template-columns: 101px 106px 87px auto;
-}
+.header__nav--left { left: var(--gutter); }
 
-.header__nav--right {
-  left: 714px;
-  grid-template-columns: 164px 80px 97px auto;
-}
+.header__nav--right { right: var(--gutter); }
 
 .header__nav a {
   font-family: var(--font-head);
@@ -710,6 +707,13 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
   opacity: .8;
   cursor: pointer;
 }
+
+.cform__agree a {
+  border-bottom: 1px solid currentColor;
+  opacity: .85;
+}
+
+.cform__agree a:hover { opacity: 1; }
 
 .cform__agree input {
   flex: 0 0 auto;
