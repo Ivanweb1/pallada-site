@@ -1298,6 +1298,12 @@ a.sci-timeline__text:hover { opacity: .6; }
 .prj-stages__arrow--prev { left: -24px; }
 .prj-stages__arrow--next { right: -24px; }
 
+/* стрелки, добавленные скриптом обычным панелям: они лежат в контейнере
+   панелей, поэтому ему нужна точка отсчёта */
+.prj-stages__panels { position: relative; }
+
+.prj-stages__arrow--plain[hidden] { display: none; }
+
 .prj-stages__arrow[disabled] {
   opacity: 0;
   pointer-events: none;

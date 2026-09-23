@@ -253,31 +253,52 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
   transform: translateX(-50%);
 }
 
-/* Пять колонок по смыслу: услуги — компания — наука — витрина — связь.
-   Внутри колонки разделы идут группами, у каждой свой заголовок. */
-.footer__cols {
-  display: grid;
-  grid-template-columns: 1.15fr 1fr 1.25fr .7fr .95fr;
-  column-gap: 30px;
-  padding-bottom: 52px;
+/* Разделы сайта — одной строкой; ниже слева направления, справа связь.
+   Подпункты, которые вели на ту же страницу, что и заголовок раздела,
+   из подвала убраны: они ничего не добавляли. */
+.footer__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 30px;
+  padding-bottom: 26px;
+  border-bottom: 1px solid rgba(0, 0, 0, .12);
 }
 
-.footer__group + .footer__group { margin-top: 24px; }
+.footer__nav a {
+  font-family: var(--font-head);
+  font-size: 13px;
+  line-height: 1.5;
+  text-transform: uppercase;
+  transition: opacity .2s ease;
+}
 
-.footer__col-title a { opacity: 1; display: inline; }
+.footer__nav a:hover { opacity: .5; }
+
+.footer__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  column-gap: 40px;
+  padding: 26px 0 52px;
+}
 
 .footer__col-title {
   font-family: var(--font-head);
   font-size: 13px;
   line-height: 1.5;
   text-transform: uppercase;
-  margin-bottom: 13.5px;
+  margin-bottom: 14px;
 }
 
-.footer__col li + li { margin-top: 5.5px; }
+.footer__col-title a { display: inline; opacity: 1; }
 
-.footer__col a {
-  display: block;
+.footer__dirs-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 26px;
+}
+
+.footer__dirs-list a,
+.footer__socials a {
   font-family: var(--font-head);
   font-size: 13px;
   line-height: 1.5;
@@ -285,10 +306,11 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
   transition: opacity .2s ease;
 }
 
-.footer__col a:hover { opacity: 1; }
+.footer__dirs-list a:hover,
+.footer__socials a:hover { opacity: 1; }
 
-/* Телефоны и почта — тем же кеглем, что ссылки, но без приглушения:
-   это то, ради чего в подвал и заходят. */
+/* Телефоны и почта — тем же кеглем, но без приглушения: это то,
+   ради чего в подвал и заходят. */
 .footer__phone,
 .footer__mail {
   display: block;
@@ -303,6 +325,12 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
 
 .footer__phone:hover,
 .footer__mail:hover { opacity: .6; }
+
+.footer__socials {
+  display: flex;
+  gap: 20px;
+  margin-top: 16px;
+}
 
 .footer__bottom {
   background: var(--white);

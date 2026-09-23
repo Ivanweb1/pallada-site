@@ -131,6 +131,7 @@
 
   /* ---- Лента кадров: прокрутка стрелками по одному снимку ---- */
   var sliderUpdates = [];
+  var stageArrowUpdates = [];
 
   Array.prototype.forEach.call(document.querySelectorAll('.js-slider'), function (slider) {
     var track = slider.querySelector('.js-slider-track');
@@ -208,6 +209,64 @@
     update();
   });
 
+  /* ---- Стрелки для лент, свёрстанных без них ----
+     Панель-слайдер несёт свои стрелки в разметке, а обычная панель их
+     не имела: на десктопе кадры просто стояли в ряд. В адаптиве такая
+     панель сама стала лентой, поэтому пару стрелок добавляем на контейнер
+     панелей — они листают ту, что открыта. */
+  Array.prototype.forEach.call(document.querySelectorAll('.prj-stages__panels'), function (panels) {
+    var plain = panels.querySelectorAll('.prj-stages__panel:not(.prj-stages__panel--slider)');
+    if (!plain.length) return;
+
+    function arrow(dir, label, path) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'prj-stages__arrow prj-stages__arrow--' + dir + ' prj-stages__arrow--plain';
+      b.setAttribute('aria-label', label);
+      b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">' +
+        '<path d="' + path + '"/></svg>';
+      return b;
+    }
+
+    var prev = arrow('prev', 'Предыдущий кадр', 'M15 5l-7 7 7 7');
+    var next = arrow('next', 'Следующий кадр', 'M9 5l7 7-7 7');
+    panels.appendChild(prev);
+    panels.appendChild(next);
+
+    function active() {
+      var el = panels.querySelector('.prj-stages__panel.is-active');
+      /* у слайдерной панели стрелки свои — наши на ней не нужны */
+      return el && el.classList.contains('prj-stages__panel--slider') ? null : el;
+    }
+
+    function update() {
+      var el = active();
+      var scrolls = el && el.scrollWidth - el.clientWidth > 1;
+      prev.hidden = next.hidden = !scrolls;
+      if (!scrolls) return;
+      prev.disabled = el.scrollLeft <= 1;
+      next.disabled = el.scrollLeft >= el.scrollWidth - el.clientWidth - 1;
+    }
+
+    function step(dir) {
+      var el = active();
+      if (!el) return;
+      el.scrollBy({ left: dir * el.clientWidth, behavior: 'smooth' });
+    }
+
+    prev.addEventListener('click', function () { step(-1); });
+    next.addEventListener('click', function () { step(1); });
+
+    Array.prototype.forEach.call(plain, function (el) {
+      el.addEventListener('scroll', update);
+    });
+
+    window.addEventListener('resize', update);
+    panels.addEventListener('click', function (e) { if (!e.target.closest('.prj-stages__arrow')) update(); });
+    stageArrowUpdates.push(update);
+    update();
+  });
+
   /* ---- Этапы работ на странице проекта ---- */
   var stageTabs = document.querySelector('.js-stages-tabs');
   var stagePanels = document.querySelector('.js-stages-panels');
@@ -224,6 +283,7 @@
       });
       /* скрытая панель не имеет ширины — стрелки пересчитываем после показа */
       sliderUpdates.forEach(function (update) { update(); });
+      stageArrowUpdates.forEach(function (update) { update(); });
     });
   }
 
