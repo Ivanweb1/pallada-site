@@ -5,11 +5,12 @@
 # После этого адрес сайта — https://ivanweb1.github.io/pallada-site/
 name: Pages
 
+# Публикуем только main. Рабочая ветка запускала второй прогон в той же
+# группе, и прогоны отменяли друг друга.
 on:
   push:
     branches:
       - main
-      - claude/loving-keller-hdhde1
   workflow_dispatch:
 
 # Токену нужны права на публикацию Pages
