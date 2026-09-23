@@ -750,6 +750,18 @@
 }
 .pallada .sci-block__title { line-height: 1.25; width: 470px; }
 .pallada .sci-block__text { width: 543px; font-size: 16px; line-height: 1.55; }
+/* абзацы идут подряд — между ними нужен воздух */
+.pallada .sci-block__text + .sci-block__text { margin-top: 16px; }
+/* ссылки на программы и площадки под текстом блока */
+.pallada .sci-links { margin-top: 28px; width: 543px; }
+.pallada .sci-links li { font-size: 16px; line-height: 1.55; }
+.pallada .sci-links li + li { margin-top: 12px; }
+.pallada .sci-links a {
+  border-bottom: 1px solid rgba(0, 0, 0, .25);
+  transition: opacity .2s ease;
+}
+.pallada .sci-links a:hover { opacity: .6; }
+.pallada .sci-links__note { display: block; font-size: 14px; line-height: 1.4; opacity: .5; }
 .pallada .sci-block__btn {
   margin-top: 35px;
   width: 200px;

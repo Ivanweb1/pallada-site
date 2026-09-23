@@ -933,6 +933,24 @@ a.pf-item:hover .pf-item__title { color: var(--accent); }
 
 .sci-block__text { width: 543px; font-size: 16px; line-height: 1.55; }
 
+/* абзацы идут подряд — между ними нужен воздух */
+.sci-block__text + .sci-block__text { margin-top: 16px; }
+
+/* ссылки на программы и площадки под текстом блока */
+.sci-links { margin-top: 28px; width: 543px; }
+
+.sci-links li { font-size: 16px; line-height: 1.55; }
+.sci-links li + li { margin-top: 12px; }
+
+.sci-links a {
+  border-bottom: 1px solid rgba(0, 0, 0, .25);
+  transition: opacity .2s ease;
+}
+
+.sci-links a:hover { opacity: .6; }
+
+.sci-links__note { display: block; font-size: 14px; line-height: 1.4; opacity: .5; }
+
 .sci-block__btn {
   margin-top: 35px;
   width: 200px;
