@@ -579,6 +579,13 @@
 
   .sci-block:last-of-type { padding-bottom: 80px; }
 
+  /* ---- 404 ---- */
+
+  .err404 { padding: 90px 0 110px; }
+  .err404__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 24px; }
+  .err404__body { width: auto; }
+  .err404__code { font-size: 110px; }
+
   .sci-edu { padding: 72px 0 80px; }
   .sci-edu__head { grid-template-columns: minmax(0, 1fr); }
 
@@ -731,6 +738,7 @@
   .cmp-principles__grid,
   .proc-intro__grid,
   .prod-block__grid,
+  .err404__grid,
   .sci-block__grid,
   .contacts-page__grid,
   .prj-head__grid,
@@ -832,6 +840,12 @@
    ========================================================================== */
 
 @media (max-width: 599px) {
+
+  /* ---- 404: одна колонка ссылок, цифра поменьше ---- */
+
+  .err404 { padding: 56px 0 72px; }
+  .err404__code { font-size: 78px; }
+  .err404__list { columns: 1; }
 
   :root { --gutter: 16px; }
 

@@ -451,6 +451,11 @@
     padding: 12px 18px;
   }
 .pallada .sci-block:last-of-type { padding-bottom: 80px; }
+/* ---- 404 ---- */
+.pallada .err404 { padding: 90px 0 110px; }
+.pallada .err404__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 24px; }
+.pallada .err404__body { width: auto; }
+.pallada .err404__code { font-size: 110px; }
 .pallada .sci-edu { padding: 72px 0 80px; }
 .pallada .sci-edu__head { grid-template-columns: minmax(0, 1fr); }
 /* ---- Контакты ---- */
@@ -568,6 +573,7 @@
 .pallada .cmp-principles__grid,
 .pallada .proc-intro__grid,
 .pallada .prod-block__grid,
+.pallada .err404__grid,
 .pallada .sci-block__grid,
 .pallada .contacts-page__grid,
 .pallada .prj-head__grid,
@@ -648,6 +654,10 @@
    599 — телефон
    ========================================================================== */
 @media (max-width: 599px) {
+/* ---- 404: одна колонка ссылок, цифра поменьше ---- */
+.pallada .err404 { padding: 56px 0 72px; }
+.pallada .err404__code { font-size: 78px; }
+.pallada .err404__list { columns: 1; }
 .pallada { --gutter: 16px; }
 .pallada .h-section,
 .pallada .page-intro__title,

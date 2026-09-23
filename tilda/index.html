@@ -278,7 +278,10 @@
   }
 
   /* адрес страницы для Тильды: company, главная — / */
-  function address(page) { return page.slug === 'index' ? '/' : page.slug; }
+  function address(page) {
+    if (page.address) return page.address;            // 404 у Тильды — page404
+    return page.slug === 'index' ? '/' : page.slug;
+  }
 
   /* все стили сайта в одном куске — для HTML-кода в HEAD */
   function allCssFiles() {

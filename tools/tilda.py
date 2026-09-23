@@ -393,8 +393,14 @@ def main():
             'css': page_css(src),
         })
 
+    # у Тильды страница 404 живёт по служебному адресу page404
+    for page in pages:
+        if page['slug'] == '404':
+            page['address'] = 'page404'
+            page['title'] = 'Страница не найдена (404)'
+
     order = ['index.html', 'company.html', 'portfolio.html', 'science.html',
-             'news.html', 'contacts.html', 'privacy.html']
+             'news.html', 'contacts.html', 'privacy.html', '404.html']
     pages.sort(key=lambda p: (order.index(p['file']) if p['file'] in order else len(order),
                               p['file']))
 

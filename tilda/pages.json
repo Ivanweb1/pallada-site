@@ -5,7 +5,7 @@
   "hashes": {
     "header": "f49d230f45",
     "footer": "d0676de5d0",
-    "css": "9b331e0ba9",
+    "css": "320dd84f23",
     "js": "d31847c841"
   },
   "legacy_stale": [
@@ -127,6 +127,23 @@
         "pages",
         "responsive"
       ]
+    },
+    {
+      "file": "404.html",
+      "slug": "404",
+      "title": "Страница не найдена (404)",
+      "seo_title": "Страница не найдена — ГК «Паллада»",
+      "descr": "Страница не найдена. Вернитесь на главную или перейдите в нужный раздел сайта ГК «Паллада».",
+      "body_class": "inner",
+      "body_css": true,
+      "hash": "eb192dcfe6",
+      "url": "https://ivanweb1.github.io/pallada-site/404.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ],
+      "address": "page404"
     },
     {
       "file": "direction-cherepitsa.html",

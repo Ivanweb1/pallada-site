@@ -1773,3 +1773,63 @@ a.sci-timeline__text:hover { opacity: .6; }
 
 /* страница под окном не прокручивается вместе с ним */
 body.is-lightbox-open { overflow: hidden; }
+
+/* --------------------------------------------------------------------------
+   404
+   -------------------------------------------------------------------------- */
+
+.err404 { padding: 150px 0 160px; }
+
+.err404__grid {
+  display: grid;
+  grid-template-columns: 570px 1fr;
+  align-items: start;
+}
+
+/* Крупная цифра вместо картинки: набрана тем же шрифтом, что заголовки */
+.err404__code {
+  font-family: var(--font-head);
+  font-size: 150px;
+  line-height: .9;
+  color: var(--accent);
+}
+
+.err404__body { width: 543px; }
+
+.err404__title { line-height: 1.25; }
+
+.err404__text {
+  margin-top: 18px;
+  font-size: 16px;
+  line-height: 1.55;
+  opacity: .6;
+}
+
+.err404__btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.err404__list {
+  margin-top: 38px;
+  padding-top: 26px;
+  border-top: 1px solid rgba(0, 0, 0, .1);
+  columns: 2;
+  column-gap: 24px;
+}
+
+.err404__list li {
+  font-size: 15px;
+  line-height: 1.55;
+  margin-bottom: 8px;
+  break-inside: avoid;
+}
+
+.err404__list a {
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  transition: opacity .2s ease;
+}
+
+.err404__list a:hover { opacity: .6; }
