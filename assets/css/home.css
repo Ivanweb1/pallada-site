@@ -57,6 +57,12 @@
 
 .hero__shade--strong { opacity: .8; }
 
+/* светлый кадр (герб на известняке) — тексту нужен более плотный градиент */
+.hero__shade--deep {
+  opacity: 1;
+  background: linear-gradient(0turn, rgba(0, 0, 0, .95) 0%, rgba(0, 0, 0, .45) 55%, rgba(0, 0, 0, 0) 100%);
+}
+
 .hero__inner {
   position: relative;
   height: 100%;
