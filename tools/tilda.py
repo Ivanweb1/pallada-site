@@ -209,7 +209,8 @@ def body_rules(scoped, cls):
 
 def absolutize(text):
     """Пути к статике — абсолютные, иначе Тильда будет искать их у себя."""
-    text = re.sub(r'(src|href)="assets/', r'\1="' + BASE + 'assets/', text)
+    # не только src/href: у сканов лицензий полный размер лежит в data-full
+    text = re.sub(r'([a-zA-Z-]+)="assets/', r'\1="' + BASE + 'assets/', text)
     text = re.sub(r'url\((["\']?)assets/', r'url(\1' + BASE + 'assets/', text)
     text = re.sub(r'url\((["\']?)\.\./', r'url(\1' + BASE + 'assets/', text)
     return text
@@ -229,6 +230,7 @@ def scope_js(js):
     body = body.replace(
         "document.documentElement.style.setProperty('--zoom', w > 1200 ? (w / 1200) : 1);",
         "SCOPE.style.setProperty('--zoom', w > 1200 ? (w / 1200) : 1);")
+    body = body.replace('var OVERLAY_HOST = document.body;', 'var OVERLAY_HOST = SCOPE;')
     body = body.replace('document.querySelectorAll(', 'SCOPE.querySelectorAll(')
     body = body.replace('document.querySelector(', 'SCOPE.querySelector(')
     body = body.replace('document.getElementById(', 'PL_byId(')

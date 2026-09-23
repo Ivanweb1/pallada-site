@@ -721,6 +721,11 @@
   }
 
   /* ---- Просмотр кадров проекта во весь экран ---- */
+
+  /* Куда класть оверлеи. На прототипе — в body, в сборке для Тильды
+     сборщик подменяет это на контейнер блока: вне него стили лайтбокса
+     не действуют, и он открывался бы голой разметкой. */
+  var OVERLAY_HOST = document.body;
   var shots = Array.prototype.slice.call(
     document.querySelectorAll(
       '.prj-head__cover figure img, .prj-stages__panel figure img, .cmp-licenses__doc img'
@@ -753,7 +758,7 @@
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">' +
             '<path d="M6 9l6 6 6-6"/></svg>' +
         '</button>';
-      document.body.appendChild(lbox);
+      OVERLAY_HOST.appendChild(lbox);
 
       lbox.addEventListener('click', function (e) {
         if (e.target.closest('.lightbox__close') || e.target === lbox) lboxClose();
