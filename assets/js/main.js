@@ -52,7 +52,7 @@
     });
   }
 
-  /* ---- Главный слайдер: автосмена раз в 5 секунд ---- */
+  /* ---- Главный слайдер: автосмена раз в 9 секунд ---- */
   var hero = document.querySelector('.js-hero');
   if (hero) {
     var slides = hero.querySelectorAll('.hero__slide');
@@ -62,7 +62,7 @@
         slides[current].classList.remove('is-active');
         current = (current + 1) % slides.length;
         slides[current].classList.add('is-active');
-      }, 5000);
+      }, 9000);
     }
   }
 

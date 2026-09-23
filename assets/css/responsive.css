@@ -539,6 +539,10 @@
   /* ---- Контакты ---- */
 
   .contacts-page { padding: 64px 0 80px; }
+  /* в ленте заголовки карточек переносятся — резервируем вторую строку,
+     чтобы подписи стояли на одной линии, как на широком экране */
+  .directions__tile .tile__title { min-height: 2.5em; }
+
   .contacts-page__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 24px; }
   .contacts-page__phones { flex-wrap: wrap; gap: 8px 24px; }
   .contacts-page__socials { margin-top: 48px; flex-wrap: wrap; }
