@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Пульт переноса на Тильду — ГК «Паллада»</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap&subset=latin,cyrillic" rel="stylesheet">
+<style>
+  :root {
+    --ink: #101010;
+    --muted: #6d6a66;
+    --accent: #8e2123;
+    --line: #e2ded8;
+    --bg: #f6f4f1;
+    --card: #ffffff;
+  }
+  * , *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Manrope', Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 32px 20px 80px; }
+
+  h1 { font-size: 28px; line-height: 1.2; margin: 0 0 8px; font-weight: 700; }
+  .lead { color: var(--muted); margin: 0 0 24px; max-width: 70ch; font-size: 15px; }
+
+  .panel {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 18px 20px; margin-bottom: 20px;
+  }
+  .panel h2 { font-size: 15px; margin: 0 0 12px; font-weight: 700; letter-spacing: .02em; text-transform: uppercase; color: var(--muted); }
+
+  .opts { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; }
+  .opt { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; }
+  .opt input { width: 16px; height: 16px; accent-color: var(--accent); }
+  .field { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; }
+  .field input[type=text] {
+    font: inherit; font-size: 13px; padding: 6px 10px; border: 1px solid var(--line);
+    border-radius: 8px; background: #fff; width: 190px;
+  }
+  .hint { color: var(--muted); font-size: 13px; margin: 10px 0 0; }
+
+  .row {
+    display: grid; grid-template-columns: 1fr auto; gap: 10px 16px; align-items: center;
+    padding: 12px 0; border-top: 1px solid var(--line);
+  }
+  .row:first-of-type { border-top: 0; }
+  .row__name { font-size: 15px; font-weight: 600; }
+  .row__meta { color: var(--muted); font-size: 13px; margin-top: 2px; word-break: break-all; }
+  .row__btns { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+
+  button.b {
+    font: inherit; font-size: 13px; font-weight: 600; padding: 7px 12px; cursor: pointer;
+    border: 1px solid var(--line); background: #fff; border-radius: 8px; color: var(--ink);
+    transition: background .15s, border-color .15s, color .15s;
+    white-space: nowrap;
+  }
+  button.b:hover { border-color: #c9c3bb; background: #faf8f6; }
+  button.b--main { background: var(--accent); border-color: var(--accent); color: #fff; }
+  button.b--main:hover { background: #7a1c1e; border-color: #7a1c1e; color: #fff; }
+  button.b.is-done { background: #14803c; border-color: #14803c; color: #fff; }
+  button.b--ghost { color: var(--muted); font-weight: 500; }
+
+  .row--head { background: #fbf9f7; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .04em;
+           text-transform: uppercase; color: var(--muted); border: 1px solid var(--line);
+           border-radius: 999px; padding: 2px 8px; margin-left: 8px; vertical-align: 2px; }
+  .err { color: var(--accent); font-size: 14px; }
+
+  ol.steps { margin: 0; padding-left: 20px; font-size: 14px; color: var(--muted); }
+  ol.steps li { margin-bottom: 6px; }
+  ol.steps b { color: var(--ink); font-weight: 600; }
+
+  @media (max-width: 720px) {
+    .row { grid-template-columns: 1fr; }
+    .row__btns { justify-content: flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Пульт переноса на Тильду</h1>
+  <p class="lead">Для каждой страницы прототипа здесь собирается готовый код вайб-блока:
+    разметка страницы, стили под неё и скрипт. Всё свёрнуто в один контейнер
+    <code>.pallada</code>, поэтому код не задевает остальную страницу Тильды.
+    Картинки остаются на GitHub Pages и подключаются по абсолютным адресам.</p>
+
+  <div class="panel">
+    <h2>Как переносить</h2>
+    <ol class="steps">
+      <li>В Тильде создайте страницу и добавьте <b>вайб-блок</b> (или T123 «HTML-код») во всю ширину.</li>
+      <li>Нажмите здесь <b>«Код блока»</b> у нужной страницы и вставьте код в блок.
+        Рядом кнопки для настроек страницы в Тильде: <b>Название</b>, <b>Title</b>, <b>Описание</b>, <b>URL</b> прототипа.</li>
+      <li>Если ставите галочку <b>«CSS отдельно»</b> — код стилей копируется один раз
+        и вставляется в <b>Настройки сайта → Дополнительно → HTML-код в HEAD</b>,
+        тогда блоки страниц получаются в разы легче.</li>
+      <li>Шапку и подвал удобно вынести отдельными блоками и переиспользовать на всех страницах —
+        снимите обе галочки и скопируйте их коды ниже.</li>
+    </ol>
+  </div>
+
+  <div class="panel">
+    <h2>Настройки кода</h2>
+    <div class="opts">
+      <label class="opt"><input type="checkbox" id="o-header" checked> шапка в коде страницы</label>
+      <label class="opt"><input type="checkbox" id="o-footer" checked> подвал в коде страницы</label>
+      <label class="opt"><input type="checkbox" id="o-css" checked> CSS внутри блока</label>
+      <label class="opt"><input type="checkbox" id="o-js" checked> скрипт внутри блока</label>
+      <label class="field">ссылки внутри сайта:
+        <input type="text" id="o-prefix" placeholder="напр. /" value="">
+      </label>
+    </div>
+    <p class="hint">Пустое поле — ссылки остаются как в прототипе (<code>company.html</code>).
+      Введите префикс адресов Тильды — например <code>/</code>, и ссылки станут <code>/company</code>,
+      главная — <code>/</code>.</p>
+  </div>
+
+  <div class="panel" id="common">
+    <h2>Общие куски</h2>
+    <div id="common-rows"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Страницы</h2>
+    <div id="rows"><p class="err" id="status">Загружаю…</p></div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var CACHE = {};
+  var DATA = null;
+
+  function get(path) {
+    if (!CACHE[path]) {
+      CACHE[path] = fetch(path).then(function (r) {
+        if (!r.ok) throw new Error(path + ' — ' + r.status);
+        return r.text();
+      });
+    }
+    return CACHE[path];
+  }
+
+  function opt(name) { return document.getElementById('o-' + name).checked; }
+  function prefix() { return document.getElementById('o-prefix').value.trim(); }
+
+  /* ссылки прототипа (company.html) → адреса страниц на Тильде */
+  function relink(html) {
+    var p = prefix();
+    if (!p) return html;
+    return html.replace(/href="([a-z0-9-]+)\.html(\?[^"#]*)?(#[^"]*)?"/g,
+      function (m, file, query, hash) {
+        var known = DATA.pages.some(function (pg) { return pg.file === file + '.html'; });
+        if (!known && file !== 'index') return m;
+        var path = file === 'index' ? p : p.replace(/\/$/, '') + '/' + file;
+        return 'href="' + path + (query || '') + (hash || '') + '"';
+      });
+  }
+
+  function cssFiles(page) {
+    return (page.css || []).map(function (n) { return 'parts/css/' + n + '.css'; });
+  }
+
+  /* собирает код одного блока */
+  function build(page) {
+    if (page.file === '__css__') {
+      return Promise.all(page.all.map(get)).then(function (list) {
+        return '<style>\n' + list.join('\n') + '\n</style>\n';
+      });
+    }
+
+    var styles = opt('css') ? cssFiles(page) : [];
+    var seq = [];
+    if (opt('header') && !page.solo) seq.push('parts/header.html');
+    seq.push('parts/' + (page.part || page.file));
+    if (opt('footer') && !page.solo) seq.push('parts/footer.html');
+
+    return Promise.all([
+      Promise.all(styles.map(get)),
+      Promise.all(seq.map(get)),
+      opt('js') ? get('parts/main.js') : Promise.resolve(null)
+    ]).then(function (res) {
+      var out = ['<!-- ГК «Паллада» — ' + page.title + ' -->'];
+      if (res[0].length) out.push('<style>\n' + res[0].join('\n') + '\n</style>');
+
+      var body = ['<div class="pallada">'];
+      body.push(res[1].map(relink).join('\n\n'));
+      if (res[2]) body.push('<script>\n' + res[2] + '\n<\/script>');
+      body.push('</div>');
+      out.push(body.join('\n'));
+      return out.join('\n\n') + '\n';
+    });
+  }
+
+  function copy(text, btn, label) {
+    function done() {
+      var was = btn.textContent;
+      btn.textContent = 'Скопировано';
+      btn.classList.add('is-done');
+      setTimeout(function () { btn.textContent = was; btn.classList.remove('is-done'); }, 1400);
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done, function () { fallback(text, done); });
+    } else {
+      fallback(text, done);
+    }
+  }
+
+  /* без https копирование через API недоступно — кладём через временное поле */
+  function fallback(text, done) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;top:-1000px;left:-1000px';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) { alert('Скопируйте вручную:\n\n' + text); }
+    document.body.removeChild(ta);
+  }
+
+  function preview(page) {
+    /* окно открываем сразу по клику, иначе браузер посчитает его всплывающим
+       и заблокирует; готовый код подкладываем в него отдельным файлом */
+    var w = window.open('', '_blank');
+    build(page).then(function (code) {
+      if (!w) { alert('Браузер заблокировал окно предпросмотра — разрешите всплывающие окна.'); return; }
+      var doc = '<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8">' +
+        '<meta name="viewport" content="width=device-width, initial-scale=1">' +
+        '<title>Проверка блока — ' + page.title + '</title>' +
+        '<style>body{margin:0}</style></head><body>\n' + code + '\n</body></html>';
+      w.location.href = URL.createObjectURL(new Blob([doc], { type: 'text/html' }));
+    }, function (e) {
+      if (w) w.close();
+      alert('Не собрался код: ' + e.message);
+    });
+  }
+
+  function btn(label, cls, fn) {
+    var b = document.createElement('button');
+    b.className = 'b' + (cls ? ' ' + cls : '');
+    b.type = 'button';
+    b.textContent = label;
+    b.addEventListener('click', function () { fn(b); });
+    return b;
+  }
+
+  function row(page, opts) {
+    opts = opts || {};
+    var el = document.createElement('div');
+    el.className = 'row' + (opts.head ? ' row--head' : '');
+
+    var left = document.createElement('div');
+    var name = document.createElement('div');
+    name.className = 'row__name';
+    name.textContent = page.title;
+    if (opts.badge) {
+      var b = document.createElement('span');
+      b.className = 'badge';
+      b.textContent = opts.badge;
+      name.appendChild(b);
+    }
+    var meta = document.createElement('div');
+    meta.className = 'row__meta';
+    meta.textContent = opts.meta || page.url;
+    if (!opts.codeOnly && page.seo_title) meta.title = page.seo_title;
+    left.appendChild(name);
+    left.appendChild(meta);
+
+    var btns = document.createElement('div');
+    btns.className = 'row__btns';
+
+    if (!opts.codeOnly) {
+      btns.appendChild(btn('Название', '', function (b) { copy(page.title, b); }));
+      btns.appendChild(btn('Title', 'b--ghost', function (b) { copy(page.seo_title, b); }));
+      if (page.descr) {
+        btns.appendChild(btn('Описание', 'b--ghost', function (b) { copy(page.descr, b); }));
+      }
+      btns.appendChild(btn('URL', 'b--ghost', function (b) { copy(page.url, b); }));
+    }
+    btns.appendChild(btn('Код блока', 'b--main', function (b) {
+      build(page).then(function (code) { copy(code, b); },
+                       function (e) { alert('Не собрался код: ' + e.message); });
+    }));
+    if (!opts.noPreview) {
+      btns.appendChild(btn('Проверить', '', function () { preview(page); }));
+    }
+
+    el.appendChild(left);
+    el.appendChild(btns);
+    return el;
+  }
+
+  fetch('pages.json').then(function (r) { return r.json(); }).then(function (data) {
+    DATA = data;
+    var rows = document.getElementById('rows');
+    rows.innerHTML = '';
+    data.pages.forEach(function (p) { rows.appendChild(row(p)); });
+
+    var common = document.getElementById('common-rows');
+
+    // порядок важен: сначала база и переменные, адаптив — последним
+    var used = {};
+    data.pages.forEach(function (p) {
+      (p.css || []).forEach(function (n) { used[n] = true; });
+    });
+    var allCss = ['style', 'pages', 'home', 'responsive']
+      .filter(function (n) { return used[n]; })
+      .map(function (n) { return 'parts/css/' + n + '.css'; });
+
+    common.appendChild(row(
+      { file: '__css__', title: 'Общий CSS (в HEAD сайта)', all: allCss, url: '' },
+      { head: true, codeOnly: true, noPreview: true,
+        meta: 'вставить один раз в Настройки сайта → Дополнительно → HTML-код в HEAD; тогда снимите галочку «CSS внутри блока»' }));
+
+    common.appendChild(row(
+      { file: 'header.html', part: 'header.html', solo: true, css: ['style', 'responsive'],
+        title: 'Шапка (отдельный блок)', url: '' },
+      { head: true, codeOnly: true,
+        meta: 'если шапка выносится в отдельный блок на всех страницах' }));
+
+    common.appendChild(row(
+      { file: 'footer.html', part: 'footer.html', solo: true, css: ['style', 'pages', 'responsive'],
+        title: 'Подвал (отдельный блок)', url: '' },
+      { head: true, codeOnly: true,
+        meta: 'подвал + плашка про cookie' }));
+  }).catch(function (e) {
+    document.getElementById('status').textContent =
+      'Не удалось загрузить данные (' + e.message + '). Пульт работает по адресу ' +
+      'ivanweb1.github.io/pallada-site/tilda/ — локально, файлом, браузер запрещает чтение частей.';
+  });
+})();
+</script>
+</body>
+</html>

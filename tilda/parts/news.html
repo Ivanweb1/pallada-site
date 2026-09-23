@@ -1,0 +1,89 @@
+<main>
+
+  <section class="news-head">
+    <div class="container">
+      <h1 class="h-section">Новости</h1>
+    </div>
+  </section>
+
+  <!-- ЛЕНТА НОВОСТЕЙ (в оригинале — лента Tilda с демо-записями) -->
+  <section class="news-feed">
+    <div class="container news-feed__grid">
+
+      <a class="news-card" href="news-prorestavraciyu.html">
+        <div class="news-card__media">
+          <img src="https://ivanweb1.github.io/pallada-site/assets/img/news/paradnaya.jpg" alt="Керамика «Паллады» на выставке «ПРОреставрацию»">
+        </div>
+        <h2 class="news-card__title">Петербургская парадная едет в Москву</h2>
+      </a>
+
+      <a class="news-card" href="news-dom-severova.html">
+        <div class="news-card__media">
+          <img src="https://ivanweb1.github.io/pallada-site/assets/img/news/severov.jpg" alt="Отреставрированная изразцовая печь Дома Северова">
+        </div>
+        <h2 class="news-card__title">Завершена реставрация исторических печей Дома Северова</h2>
+      </a>
+
+      <a class="news-card" href="news-vichuga-panno.html">
+        <div class="news-card__media">
+          <img src="https://ivanweb1.github.io/pallada-site/assets/img/projects/vichuga/vichuga-04.jpg" alt="Воссозданное майоликовое панно на западном портале храма">
+        </div>
+        <h2 class="news-card__title">В Вичуге смонтировано воссозданное майоликовое панно</h2>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ПУБЛИКАЦИИ В СМИ -->
+  <section class="media-pubs">
+    <div class="container">
+      <div class="media-pubs__head">
+        <div class="arrows">
+          <button class="arrow arrow--prev js-media-prev" type="button" aria-label="Назад">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <button class="arrow arrow--next js-media-next" type="button" aria-label="Вперёд">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+        </div>
+        <h2 class="h-section">Публикации в СМИ</h2>
+      </div>
+
+      <div class="media-pubs__viewport carousel">
+        <div class="media-pubs__grid js-media-track">
+          <article class="media-card">
+            <div class="media-card__brand" aria-hidden="true">Sobaka.ru</div>
+            <div class="media-card__source">2024</div>
+            <h3 class="media-card__title">Как Константин Лихолат основал реставрационную компанию «Паллада» и первый в России музей архитектурной керамики «Керамарх»</h3>
+            <a class="media-card__link" href="https://www.sobaka.ru/city/restorations/185276" target="_blank" rel="noopener">Читать в источнике</a>
+          </article>
+
+          <article class="media-card">
+            <div class="media-card__brand" aria-hidden="true">«Деловой Петербург»</div>
+            <div class="media-card__source">2020</div>
+            <h3 class="media-card__title">Керамика для Минобороны</h3>
+            <a class="media-card__link" href="https://www.dp.ru/api/v1.0/Issues/pdf/2020/06/19/76_5333_0eed8658-6a64-408c-bb7a-43d830edaf46.pdf" target="_blank" rel="noopener">Читать в источнике</a>
+          </article>
+
+          <article class="media-card">
+            <div class="media-card__brand" aria-hidden="true">Archi.ru / «Вестник. Зодчий. 21 век»</div>
+            <div class="media-card__source">2017</div>
+            <h3 class="media-card__title">Керамическая облицовка в интерьерах Летнего дворца Петра I</h3>
+            <a class="media-card__link" href="https://archi.ru/press/russia/75358/keramicheskaya-oblicovka-v-intererakh-letnego-dvorca-petra-i" target="_blank" rel="noopener">Читать в источнике</a>
+          </article>
+
+          <article class="media-card">
+            <div class="media-card__brand" aria-hidden="true">«Петербургский дневник»</div>
+            <div class="media-card__source">2026</div>
+            <h3 class="media-card__title">Андрей Роденков: Мне довелось выполнять очень интересные задачи</h3>
+            <a class="media-card__link" href="https://spbdnevnik.ru/news/2026-04-01/andrey-rodenkov-mne-dovelos-vypolnyat-ochen-interesnye-zadachi" target="_blank" rel="noopener">Читать в источнике</a>
+          </article>
+        </div>
+      </div>
+
+      <!-- точки видны только там, где лента листается пальцем -->
+      <div class="dots js-media-dots"></div>
+    </div>
+  </section>
+
+</main>

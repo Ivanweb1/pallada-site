@@ -1,0 +1,37 @@
+<header class="header">
+  <div class="container header__inner">
+    <!-- соцсети слева: видны только в адаптиве, уравновешивают бургер справа -->
+    <div class="header__socials">
+      <a class="header__social" href="https://t.me/palladacompany" target="_blank" rel="noopener" aria-label="Telegram">
+        <img src="https://ivanweb1.github.io/pallada-site/assets/img/3963303_free-icon-telegram-4.png" alt="" width="20" height="20">
+      </a>
+      <a class="header__social" href="https://vk.com/palladaafina" target="_blank" rel="noopener" aria-label="ВКонтакте">
+        <img src="https://ivanweb1.github.io/pallada-site/assets/img/3430623_free-icon-vk-2111765.png" alt="" width="20" height="20">
+      </a>
+    </div>
+    <button class="header__burger js-burger" type="button"
+            aria-label="Меню" aria-expanded="false" aria-controls="site-menu">
+      <span class="header__burger-line"></span>
+      <span class="header__burger-line"></span>
+      <span class="header__burger-line"></span>
+    </button>
+    <a class="header__logo" href="index.html">
+      <img src="https://ivanweb1.github.io/pallada-site/assets/img/6364336_0015_2.png" alt="Паллада" width="80" height="80">
+    </a>
+    <!-- обёртка нужна адаптиву: ниже 1200 она становится панелью меню.
+         На десктопе это обычный статичный блок, координаты пунктов не меняет. -->
+    <div class="header__menu" id="site-menu">
+      <nav class="header__nav header__nav--left">
+        <a href="company.html">О компании</a>
+        <a href="index.html#napravleniya">Направления</a>
+        <a href="portfolio.html">Портфолио</a>
+      </nav>
+      <nav class="header__nav header__nav--right">
+        <a href="science.html">Научная деятельность</a>
+        <a href="news.html">Новости</a>
+        <a href="contacts.html">Контакты</a>
+        <a class="header__phone" href="tel:88123634961">8 (812) 363-49-61</a>
+      </nav>
+    </div>
+  </div>
+</header>

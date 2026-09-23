@@ -1,0 +1,344 @@
+{
+  "base": "https://ivanweb1.github.io/pallada-site/",
+  "scope": ".pallada",
+  "pages": [
+    {
+      "file": "index.html",
+      "slug": "index",
+      "title": "Главная",
+      "seo_title": "Группа компаний «Паллада»",
+      "descr": "Архитектурная керамика полного цикла: научная реставрация наследия, производство фасадной, церковной и интерьерной керамики, изразцовые печи и камины.",
+      "url": "https://ivanweb1.github.io/pallada-site/",
+      "css": [
+        "style",
+        "home",
+        "responsive"
+      ]
+    },
+    {
+      "file": "company.html",
+      "slug": "company",
+      "title": "О компании",
+      "seo_title": "О компании — ГК «Паллада»",
+      "descr": "История, структура, научная деятельность, команда и лицензии группы компаний «Паллада».",
+      "url": "https://ivanweb1.github.io/pallada-site/company.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    },
+    {
+      "file": "portfolio.html",
+      "slug": "portfolio",
+      "title": "Портфолио",
+      "seo_title": "Портфолио — ГК «Паллада»",
+      "descr": "Проекты ГК «Паллада»: реставрация, метлахская плитка, черепица, фасадные материалы, печи и камины, панно, церковная керамика.",
+      "url": "https://ivanweb1.github.io/pallada-site/portfolio.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    },
+    {
+      "file": "science.html",
+      "slug": "science",
+      "title": "Научная деятельность",
+      "seo_title": "Научная деятельность — ГК «Паллада»",
+      "descr": "Музей «Керамарх», научно-исследовательская и издательская деятельность, сотрудничество с галереей «573», образование.",
+      "url": "https://ivanweb1.github.io/pallada-site/science.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    },
+    {
+      "file": "news.html",
+      "slug": "news",
+      "title": "Новости",
+      "seo_title": "Новости — ГК «Паллада»",
+      "descr": "Новости группы компаний «Паллада» и публикации в СМИ.",
+      "url": "https://ivanweb1.github.io/pallada-site/news.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    },
+    {
+      "file": "contacts.html",
+      "slug": "contacts",
+      "title": "Контакты",
+      "seo_title": "Контакты — ГК «Паллада»",
+      "descr": "Телефон, адрес и форма связи с группой компаний «Паллада».",
+      "url": "https://ivanweb1.github.io/pallada-site/contacts.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    },
+    {
+      "file": "privacy.html",
+      "slug": "privacy",
+      "title": "Политика конфиденциальности",
+      "seo_title": "Политика конфиденциальности — ГК «Паллада»",
+      "descr": "Политика обработки персональных данных ГК «Паллада».",
+      "url": "https://ivanweb1.github.io/pallada-site/privacy.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    },
+    {
+      "file": "direction-cherepitsa.html",
+      "slug": "direction-cherepitsa",
+      "title": "Керамическая черепица",
+      "seo_title": "Керамическая черепица — ГК «Паллада»",
+      "descr": "Производство керамической черепицы для реставрационных и новых архитектурных проектов: форма по историческому образцу или авторской концепции, ангоб и глазурь, лабораторные испытания до запуска партии.",
+      "url": "https://ivanweb1.github.io/pallada-site/direction-cherepitsa.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    },
+    {
+      "file": "direction-fasadnye-materialy.html",
+      "slug": "direction-fasadnye-materialy",
+      "title": "Фасадные отделочные материалы",
+      "seo_title": "Фасадные отделочные материалы — ГК «Паллада»",
+      "descr": "Архитектурная керамика для фасадов: майоликовый и рельефный декор, кирпич-кабанчик, экструдированные блоки и панели для навесных вентилируемых систем. Проектирование, производство и узлы крепления.",
+      "url": "https://ivanweb1.github.io/pallada-site/direction-fasadnye-materialy.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    },
+    {
+      "file": "direction-metlahskaya-plitka.html",
+      "slug": "direction-metlahskaya-plitka",
+      "title": "Метлахская плитка",
+      "seo_title": "Метлахская плитка — ГК «Паллада»",
+      "descr": "Реставрация исторических напольных покрытий и производство метлахской плитки по сохранившимся образцам: сухое прессование, глубоко окрашенный лицевой слой, собственная оснастка.",
+      "url": "https://ivanweb1.github.io/pallada-site/direction-metlahskaya-plitka.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    },
+    {
+      "file": "direction-pechi-i-kaminy.html",
+      "slug": "direction-pechi-i-kaminy",
+      "title": "Печи и камины",
+      "seo_title": "Печи и камины — ГК «Паллада»",
+      "descr": "Реставрация исторических изразцовых печей и каминов, воссоздание утраченных облицовок и новые модели по индивидуальным проектам: керамика, конструкция, металлические детали и монтаж.",
+      "url": "https://ivanweb1.github.io/pallada-site/direction-pechi-i-kaminy.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    },
+    {
+      "file": "direction-restavratsiya.html",
+      "slug": "direction-restavratsiya",
+      "title": "Реставрация архитектурной керамики",
+      "seo_title": "Реставрация архитектурной керамики — ГК «Паллада»",
+      "descr": "Реставрация фасадной, интерьерной и печной керамики на объектах культурного наследия: обследование подлинника, расчистка и укрепление, воссоздание утрат, монтаж и авторский надзор.",
+      "url": "https://ivanweb1.github.io/pallada-site/direction-restavratsiya.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    },
+    {
+      "file": "direction-tserkovnaya-keramika.html",
+      "slug": "direction-tserkovnaya-keramika",
+      "title": "Церковная керамика",
+      "seo_title": "Церковная керамика — ГК «Паллада»",
+      "descr": "Православные мастерские «Финист» в составе ГК «Паллада»: иконостасы, киоты, иконы, престолы, аналои и купели — по историческим образцам и по авторским проектам, от эскиза до монтажа.",
+      "url": "https://ivanweb1.github.io/pallada-site/direction-tserkovnaya-keramika.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    },
+    {
+      "file": "news-dom-severova.html",
+      "slug": "news-dom-severova",
+      "title": "Завершена реставрация исторических печей Дома Северова",
+      "seo_title": "Завершена реставрация исторических печей Дома Северова — ГК «Паллада»",
+      "descr": "«Паллада» завершила работу с историческими печами в Доме Завальевского — Северова на набережной Фонтанки.",
+      "url": "https://ivanweb1.github.io/pallada-site/news-dom-severova.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    },
+    {
+      "file": "news-prorestavraciyu.html",
+      "slug": "news-prorestavraciyu",
+      "title": "Петербургская парадная едет в Москву",
+      "seo_title": "Петербургская парадная едет в Москву — ГК «Паллада»",
+      "descr": "«Паллада» участвует в V выставке «ПРОреставрацию» — 24–27 сентября 2026 года, Москва.",
+      "url": "https://ivanweb1.github.io/pallada-site/news-prorestavraciyu.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    },
+    {
+      "file": "news-vichuga-panno.html",
+      "slug": "news-vichuga-panno",
+      "title": "В Вичуге смонтировано воссозданное майоликовое панно",
+      "seo_title": "В Вичуге смонтировано воссозданное майоликовое панно — ГК «Паллада»",
+      "descr": "На западный портал Воскресенского храма в Вичуге установлено воссозданное майоликовое панно.",
+      "url": "https://ivanweb1.github.io/pallada-site/news-vichuga-panno.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    },
+    {
+      "file": "project-biblioteka-iem.html",
+      "slug": "project-biblioteka-iem",
+      "title": "Майоликовый портал и фасадный декор Библиотеки ИЭМ",
+      "seo_title": "Майоликовый портал и фасадный декор Библиотеки ИЭМ — ГК «Паллада»",
+      "descr": "Реставрация майоликового портала и воссоздание геральдической композиции на фасаде Библиотеки Института экспериментальной медицины, 2009–2013.",
+      "url": "https://ivanweb1.github.io/pallada-site/project-biblioteka-iem.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    },
+    {
+      "file": "project-dlt.html",
+      "slug": "project-dlt",
+      "title": "Керамический декор и герб Дома Ленинградской торговли",
+      "seo_title": "Керамический декор и герб Дома Ленинградской торговли — ГК «Паллада»",
+      "descr": "Реставрация керамического декора фасадов ДЛТ и воссоздание утраченной гербовой композиции, 2006–2010.",
+      "url": "https://ivanweb1.github.io/pallada-site/project-dlt.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    },
+    {
+      "file": "project-dom-severova.html",
+      "slug": "project-dom-severova",
+      "title": "Исторические печи Дома Северова на Фонтанке",
+      "seo_title": "Исторические печи Дома Северова на Фонтанке — ГК «Паллада»",
+      "descr": "Реставрация исторических печей и воссоздание утраченных керамических элементов в Доме Завальевского — Северова на Фонтанке, 2026.",
+      "url": "https://ivanweb1.github.io/pallada-site/project-dom-severova.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    },
+    {
+      "file": "project-hanskiy-dvorets.html",
+      "slug": "project-hanskiy-dvorets",
+      "title": "Керамическая черепица для Ханского дворца в Бахчисарае",
+      "seo_title": "Керамическая черепица для Ханского дворца в Бахчисарае — ГК «Паллада»",
+      "descr": "Изготовление керамической черепицы по историческим образцам для Ханского дворца в Бахчисарае, 2021–2022.",
+      "url": "https://ivanweb1.github.io/pallada-site/project-hanskiy-dvorets.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    },
+    {
+      "file": "project-ikonostas-matrony.html",
+      "slug": "project-ikonostas-matrony",
+      "title": "Керамический иконостас и престол храма блаженной Матроны Московской",
+      "seo_title": "Керамический иконостас и престол храма блаженной Матроны Московской — ГК «Паллада»",
+      "descr": "Изготовление и монтаж керамического иконостаса и престола для верхнего храма блаженной Матроны Московской, 2018.",
+      "url": "https://ivanweb1.github.io/pallada-site/project-ikonostas-matrony.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    },
+    {
+      "file": "project-kaminnyy-ekran.html",
+      "slug": "project-kaminnyy-ekran",
+      "title": "Каминный экран Большого Петергофского дворца",
+      "seo_title": "Каминный экран Большого Петергофского дворца — ГК «Паллада»",
+      "descr": "Воссоздание фарфорового каминного экрана из Кабинета императрицы Александры Фёдоровны, 2018–2019.",
+      "url": "https://ivanweb1.github.io/pallada-site/project-kaminnyy-ekran.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    },
+    {
+      "file": "project-kitayskaya-kuhnya.html",
+      "slug": "project-kitayskaya-kuhnya",
+      "title": "Кухонные печные комплексы павильона «Китайская кухня»",
+      "seo_title": "Кухонные печные комплексы павильона «Китайская кухня» — ГК «Паллада»",
+      "descr": "Изготовление двух комплексов кухонных печей для павильона «Китайская кухня» в Ораниенбауме, 2022–2025.",
+      "url": "https://ivanweb1.github.io/pallada-site/project-kitayskaya-kuhnya.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    },
+    {
+      "file": "project-mechet.html",
+      "slug": "project-mechet",
+      "title": "Керамическая облицовка минаретов Соборной мечети",
+      "seo_title": "Керамическая облицовка минаретов Соборной мечети — ГК «Паллада»",
+      "descr": "Реставрация и воссоздание керамической облицовки куполов и минаретов Санкт-Петербургской Соборной мечети, 2014–2015.",
+      "url": "https://ivanweb1.github.io/pallada-site/project-mechet.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    },
+    {
+      "file": "project-metlahskaya-plitka.html",
+      "slug": "project-metlahskaya-plitka",
+      "title": "Изготовление метлахской плитки по историческим образцам",
+      "seo_title": "Изготовление метлахской плитки по историческим образцам — ГК «Паллада»",
+      "descr": "Изготовление метлахской плитки по историческим образцам для двух зданий, 2024–2025.",
+      "url": "https://ivanweb1.github.io/pallada-site/project-metlahskaya-plitka.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    },
+    {
+      "file": "project-vichuga.html",
+      "slug": "project-vichuga",
+      "title": "Майоликовое панно Воскресенского храма в Вичуге",
+      "seo_title": "Майоликовое панно Воскресенского храма в Вичуге — ГК «Паллада»",
+      "descr": "Реставрация и воссоздание майоликового панно на западном портале Воскресенского храма в Вичуге, 2021–2024.",
+      "url": "https://ivanweb1.github.io/pallada-site/project-vichuga.html",
+      "css": [
+        "style",
+        "pages",
+        "responsive"
+      ]
+    }
+  ]
+}
