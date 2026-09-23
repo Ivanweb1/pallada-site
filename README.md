@@ -10,8 +10,8 @@
 ```
 index.html                  главная
 company.html                о компании
-proizvodstvokeramiki.html   производство керамики
-process.html                процессы
+proizvodstvokeramiki.html   производство керамики (скрыта: ссылок в меню и подвале нет)
+process.html                процессы (скрыта: ссылок в меню и подвале нет)
 science.html                научная деятельность
 portfolio.html              портфолио
 news.html                   новости
