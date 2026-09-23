@@ -542,7 +542,7 @@
 
   .contacts-page { padding: 64px 0 80px; }
   .contacts-page__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 24px; }
-  .contacts-page__phone { font-size: 34px; }
+  .contacts-page__phones { flex-wrap: wrap; gap: 8px 24px; }
   .contacts-page__socials { margin-top: 48px; flex-wrap: wrap; }
   .contacts-page__form-wrap { padding: 26px 24px 30px; }
 
@@ -961,9 +961,7 @@
   .prj-text__lead,
   .prj-text__body .prj-text__lead { font-size: 18px; }
 
-  .contacts-page__phone { font-size: 26px; }
-  .contacts-page__phone-second { font-size: 17px; }
-  .contacts-page__row { margin-top: 26px; }
+  .contacts-page__row { margin-bottom: 16px; }
   .contacts-page__socials { margin-top: 32px; }
   .contacts-page__form-wrap { padding: 22px 16px 26px; }
 
@@ -1062,8 +1060,6 @@
 
   .numbers__grid { grid-template-columns: minmax(0, 1fr); gap: 20px; }
   .numbers__value { font-size: 34px; }
-
-  .contacts-page__phone { font-size: 23px; }
 
   .directions__tile { width: 84vw; height: 290px; }
   .pf-card { width: 86vw; }

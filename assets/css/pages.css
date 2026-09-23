@@ -334,7 +334,10 @@
   opacity: .6;
 }
 
+/* Скан A4 в окне 265x370 нечитаем, поэтому карточка открывается
+   в общем лайтбоксе (main.js), где показывается версия на 1600px. */
 .cmp-licenses__doc {
+  position: relative;
   margin: 0;
   width: 265px;
   height: 370px;
@@ -342,8 +345,40 @@
   overflow: hidden;
 }
 
-.cmp-licenses__doc img { width: 100%; height: 100%; object-fit: cover; }
+/* подпись не показываем в карточке — её забирает лайтбокс */
+.cmp-licenses__doc figcaption { display: none; }
 
+.cmp-licenses__doc img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .35s ease;
+}
+
+.cmp-licenses__doc:hover img,
+.cmp-licenses__doc:focus-visible img { transform: scale(1.03); }
+
+.cmp-licenses__zoom {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid rgba(0, 0, 0, .15);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .25s ease, transform .25s ease;
+}
+
+.cmp-licenses__zoom svg { width: 18px; height: 18px; }
+
+.cmp-licenses__doc:hover .cmp-licenses__zoom,
+.cmp-licenses__doc:focus-visible .cmp-licenses__zoom { opacity: 1; transform: none; }
 /* --------------------------------------------------------------------------
    Портфолио
    -------------------------------------------------------------------------- */
@@ -911,33 +946,16 @@ a.sci-timeline__text:hover { opacity: .6; }
   opacity: .6;
 }
 
-.contacts-page__phone {
-  display: inline-block;
-  margin-top: 6px;
-  font-size: 40px;
-  font-weight: 500;
-  line-height: 1.55;
-}
+/* Блок повторяет контакты на главной: тот же кегль и те же интервалы.
+   Крупный номер на 40px растягивал колонку — форма на акцентном фоне
+   тянулась следом и внизу оставалось пустое красное поле. */
+.contacts-page__row { margin-bottom: 20px; }
+.contacts-page__row:first-child { margin-bottom: 15px; }
 
-/* второй номер — под основным, тише по кеглю: рядом два по 40px
-   в колонку 570 не помещаются */
-.contacts-page__phone-second {
-  display: inline-block;
-  margin-top: 4px;
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 1.55;
-  opacity: .6;
-  transition: opacity .2s ease;
-}
-
-.contacts-page__phone-second:hover { opacity: 1; }
-
-.contacts-page__row { margin-top: 36px; }
+.contacts-page__phones { display: flex; gap: 32px; }
 
 .contacts-page__value {
   display: inline-block;
-  margin-top: 4px;
   font-size: 16px;
   font-weight: 500;
   line-height: 1.55;
@@ -945,6 +963,7 @@ a.sci-timeline__text:hover { opacity: .6; }
 }
 
 .contacts-page__value:hover { opacity: .6; }
+.contacts-page__value--soft { opacity: .8; }
 
 .contacts-page__socials {
   display: flex;
@@ -964,7 +983,7 @@ a.sci-timeline__text:hover { opacity: .6; }
   background: var(--accent);
   color: var(--white);
   padding: 30px 40px 36px;
-  margin-top: 10px;
+  margin-top: 7px;
 }
 
 

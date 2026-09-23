@@ -391,7 +391,9 @@
       lcurrent = (i + shots.length) % shots.length;
       var src = shots[lcurrent];
       var img = lbox.querySelector('.lightbox__img');
-      img.src = src.currentSrc || src.src;
+      /* у сканов документов в карточке лежит миниатюра, а в data-full —
+         версия, на которой читается текст */
+      img.src = src.dataset.full || src.currentSrc || src.src;
       img.alt = src.alt || '';
 
       /* подпись берём у кадра на странице, если она есть */
