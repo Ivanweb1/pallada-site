@@ -923,6 +923,10 @@ a.pf-item:hover .pf-item__title { color: var(--accent); }
 
 .sci-block { padding-top: 105px; }
 
+/* Последний блок страницы: воздух снизу раньше давала лента кадров, а
+   логотип подвала свисает на 50px — без отступа он ложится на текст. */
+.sci-block:last-of-type { padding-bottom: 130px; }
+
 .sci-block__grid {
   display: grid;
   grid-template-columns: 570px 1fr;

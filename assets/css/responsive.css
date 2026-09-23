@@ -577,6 +577,8 @@
     padding: 12px 18px;
   }
 
+  .sci-block:last-of-type { padding-bottom: 80px; }
+
   .sci-edu { padding: 72px 0 80px; }
   .sci-edu__head { grid-template-columns: minmax(0, 1fr); }
 
@@ -1007,6 +1009,8 @@
   .cmp-licenses,
   .media-pubs,
   .proc-steps,
+  .sci-block:last-of-type { padding-bottom: 80px; }
+
   .sci-edu { padding-top: 48px; padding-bottom: 56px; }
 
   .article__cover--portrait img { height: auto; width: 100%; }

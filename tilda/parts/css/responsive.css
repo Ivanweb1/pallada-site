@@ -450,6 +450,7 @@
     min-height: 46px;
     padding: 12px 18px;
   }
+.pallada .sci-block:last-of-type { padding-bottom: 80px; }
 .pallada .sci-edu { padding: 72px 0 80px; }
 .pallada .sci-edu__head { grid-template-columns: minmax(0, 1fr); }
 /* ---- Контакты ---- */
@@ -784,6 +785,7 @@
 .pallada .cmp-licenses,
 .pallada .media-pubs,
 .pallada .proc-steps,
+.pallada .sci-block:last-of-type { padding-bottom: 80px; }
 .pallada .sci-edu { padding-top: 48px; padding-bottom: 56px; }
 .pallada .article__cover--portrait img { height: auto; width: 100%; }
 .pallada .contacts-page { padding-bottom: 56px; }

@@ -743,6 +743,9 @@
    Научная деятельность
    -------------------------------------------------------------------------- */
 .pallada .sci-block { padding-top: 105px; }
+/* Последний блок страницы: воздух снизу раньше давала лента кадров, а
+   логотип подвала свисает на 50px — без отступа он ложится на текст. */
+.pallada .sci-block:last-of-type { padding-bottom: 130px; }
 .pallada .sci-block__grid {
   display: grid;
   grid-template-columns: 570px 1fr;
