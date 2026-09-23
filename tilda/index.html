@@ -215,6 +215,11 @@
     }
 
     var styles = opt('css') ? cssFiles(page) : [];
+
+    /* правила на классе <body> (линии в шапке) кладём прямо в блок —
+       так они работают, даже если общий CSS в HEAD ещё не обновлён */
+    var patch = (!opt('css') && page.body_css)
+      ? part('css/body-' + page.body_class.split(' ')[0] + '.css') : null;
     var seq = [];
     if (opt('header') && !page.solo) seq.push('parts/header.html');
     seq.push('parts/' + (page.part || page.file));
@@ -223,10 +228,12 @@
     return Promise.all([
       Promise.all(styles.map(get)),
       Promise.all(seq.map(get)),
-      opt('js') ? get(part('main.js')) : Promise.resolve(null)
+      opt('js') ? get(part('main.js')) : Promise.resolve(null),
+      patch ? get(patch) : Promise.resolve(null)
     ]).then(function (res) {
       var out = ['<!-- ГК «Паллада» — ' + page.title + ' -->'];
       if (res[0].length) out.push('<style>\n' + res[0].join('\n') + '\n</style>');
+      else if (res[3]) out.push('<style>\n' + res[3] + '\n</style>');
 
       /* класс <body> прототипа (.inner) переезжает на контейнер блока:
          на нём держатся линии по бокам логотипа на внутренних страницах */

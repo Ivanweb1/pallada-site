@@ -185,6 +185,28 @@ def scope_css(css):
     return '\n'.join(out)
 
 
+def body_rules(scoped, cls):
+    """Выбирает из готового CSS правила, висящие на классе <body>.
+
+    Их кладём отдельным куском и вставляем прямо в блок: тогда линии в
+    шапке не зависят от того, обновлён ли общий CSS в HEAD сайта.
+    """
+    needle = SCOPE + '.' + cls
+    out = []
+    for prelude, body in iter_blocks(scoped):
+        clean, _ = strip_comments(prelude)
+        p = clean.strip()
+        if body is None:
+            continue
+        if p.lower().startswith(NESTED_AT):
+            inner_rules = body_rules(body, cls)
+            if inner_rules:
+                out.append(p + ' {\n' + inner_rules + '\n}')
+        elif needle in p:
+            out.append(p + ' {' + body + '}')
+    return '\n'.join(out)
+
+
 def absolutize(text):
     """Пути к статике — абсолютные, иначе Тильда будет искать их у себя."""
     text = re.sub(r'(src|href)="assets/', r'\1="' + BASE + 'assets/', text)
@@ -287,6 +309,21 @@ def main():
         open(out, 'w', encoding='utf-8').write(css)
         minify(out, 'css')
 
+    # правила на классах <body> — отдельным куском для вставки в сам блок
+    for cls in sorted(BODY_CLASSES):
+        chunk = []
+        for name in ('style.css', 'pages.css', 'home.css', 'responsive.css'):
+            path = os.path.join(PARTS, 'css', name)
+            if not os.path.exists(path):
+                continue
+            rules = body_rules(open(path, encoding='utf-8').read(), cls)
+            if rules:
+                chunk.append(rules)
+        if chunk:
+            out = os.path.join(PARTS, 'css', 'body-' + cls + '.css')
+            open(out, 'w', encoding='utf-8').write('\n'.join(chunk) + '\n')
+            minify(out, 'css')
+
     # общий скрипт
     js = scope_js(open(os.path.join(ROOT, 'assets/js/main.js'), encoding='utf-8').read())
     out = os.path.join(PARTS, 'main.js')
@@ -315,6 +352,8 @@ def main():
             'seo_title': full,
             'descr': descr(src),
             'body_class': body_class(src),
+            'body_css': bool(body_class(src)) and os.path.exists(
+                os.path.join(PARTS, 'css', 'body-' + body_class(src).split()[0] + '.css')),
             'url': BASE + ('' if file == 'index.html' else file),
             'css': page_css(src),
         })

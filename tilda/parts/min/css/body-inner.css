@@ -1,0 +1,1 @@
+.pallada.inner .header__inner:before,.pallada.inner .header__inner:after{content:"";position:absolute;bottom:0;width:500px;height:1px;background:#0000001a}.pallada.inner .header__inner:before{left:0}.pallada.inner .header__inner:after{right:0}@media (max-width: 1199px){.pallada.inner .header__inner:before{width:100%}.pallada.inner .header__inner:after{display:none}}
