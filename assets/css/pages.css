@@ -649,6 +649,24 @@ a.pf-item:hover .pf-item__title { color: var(--accent); }
 
 .media-card__link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
+/* Точки под лентой: на широком экране лента листается стрелками,
+   поэтому там они не нужны. Включаются в адаптиве. */
+.dots { display: none; }
+
+.dots button {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--ink);
+  opacity: .2;
+  cursor: pointer;
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.dots button.is-active { opacity: .75; transform: scale(1.3); }
+
 /* Страница новости */
 
 .article { padding: 105px 0 0; }

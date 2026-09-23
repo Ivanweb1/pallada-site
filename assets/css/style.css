@@ -652,6 +652,9 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
 
 .cform__field input {
   width: 100%;
+  /* браузер даёт инпуту свой padding 1px 2px, и «RU» рядом с полем
+     телефона вставало на 2px левее плейсхолдеров соседних полей */
+  padding: 0;
   border: 0;
   background: transparent;
   color: var(--white);

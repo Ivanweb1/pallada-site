@@ -97,10 +97,10 @@
     <div class="container">
       <div class="media-pubs__head">
         <div class="arrows">
-          <button class="arrow arrow--square arrow--prev js-media-prev" type="button" aria-label="Назад">
+          <button class="arrow arrow--prev js-media-prev" type="button" aria-label="Назад">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
           </button>
-          <button class="arrow arrow--square arrow--next js-media-next" type="button" aria-label="Вперёд">
+          <button class="arrow arrow--next js-media-next" type="button" aria-label="Вперёд">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
           </button>
         </div>
@@ -138,6 +138,9 @@
           </article>
         </div>
       </div>
+
+      <!-- точки видны только там, где лента листается пальцем -->
+      <div class="dots js-media-dots"></div>
     </div>
   </section>
 

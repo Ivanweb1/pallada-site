@@ -194,6 +194,14 @@
   .portfolio-home__carousel { padding-right: var(--gutter); }
 
   /* стрелки каруселей ниже 1200 не нужны — лента листается пальцем */
+  /* лента листается пальцем — вместо стрелок показываем, сколько карточек */
+  .dots {
+    display: flex;
+    justify-content: center;
+    gap: 9px;
+    margin-top: 22px;
+  }
+
   .directions__head .arrows,
   .portfolio-home__controls .arrows,
   .cmp-team__head .arrows,
@@ -545,7 +553,9 @@
 
   .contacts-page__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 24px; }
   .contacts-page__phones { flex-wrap: wrap; gap: 8px 24px; }
-  .contacts-page__socials { margin-top: 48px; flex-wrap: wrap; }
+  /* колонки уже не растягиваются на всю высоту формы, прижимать кнопки
+     к низу незачем — держим их сразу под контактами */
+  .contacts-page__socials { margin-top: 0; padding-top: 28px; flex-wrap: wrap; }
   .contacts-page__form-wrap { padding: 26px 24px 30px; }
 
   /* ---- Страница проекта / направления ---- */
@@ -982,8 +992,20 @@
 
   .pf-page__grid { row-gap: 32px; }
 
-  .media-card { flex: 0 0 84vw; height: auto; min-height: 220px; }
-  .media-card__body { left: 20px; right: 20px; bottom: 20px; }
+  /* Карточка тут по высоте контента, и название издания, снятое с потока,
+     наезжало на год и заголовок — возвращаем его в поток первой строкой. */
+  .media-card {
+    flex: 0 0 84vw;
+    height: auto;
+    min-height: 0;
+    justify-content: flex-start;
+  }
+
+  .media-card__brand {
+    position: static;
+    margin-bottom: 20px;
+    font-size: 22px;
+  }
 
   .article__cover { margin-bottom: 28px; }
 
@@ -998,7 +1020,7 @@
   .prj-text__body .prj-text__lead { font-size: 18px; }
 
   .contacts-page__row { margin-bottom: 16px; }
-  .contacts-page__socials { margin-top: 32px; }
+  .contacts-page__socials { margin-top: 0; padding-top: 22px; }
   .contacts-page__form-wrap { padding: 22px 16px 26px; }
 
   /* ---- Страница проекта ---- */

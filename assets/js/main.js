@@ -119,6 +119,51 @@
   initCarousel('.js-steps-track', '.js-steps-prev', '.js-steps-next');
   initCarousel('.js-gal-track', '.js-gal-prev', '.js-gal-next');
 
+  /* ---- Точки под лентой, которая листается пальцем ---- */
+  function initDots(dotsSel, viewportSel, trackSel) {
+    var dots = document.querySelector(dotsSel);
+    var viewport = document.querySelector(viewportSel);
+    var track = document.querySelector(trackSel);
+    if (!dots || !viewport || !track) return;
+
+    var cards = track.children;
+    if (cards.length < 2) return;
+
+    for (var i = 0; i < cards.length; i++) {
+      var dot = document.createElement('button');
+      dot.type = 'button';
+      dot.setAttribute('aria-label', 'Публикация ' + (i + 1));
+      dot.dataset.index = i;
+      dots.appendChild(dot);
+    }
+
+    function step() {
+      var gap = parseInt(getComputedStyle(track).columnGap || getComputedStyle(track).gap, 10) || 0;
+      return cards[0].offsetWidth + gap;
+    }
+
+    function sync() {
+      /* на широком экране лента едет трансформом и не прокручивается —
+         тогда активной считаем позицию трека, а не scrollLeft */
+      var current = Math.round(viewport.scrollLeft / step());
+      for (var i = 0; i < dots.children.length; i++) {
+        dots.children[i].classList.toggle('is-active', i === current);
+      }
+    }
+
+    dots.addEventListener('click', function (e) {
+      var btn = e.target.closest('button');
+      if (!btn) return;
+      viewport.scrollTo({ left: btn.dataset.index * step(), behavior: 'smooth' });
+    });
+
+    viewport.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+    sync();
+  }
+
+  initDots('.js-media-dots', '.media-pubs__viewport', '.js-media-track');
+
   /* ---- Аккордеон принципов (страница «О компании») ---- */
   var accItems = document.querySelectorAll('.js-acc-item');
   Array.prototype.forEach.call(accItems, function (item) {
