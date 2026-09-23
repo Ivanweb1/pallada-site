@@ -177,10 +177,22 @@
   <div class="footer__bottom">
     <div class="container">
       <span>© 2026 ООО «Паллада». Все права защищены.</span>
-      <span class="footer__bottom-note">ОГРН 1027810305236 · ИНН 7826099652</span>
+      <div class="footer__bottom-right">
+        <a href="privacy.html">Политика конфиденциальности</a>
+        <span class="footer__bottom-note">ОГРН 1027810305236 · ИНН 7826099652</span>
+      </div>
     </div>
   </div>
 </footer>
+
+<!-- Уведомление о куках: скрыто до решения JS, чтобы не мигало у тех,
+     кто уже согласился. -->
+<div class="cookie js-cookie" role="region" aria-label="Уведомление об использовании cookie" hidden>
+  <p class="cookie__text">Мы используем cookie, чтобы сайт работал корректно.
+    Оставаясь здесь, вы соглашаетесь с
+    <a href="privacy.html">политикой конфиденциальности</a>.</p>
+  <button class="cookie__btn js-cookie-ok" type="button">Принять</button>
+</div>
 <!--#/footer-->
 
 <script src="assets/js/main.js"></script>

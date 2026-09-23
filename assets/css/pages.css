@@ -500,6 +500,25 @@ a.pf-item:hover .pf-item__title { color: var(--accent); }
 .news-head { padding: 105px 0 25px; }
 .news-head .h-section { line-height: 1; }
 
+/* Текстовая страница без картинок: политика, оферта и т.п. */
+.legal { padding: 10px 0 100px; }
+
+.legal__body {
+  max-width: 760px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.legal__body p + p { margin-top: 16px; }
+
+.legal__body a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity .2s ease;
+}
+
+.legal__body a:hover { opacity: .6; }
+
 .news-feed { padding-bottom: 60px; }
 
 .news-feed__grid {

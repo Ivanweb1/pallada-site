@@ -324,6 +324,27 @@
     });
   }
 
+  /* ---- Уведомление о cookie ---- */
+  var cookieBar = document.querySelector('.js-cookie');
+
+  if (cookieBar) {
+    var KEY = 'pallada-cookie-ok';
+    var agreed = false;
+
+    /* в приватном окне доступ к localStorage бросает исключение —
+       тогда просто показываем плашку каждый раз */
+    try { agreed = localStorage.getItem(KEY) === '1'; } catch (e) {}
+
+    if (!agreed) {
+      cookieBar.hidden = false;
+
+      cookieBar.querySelector('.js-cookie-ok').addEventListener('click', function () {
+        cookieBar.hidden = true;
+        try { localStorage.setItem(KEY, '1'); } catch (e) {}
+      });
+    }
+  }
+
   /* ---- Формы: имя выбранного файла и сообщение об отправке ---- */
   Array.prototype.forEach.call(document.querySelectorAll('.js-cform'), function (form) {
     var file = form.querySelector('.js-cform-file');

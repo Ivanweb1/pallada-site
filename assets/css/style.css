@@ -363,6 +363,74 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
   text-transform: uppercase;
 }
 
+/* --------------------------------------------------------------------------
+   Уведомление о cookie
+   -------------------------------------------------------------------------- */
+
+/* Как и модальные окна, плашка отменяет общий зум макета: иначе на широком
+   экране она раздувается вместе с вёрсткой. */
+.cookie {
+  position: fixed;
+  z-index: 90;
+  left: 20px;
+  bottom: 20px;
+  zoom: calc(1 / var(--zoom, 1));
+  max-width: calc(100vw - 40px);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 16px 14px 20px;
+  background: var(--white);
+  box-shadow: 0 6px 30px rgba(0, 0, 0, .16);
+}
+
+.cookie[hidden] { display: none; }
+
+.cookie__text {
+  max-width: 420px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.cookie__text a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity .2s ease;
+}
+
+.cookie__text a:hover { opacity: .6; }
+
+.cookie__btn {
+  flex: 0 0 auto;
+  height: 40px;
+  padding: 0 24px;
+  font-family: var(--font-head);
+  font-size: 13px;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--accent);
+  border: 0;
+  cursor: pointer;
+  transition: background-color .2s ease;
+}
+
+.cookie__btn:hover { background: #7a1c1e; }
+
+.footer__bottom-right {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.footer__bottom a {
+  font-family: var(--font-head);
+  font-size: 13px;
+  line-height: 1.5;
+  text-transform: uppercase;
+  transition: opacity .2s ease;
+}
+
+.footer__bottom a:hover { opacity: .5; }
 .footer__bottom-note { opacity: .5; }
 
 /* --------------------------------------------------------------------------

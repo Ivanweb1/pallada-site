@@ -894,6 +894,26 @@
 
   .footer__bottom { min-height: 0; }
 
+  /* на телефоне плашка о куках идёт во всю ширину понизу */
+  .cookie {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    max-width: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .cookie__text { max-width: none; }
+
+  .footer__bottom-right {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
   .footer__bottom .container {
     flex-direction: column;
     align-items: flex-start;
