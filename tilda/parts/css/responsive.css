@@ -439,7 +439,16 @@
 .pallada .sci-block__text,
 .pallada .sci-timeline__text,
 .pallada .sci-list li,
+.pallada .sci-links,
 .pallada .sci-edu__head .h-section { width: auto; }
+/* кнопке даём расти под подпись, иначе текст жмётся в две строки */
+.pallada .sci-block__btn {
+    width: auto;
+    min-width: 200px;
+    height: auto;
+    min-height: 46px;
+    padding: 12px 18px;
+  }
 .pallada .sci-edu { padding: 72px 0 80px; }
 .pallada .sci-edu__head { grid-template-columns: minmax(0, 1fr); }
 /* ---- Контакты ---- */

@@ -955,7 +955,9 @@ a.pf-item:hover .pf-item__title { color: var(--accent); }
   margin-top: 35px;
   width: 200px;
   height: 50px;
-  padding: 0;
+  padding: 0 16px;
+  /* подпись в две строки центрируем: на узких экранах она переносится */
+  text-align: center;
 }
 
 .sci-timeline { margin-top: 45px; }

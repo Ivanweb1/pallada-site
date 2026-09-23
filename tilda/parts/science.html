@@ -3,7 +3,7 @@
   <!-- ВВОДНЫЙ БЛОК -->
   <section class="sci-block">
     <div class="container sci-block__grid">
-      <h1 class="h-section sci-block__title">Научная деятельность</h1>
+      <h1 class="h-section sci-block__title">Наука и наследие</h1>
       <div>
         <p class="sci-block__text">Работа с архитектурной керамикой начинается с изучения
           источников. Специалисты «Паллады» обращаются к архивным материалам, музейным
@@ -131,28 +131,31 @@
     </div>
   </section>
 
-  <!-- ОБРАЗОВАНИЕ: КАДРЫ И СЕРТИФИКАТЫ -->
-  <section class="sci-edu">
-    <div class="container">
-      <div class="sci-edu__head">
-        <div class="arrows">
-          <button class="arrow arrow--prev" type="button" aria-label="Назад">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
-          </button>
-          <button class="arrow arrow--next" type="button" aria-label="Вперёд">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
-          </button>
+  <!-- Блок «Занятия и программы» скрыт до съёмки: разметка цела, ждёт кадры.
+       Вернуть — убрать обёртку <template> и этот комментарий. -->
+  <template id="sci-edu-later">
+    <section class="sci-edu">
+      <div class="container">
+        <div class="sci-edu__head">
+          <div class="arrows">
+            <button class="arrow arrow--prev" type="button" aria-label="Назад">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <button class="arrow arrow--next" type="button" aria-label="Вперёд">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <h2 class="h-section">Занятия и программы</h2>
         </div>
-        <h2 class="h-section">Занятия и программы</h2>
-      </div>
 
-      <div class="sci-edu__grid">
-        <figure class="ph"></figure>
-        <figure class="ph"></figure>
-        <figure class="ph"></figure>
-        <figure class="ph"></figure>
+        <div class="sci-edu__grid">
+          <figure class="ph"></figure>
+          <figure class="ph"></figure>
+          <figure class="ph"></figure>
+          <figure class="ph"></figure>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </template>
 
 </main>

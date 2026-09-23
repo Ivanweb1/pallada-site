@@ -3,9 +3,9 @@
   "scope": ".pallada",
   "limit": 102400,
   "hashes": {
-    "header": "1c8a06994f",
-    "footer": "864524b0b5",
-    "css": "7e56cafce1",
+    "header": "f49d230f45",
+    "footer": "d0676de5d0",
+    "css": "3523d35e7a",
     "js": "f0f46b96d7"
   },
   "legacy_stale": [
@@ -24,7 +24,7 @@
       "descr": "Архитектурная керамика полного цикла: научная реставрация наследия, производство фасадной, церковной и интерьерной керамики, изразцовые печи и камины.",
       "body_class": "",
       "body_css": false,
-      "hash": "da588ee8df",
+      "hash": "08de4bbe84",
       "url": "https://ivanweb1.github.io/pallada-site/",
       "css": [
         "style",
@@ -40,7 +40,7 @@
       "descr": "История, структура, научная деятельность, команда и лицензии группы компаний «Паллада».",
       "body_class": "inner",
       "body_css": true,
-      "hash": "489b9a1168",
+      "hash": "471a4bd27b",
       "url": "https://ivanweb1.github.io/pallada-site/company.html",
       "css": [
         "style",
@@ -56,7 +56,7 @@
       "descr": "Проекты ГК «Паллада»: реставрация, метлахская плитка, черепица, фасадные материалы, печи и камины, панно, церковная керамика.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "a6c77ac8b1",
+      "hash": "62348927cf",
       "url": "https://ivanweb1.github.io/pallada-site/portfolio.html",
       "css": [
         "style",
@@ -67,12 +67,12 @@
     {
       "file": "science.html",
       "slug": "science",
-      "title": "Научная деятельность",
-      "seo_title": "Научная деятельность — ГК «Паллада»",
-      "descr": "Музей «Керамарх», научно-исследовательская и издательская деятельность, сотрудничество с галереей «573», образование.",
+      "title": "Наука и наследие",
+      "seo_title": "Наука и наследие — ГК «Паллада»",
+      "descr": "Музей «Керамарх», исследования и публикации, галерея современной керамики «573», образовательные программы: как «Паллада» работает с наследием.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "aa7426b590",
+      "hash": "60f1792613",
       "url": "https://ivanweb1.github.io/pallada-site/science.html",
       "css": [
         "style",
@@ -88,7 +88,7 @@
       "descr": "Новости группы компаний «Паллада» и публикации в СМИ.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "9df961fd11",
+      "hash": "f0fe35209f",
       "url": "https://ivanweb1.github.io/pallada-site/news.html",
       "css": [
         "style",
@@ -104,7 +104,7 @@
       "descr": "Телефон, адрес и форма связи с группой компаний «Паллада».",
       "body_class": "inner",
       "body_css": true,
-      "hash": "503b7d06a1",
+      "hash": "65097798ca",
       "url": "https://ivanweb1.github.io/pallada-site/contacts.html",
       "css": [
         "style",
@@ -120,7 +120,7 @@
       "descr": "Политика обработки персональных данных ГК «Паллада».",
       "body_class": "inner",
       "body_css": true,
-      "hash": "236b8cd744",
+      "hash": "65c3b2f7f0",
       "url": "https://ivanweb1.github.io/pallada-site/privacy.html",
       "css": [
         "style",
@@ -136,7 +136,7 @@
       "descr": "Производство керамической черепицы для реставрационных и новых архитектурных проектов: форма по историческому образцу или авторской концепции, ангоб и глазурь, лабораторные испытания до запуска партии.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "3724ac8fce",
+      "hash": "75390fc064",
       "url": "https://ivanweb1.github.io/pallada-site/direction-cherepitsa.html",
       "css": [
         "style",
@@ -152,7 +152,7 @@
       "descr": "Архитектурная керамика для фасадов: майоликовый и рельефный декор, кирпич-кабанчик, экструдированные блоки и панели для навесных вентилируемых систем. Проектирование, производство и узлы крепления.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "bf46f26bb7",
+      "hash": "c042acf984",
       "url": "https://ivanweb1.github.io/pallada-site/direction-fasadnye-materialy.html",
       "css": [
         "style",
@@ -168,7 +168,7 @@
       "descr": "Реставрация исторических напольных покрытий и производство метлахской плитки по сохранившимся образцам: сухое прессование, глубоко окрашенный лицевой слой, собственная оснастка.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "e102dd1e34",
+      "hash": "6d98ae3f75",
       "url": "https://ivanweb1.github.io/pallada-site/direction-metlahskaya-plitka.html",
       "css": [
         "style",
@@ -184,7 +184,7 @@
       "descr": "Реставрация исторических изразцовых печей и каминов, воссоздание утраченных облицовок и новые модели по индивидуальным проектам: керамика, конструкция, металлические детали и монтаж.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "d20c786176",
+      "hash": "bd35044bd1",
       "url": "https://ivanweb1.github.io/pallada-site/direction-pechi-i-kaminy.html",
       "css": [
         "style",
@@ -200,7 +200,7 @@
       "descr": "Реставрация фасадной, интерьерной и печной керамики на объектах культурного наследия: обследование подлинника, расчистка и укрепление, воссоздание утрат, монтаж и авторский надзор.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "140e10c27c",
+      "hash": "66593465d2",
       "url": "https://ivanweb1.github.io/pallada-site/direction-restavratsiya.html",
       "css": [
         "style",
@@ -216,7 +216,7 @@
       "descr": "Православные мастерские «Финист» в составе ГК «Паллада»: иконостасы, киоты, иконы, престолы, аналои и купели — по историческим образцам и по авторским проектам, от эскиза до монтажа.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "0436695555",
+      "hash": "7a97a276aa",
       "url": "https://ivanweb1.github.io/pallada-site/direction-tserkovnaya-keramika.html",
       "css": [
         "style",
@@ -232,7 +232,7 @@
       "descr": "«Паллада» завершила работу с историческими печами в Доме Завальевского — Северова на набережной Фонтанки.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "0209bc0454",
+      "hash": "e3e8ef7ced",
       "url": "https://ivanweb1.github.io/pallada-site/news-dom-severova.html",
       "css": [
         "style",
@@ -248,7 +248,7 @@
       "descr": "«Паллада» участвует в V выставке «ПРОреставрацию» — 24–27 сентября 2026 года, Москва.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "3663cc2224",
+      "hash": "6dad7ceda2",
       "url": "https://ivanweb1.github.io/pallada-site/news-prorestavraciyu.html",
       "css": [
         "style",
@@ -264,7 +264,7 @@
       "descr": "На западный портал Воскресенского храма в Вичуге установлено воссозданное майоликовое панно.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "cb449fcc49",
+      "hash": "23edaf5744",
       "url": "https://ivanweb1.github.io/pallada-site/news-vichuga-panno.html",
       "css": [
         "style",
@@ -280,7 +280,7 @@
       "descr": "Реставрация майоликового портала и воссоздание геральдической композиции на фасаде Библиотеки Института экспериментальной медицины, 2009–2013.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "7269aa8b8e",
+      "hash": "542ad7e406",
       "url": "https://ivanweb1.github.io/pallada-site/project-biblioteka-iem.html",
       "css": [
         "style",
@@ -296,7 +296,7 @@
       "descr": "Реставрация керамического декора фасадов ДЛТ и воссоздание утраченной гербовой композиции, 2006–2010.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "046e06771a",
+      "hash": "ece42c76d5",
       "url": "https://ivanweb1.github.io/pallada-site/project-dlt.html",
       "css": [
         "style",
@@ -312,7 +312,7 @@
       "descr": "Реставрация исторических печей и воссоздание утраченных керамических элементов в Доме Завальевского — Северова на Фонтанке, 2026.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "2c30beaa1e",
+      "hash": "4e300dcf56",
       "url": "https://ivanweb1.github.io/pallada-site/project-dom-severova.html",
       "css": [
         "style",
@@ -328,7 +328,7 @@
       "descr": "Изготовление керамической черепицы по историческим образцам для Ханского дворца в Бахчисарае, 2021–2022.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "ba549c3b78",
+      "hash": "cd7fa3d0fc",
       "url": "https://ivanweb1.github.io/pallada-site/project-hanskiy-dvorets.html",
       "css": [
         "style",
@@ -344,7 +344,7 @@
       "descr": "Изготовление и монтаж керамического иконостаса и престола для верхнего храма блаженной Матроны Московской, 2018.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "d8fbcd3f1d",
+      "hash": "cf4ffb28de",
       "url": "https://ivanweb1.github.io/pallada-site/project-ikonostas-matrony.html",
       "css": [
         "style",
@@ -360,7 +360,7 @@
       "descr": "Воссоздание фарфорового каминного экрана из Кабинета императрицы Александры Фёдоровны, 2018–2019.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "90a2fe249b",
+      "hash": "f1be383dcc",
       "url": "https://ivanweb1.github.io/pallada-site/project-kaminnyy-ekran.html",
       "css": [
         "style",
@@ -376,7 +376,7 @@
       "descr": "Изготовление двух комплексов кухонных печей для павильона «Китайская кухня» в Ораниенбауме, 2022–2025.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "18ff918d2c",
+      "hash": "0cfb324773",
       "url": "https://ivanweb1.github.io/pallada-site/project-kitayskaya-kuhnya.html",
       "css": [
         "style",
@@ -392,7 +392,7 @@
       "descr": "Реставрация и воссоздание керамической облицовки куполов и минаретов Санкт-Петербургской Соборной мечети, 2014–2015.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "23d76f9f99",
+      "hash": "46badc4a46",
       "url": "https://ivanweb1.github.io/pallada-site/project-mechet.html",
       "css": [
         "style",
@@ -408,7 +408,7 @@
       "descr": "Изготовление метлахской плитки по историческим образцам для двух зданий, 2024–2025.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "33452f0bc0",
+      "hash": "5d562721c4",
       "url": "https://ivanweb1.github.io/pallada-site/project-metlahskaya-plitka.html",
       "css": [
         "style",
@@ -424,7 +424,7 @@
       "descr": "Реставрация и воссоздание майоликового панно на западном портале Воскресенского храма в Вичуге, 2021–2024.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "1ef39edc1d",
+      "hash": "c466715b0a",
       "url": "https://ivanweb1.github.io/pallada-site/project-vichuga.html",
       "css": [
         "style",
