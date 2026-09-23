@@ -468,7 +468,7 @@
 
   .article__head { grid-template-columns: minmax(0, 1fr); row-gap: 10px; }
   .article__cover { margin-bottom: 40px; }
-  .article__cover img { max-height: 520px; }
+  .article__cover img { height: 380px; }
 
   .article__grid { grid-template-columns: minmax(0, 1fr) 300px; }
 
@@ -558,6 +558,7 @@
   .prj-text__grid { grid-template-columns: minmax(0, 1fr) 300px; }
 
   .prj-stages { padding-top: 56px; }
+  .prj-stages,
   .prj-stages__slider { --stage-h: 420px; }
   .prj-stages__panel--single figure { width: min(calc(520px * var(--r, 1)), 100%); }
   .prj-stages__arrow--prev { left: 8px; }
@@ -716,7 +717,24 @@
 
   .prj-head__cover { flex-wrap: wrap; }
   .prj-head__cover--wide figure img { height: 320px; }
-  .prj-stages__slider { --stage-h: 340px; }
+
+  /* Высота кадра в ленте одна на все снимки. Иначе лента тянулась по
+     самому высокому, под короткими зияла пустота, а стрелки (они стоят
+     на половине --stage-h) уходили выше центра фотографии. */
+  .prj-stages,
+  .prj-stages__slider { --stage-h: 320px; }
+
+  .prj-stages__track img,
+  .prj-stages__panel.is-active > figure img {
+    height: var(--stage-h);
+    object-fit: cover;
+  }
+
+  /* и по ширине кадры одинаковые — кадр на ширину ленты */
+  .prj-stages__track figure {
+    flex: 0 0 100%;
+    width: 100%;
+  }
 
   /* Этапы вёрстаны двумя способами: обычная панель ставит кадры в ряд,
      панель-слайдер — лентой. На узких экранах приводим к одному: везде
@@ -931,11 +949,11 @@
 
   .article__cover { margin-bottom: 28px; }
 
-  /* вертикальные обложки упирались в предел высоты и занимали
-     половину ширины — на телефоне кадр идёт во всю ширину */
+  /* на телефоне кадр идёт во всю ширину и целиком, без подрезки */
   .article__cover img {
     width: 100%;
-    max-height: none;
+    height: auto;
+    object-fit: contain;
   }
   .article__body .article__lead,
   .prj-text__lead,
@@ -957,6 +975,9 @@
 
   .prj-aside { padding: 22px 18px 24px; }
 
+  .prj-stages,
+  .prj-stages__slider { --stage-h: 72vw; }
+
   .prj-stages { padding-top: 44px; }
 
   /* все кадры одной ширины — по контейнеру, а не по сторонам снимка */
@@ -965,7 +986,6 @@
   .prj-stages__track figure { width: 100%; }
 
   .prj-stages__track figure { flex: 0 0 100%; }
-  .prj-stages__track img { height: auto; }
   .prj-stages__tabs { flex-wrap: wrap; gap: 8px; }
   .prj-stages__tab { height: 36px; padding: 0 14px; font-size: 11px; }
 

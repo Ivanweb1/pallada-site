@@ -596,14 +596,12 @@ a.pf-item:hover .pf-item__title { color: var(--accent); }
 
 .article__cover { margin: 0 0 55px; }
 
-/* Вертикальная обложка на всю ширину вырастает выше экрана, поэтому кадр
-   ограничен по высоте — той же величиной, что и одиночный кадр проекта.
-   Горизонтальные снимки ниже этого предела и занимают ширину как раньше. */
+/* Обложка занимает всю ширину колонки, а в экран её вводит подрезка
+   сверху и снизу — как у широкого кадра на странице проекта. */
 .article__cover img {
-  width: auto;
-  max-width: 100%;
-  max-height: 700px;
-  height: auto;
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
   display: block;
 }
 
@@ -898,7 +896,13 @@ a.sci-timeline__text:hover { opacity: .6; }
 .contacts-page__grid {
   display: grid;
   grid-template-columns: 570px 550px;
-  align-items: start;
+  align-items: stretch;
+}
+
+/* соцкнопки прижаты к низу колонки — вровень с нижним краем формы */
+.contacts-page__info {
+  display: flex;
+  flex-direction: column;
 }
 
 .contacts-page__label {
@@ -931,7 +935,8 @@ a.sci-timeline__text:hover { opacity: .6; }
 .contacts-page__socials {
   display: flex;
   gap: 10px;
-  margin-top: 110px;
+  margin-top: auto;
+  padding-top: 40px;
 }
 
 /* Контакты оформлены как блок контактов на главной: акцентные кнопки

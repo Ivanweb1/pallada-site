@@ -287,7 +287,9 @@
 
   /* ---- Просмотр кадров проекта во весь экран ---- */
   var shots = Array.prototype.slice.call(
-    document.querySelectorAll('.prj-head__cover figure img, .prj-stages__panel figure img')
+    document.querySelectorAll(
+      '.prj-head__cover figure img, .prj-stages__panel figure img, .cmp-licenses__doc img'
+    )
   );
 
   if (shots.length) {
