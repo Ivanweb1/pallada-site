@@ -398,11 +398,247 @@
     }
   }
 
-  /* ---- Формы: имя выбранного файла и сообщение об отправке ---- */
+  /* ---- Формы ----------------------------------------------------------
+     На прототипе форма просто показывает «спасибо». На Тильде заявку
+     принимает обычный блок с формой Тильды (форма-приёмник): в неё
+     подставляются значения и нажимается её же кнопка отправки — так
+     заявка уходит туда, куда настроен приёмник данных в проекте.
+
+     Что нужно на странице Тильды:
+       1) блок с формой Тильды (T123 не годится — нужна настоящая форма
+          с подключённым приёмником данных);
+       2) сам блок с версткой — этот код найдёт форму-приёмник сам.
+     Форму-приёмник можно не прятать вручную — код уберёт её с глаз. */
+
+  /* форму-приёмник ищем по всей странице: в сборке для Тильды остальные
+     обращения к document подменяются на контейнер блока, а она вне его */
+  var PAGE = document;
+
+  var FORM = {
+    donor: 'form.js-form-proccess',   // форма Тильды на странице
+    hideDonor: true,
+    timeout: 8000,
+    okText: 'Спасибо! Заявка отправлена — мы свяжемся с вами.',
+    errText: 'Не удалось отправить заявку. Позвоните нам: 8 (812) 363-49-61'
+  };
+
+  /* человеческие подписи полей — с ними заявка читается в письме */
+  var FIELD_LABELS = {
+    comment: 'Комментарий',
+    file: 'Прикреплённый файл'
+  };
+
+  function digits(value) {
+    var d = String(value || '').replace(/\D/g, '');
+    while (d.length > 10 && (d.charAt(0) === '7' || d.charAt(0) === '8')) d = d.slice(1);
+    if (d.charAt(0) === '7' || d.charAt(0) === '8') d = d.slice(1);
+    return d.slice(0, 10);
+  }
+
+  /* форма-приёмник: любая форма Тильды на странице, кроме наших собственных */
+  function donorForm() {
+    var forms = PAGE.querySelectorAll(FORM.donor);
+    for (var i = 0; i < forms.length; i++) {
+      /* наши блоки на Тильде завёрнуты в .pallada — приёмник лежит вне их */
+      if (!forms[i].closest('.pallada')) return forms[i];
+    }
+    return null;
+  }
+
+  /* приёмник на странице не нужен глазу — уводим его блок за экран */
+  function hideDonor(form) {
+    if (!FORM.hideDonor) return;
+    var rec = form.closest('[id^="rec"]') || form.closest('.r') || form;
+    if (rec.dataset.plHidden === '1') return;
+    rec.dataset.plHidden = '1';
+    rec.style.position = 'absolute';
+    rec.style.left = '-9999px';
+    rec.style.top = '0';
+    rec.style.width = '1px';
+    rec.style.height = '1px';
+    rec.style.overflow = 'hidden';
+    rec.setAttribute('aria-hidden', 'true');
+  }
+
+  function hidden(form, name, value) {
+    var input = form.querySelector('input[type="hidden"][name="' + name + '"]');
+    if (!input) {
+      input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = name;
+      form.appendChild(input);
+    }
+    input.value = value == null ? '' : String(value);
+  }
+
+  /* подбираем поле приёмника по имени или подсказке */
+  function findField(form, keys) {
+    var all = form.querySelectorAll('input, textarea, select');
+    for (var i = 0; i < all.length; i++) {
+      var el = all[i];
+      if (el.type === 'hidden' || el.type === 'submit') continue;
+      var hay = ((el.name || '') + ' ' + (el.placeholder || '')).toLowerCase();
+      for (var k = 0; k < keys.length; k++) {
+        if (hay.indexOf(keys[k]) !== -1) return el;
+      }
+    }
+    return null;
+  }
+
+  /* телефон в Тильде живёт в поле с маской, а в приёмник уходит из скрытого */
+  function fillPhone(form, value) {
+    var visible = form.querySelector('.t-input-phonemask, [name^="tildaspec-phone-part"]:not([type="hidden"])');
+    if (!visible) return false;
+
+    var result = form.querySelector('.js-phonemask-result, input[type="hidden"][name="Phone"]');
+    var only = digits(value);
+
+    if (only.length < 10) {           // номер не наш — отдаём как есть
+      visible.value = String(value || '').trim();
+      if (result) result.value = visible.value;
+      return true;
+    }
+
+    var mask = visible.getAttribute('data-phonemask-without-code') || '(000) 000-00-00';
+    var code = visible.getAttribute('data-phonemask-code');
+    if (!code) {
+      var select = form.querySelector('.t-input-phonemask__select-code');
+      code = (select && select.textContent.trim()) || '+7';
+    }
+
+    var out = '', pos = 0;
+    for (var i = 0; i < mask.length && pos < only.length; i++) {
+      out += mask.charAt(i) === '0' ? only.charAt(pos++) : mask.charAt(i);
+    }
+
+    visible.value = out;
+    visible.dispatchEvent(new Event('input', { bubbles: true }));
+    visible.value = out;
+    if (result) {
+      result.value = code + ' ' + out;
+      result.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+    return true;
+  }
+
+  function fillDonor(form, data) {
+    if (data.phone && fillPhone(form, data.phone)) data.phone = '';
+
+    var map = {
+      name: ['name', 'имя', 'fio'],
+      phone: ['phone', 'tel', 'телефон'],
+      email: ['email', 'mail', 'почта']
+    };
+
+    ['name', 'phone', 'email'].forEach(function (key) {
+      if (!data[key]) return;
+      var field = findField(form, map[key]);
+      if (field) {
+        field.value = data[key];
+        field.dispatchEvent(new Event('input', { bubbles: true }));
+        field.dispatchEvent(new Event('change', { bubbles: true }));
+      } else {
+        hidden(form, key.charAt(0).toUpperCase() + key.slice(1), data[key]);
+      }
+    });
+
+    hidden(form, 'Форма', data.formName || 'Заявка с сайта');
+    hidden(form, 'Страница', document.title + ' — ' + location.pathname);
+    if (data.details) hidden(form, 'Детали', data.details);
+
+    /* незаполненные обязательные поля приёмника не дадут ему отправиться */
+    Array.prototype.forEach.call(form.querySelectorAll('[required], .js-tilda-rule'), function (el) {
+      if (el.type === 'checkbox' || el.type === 'radio') {
+        if (!el.checked) {
+          el.checked = true;
+          el.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      } else if (!el.value) {
+        el.value = el.type === 'email' ? 'no-reply@pallada-afina.ru' : '—';
+        el.dispatchEvent(new Event('input', { bubbles: true }));
+        el.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    });
+  }
+
+  function donorError(form) {
+    var box = form.querySelector('.js-rule-error-all, .js-errorbox-all');
+    return (box ? box.textContent.trim() : '') || 'причина не указана';
+  }
+
+  /* отправка через форму Тильды: заполняем и жмём её кнопку */
+  function sendToTilda(data) {
+    var form = donorForm();
+
+    if (!form) {                      // прототип без Тильды — показываем «спасибо»
+      console.warn('[pallada] Формы Тильды на странице нет — заявка никуда не ушла. ' +
+                   'Добавьте на страницу блок с формой Тильды и подключите приёмник данных.');
+      return Promise.resolve();
+    }
+
+    hideDonor(form);
+
+    return new Promise(function (resolve, reject) {
+      fillDonor(form, data);
+
+      var submit = form.querySelector('[type="submit"]');
+      if (!submit) {
+        reject(new Error('В форме Тильды нет кнопки отправки'));
+        return;
+      }
+
+      var settled = false;
+      var timer;
+
+      function stopNative(e) { if (e.target === form) e.preventDefault(); }
+
+      function off() {
+        form.removeEventListener('tildaform:aftersuccess', ok);
+        form.removeEventListener('tildaform:aftererror', fail);
+        document.removeEventListener('submit', stopNative, true);
+        window.clearTimeout(timer);
+      }
+
+      function ok() { if (!settled) { settled = true; off(); resolve(); } }
+      function fail(text) {
+        if (settled) return;
+        settled = true;
+        off();
+        console.error('[pallada] ' + text, form);
+        reject(new Error(text));
+      }
+
+      document.addEventListener('submit', stopNative, true);
+      form.addEventListener('tildaform:aftersuccess', ok);
+      form.addEventListener('tildaform:aftererror', function () {
+        fail('Тильда сообщила об ошибке: ' + donorError(form));
+      });
+
+      form.removeAttribute('data-success-popup');   // окно «спасибо» от Тильды не нужно
+      submit.tildaSendingStatus = '';
+      submit.click();
+
+      /* Тильда помечает кнопку статусом сразу: 1 — отправляет,
+         0 — не прошла её проверка, пусто — скрипт форм не подключён */
+      window.setTimeout(function () {
+        if (settled) return;
+        var status = submit.tildaSendingStatus;
+        if (status === '1') return;
+        if (status === '0') fail('Тильда отказалась отправлять форму: ' + donorError(form));
+        else fail('Форма-приёмник найдена, но её не обслуживает Тильда — ' +
+                  'проверьте, что страница опубликована и в блоке формы подключён приёмник данных.');
+      }, 60);
+
+      timer = window.setTimeout(ok, FORM.timeout);
+    });
+  }
+
+  /* ---- Формы: имя выбранного файла, отправка, сообщение ---- */
   Array.prototype.forEach.call(SCOPE.querySelectorAll('.js-cform'), function (form) {
     var file = form.querySelector('.js-cform-file');
     var fileName = form.querySelector('.js-cform-filename');
     var done = form.querySelector('.js-cform-done');
+    var submit = form.querySelector('[type="submit"]');
 
     if (file && fileName) {
       file.addEventListener('change', function () {
@@ -410,14 +646,68 @@
       });
     }
 
+    function message(text, isError) {
+      if (!done) return;
+      done.textContent = text;
+      done.classList.toggle('cform__done--error', !!isError);
+      done.hidden = false;
+    }
+
+    /* собираем заявку: имя, телефон и почта — отдельно, остальное в «Детали» */
+    function collect() {
+      var data = { formName: form.dataset.formName || 'Заявка с сайта' };
+      var details = [];
+
+      Array.prototype.forEach.call(form.querySelectorAll('input, textarea, select'), function (el) {
+        if (!el.name || el.type === 'submit' || el.type === 'checkbox') return;
+        if (el.type === 'file') {
+          if (el.files && el.files[0]) details.push(FIELD_LABELS.file + ': ' + el.files[0].name);
+          return;
+        }
+        var value = (el.value || '').trim();
+        if (!value) return;
+        var key = el.name.toLowerCase();
+        if (key === 'name' || key === 'phone' || key === 'email') data[key] = value;
+        else details.push((FIELD_LABELS[key] || el.name) + ': ' + value);
+      });
+
+      if (details.length) data.details = details.join('\n');
+      return data;
+    }
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      if (form.dataset.sending === '1') return;
       if (!form.checkValidity()) { form.reportValidity(); return; }
-      form.reset();
-      if (fileName) fileName.textContent = 'Файл не выбран';
-      if (done) done.hidden = false;
+
+      var label = submit ? submit.innerHTML : '';
+      form.dataset.sending = '1';
+      if (submit) { submit.disabled = true; submit.textContent = 'Отправляем…'; }
+
+      sendToTilda(collect()).then(function () {
+        form.reset();
+        if (fileName) fileName.textContent = 'Файл не выбран';
+        message(FORM.okText, false);
+      }, function () {
+        message(FORM.errText, true);
+      }).then(function () {
+        form.dataset.sending = '';
+        if (submit) { submit.disabled = false; submit.innerHTML = label; }
+      });
     });
   });
+
+  /* приёмник прячем сразу, а не в момент отправки: блок формы Тильды
+     на странице не нужен глазу. Блоки Тильды появляются не мгновенно,
+     поэтому пробуем несколько раз. */
+  if (SCOPE.querySelectorAll('.js-cform').length) {
+    [0, 400, 1600].forEach(function (delay) {
+      window.setTimeout(function () {
+        var form = donorForm();
+        if (form) hideDonor(form);
+      }, delay);
+    });
+  }
 
   /* ---- Просмотр кадров проекта во весь экран ---- */
   var shots = Array.prototype.slice.call(

@@ -618,6 +618,8 @@
   font-size: 13px;
   line-height: 1.4;
 }
+/* заявка не ушла — тем же местом, но акцентным цветом */
+.pallada .cform__done--error { color: var(--accent); }
 .pallada .cform__submit {
   height: 48px;
   min-width: 165px;

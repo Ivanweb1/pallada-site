@@ -725,6 +725,9 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
   line-height: 1.4;
 }
 
+/* заявка не ушла — тем же местом, но акцентным цветом */
+.cform__done--error { color: var(--accent); }
+
 .cform__submit {
   height: 48px;
   min-width: 165px;
