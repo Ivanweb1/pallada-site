@@ -519,7 +519,9 @@ a.pf-item:hover .pf-item__title { color: var(--accent); }
 
 .legal__body a:hover { opacity: .6; }
 
-.news-feed { padding-bottom: 60px; }
+/* Нижнего отступа нет: промежуток до блока СМИ задаёт его верхний
+   padding, как между секциями на остальных страницах. */
+.news-feed { padding-bottom: 0; }
 
 .news-feed__grid {
   display: grid;
@@ -554,7 +556,7 @@ a.pf-item:hover .pf-item__title { color: var(--accent); }
   line-height: 1.35;
 }
 
-.media-pubs { padding: 110px 0 130px; }
+.media-pubs { padding: 92px 0 120px; }
 
 .media-pubs__head {
   display: grid;
@@ -566,12 +568,23 @@ a.pf-item:hover .pf-item__title { color: var(--accent); }
 .media-pubs__head .h-section { line-height: 1; order: 2; }
 .media-pubs__head .arrows { order: 1; }
 
+/* Карточка публикации: песочная плашка, как блок портфолио на главной.
+   Фотографий у материалов нет, поэтому пустоту держит название издания,
+   набранное крупно акцентным цветом. */
 .media-card {
   position: relative;
-  height: 300px;
-  background: var(--grey);
+  flex: 0 0 550px;
+  height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 26px 30px 24px;
+  background: var(--sand);
   overflow: hidden;
+  transition: background-color .2s ease;
 }
+
+.media-card:hover { background: #ece7df; }
 
 /* карточек больше двух — лента едет стрелками, лишнее обрезается */
 .media-pubs__viewport { overflow: hidden; }
@@ -582,21 +595,21 @@ a.pf-item:hover .pf-item__title { color: var(--accent); }
   transition: transform .45s cubic-bezier(.4, 0, .2, 1);
 }
 
-.media-card { flex: 0 0 550px; }
-
-.media-card__media { position: absolute; inset: 0; }
-
-/* подпись прижата к низу карточки, а внутри идёт потоком: источник,
-   заголовок в одну-три строки, ссылка */
-.media-card__body {
+.media-card__brand {
   position: absolute;
   left: 30px;
   right: 30px;
-  bottom: 22px;
-  z-index: 2;
+  top: 24px;
+  font-family: var(--font-head);
+  font-size: 30px;
+  line-height: 1.15;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: .2;
 }
 
 .media-card__source {
+  font-family: var(--font-head);
   font-size: 12px;
   line-height: 1.2;
   text-transform: uppercase;
@@ -605,23 +618,36 @@ a.pf-item:hover .pf-item__title { color: var(--accent); }
 }
 
 .media-card__title {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 1.4;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .media-card__link {
   display: inline-block;
   font-size: 14px;
   line-height: 1.4;
-  opacity: .4;
+  color: var(--accent);
+  opacity: .75;
   transition: opacity .2s ease;
 }
 
 .media-card__link::after { content: ' →'; }
 
-.media-card__link:hover { opacity: .8; }
+/* Ссылка растянута на всю карточку — кликается любая её точка.
+   Работает от .media-card: подпись специально не позиционирована,
+   иначе inset: 0 считался бы от неё и ловил только текст. */
+.media-card__link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+.media-card:hover .media-card__link { opacity: 1; }
+
+.media-card__link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 /* Страница новости */
 

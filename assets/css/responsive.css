@@ -982,7 +982,7 @@
 
   .pf-page__grid { row-gap: 32px; }
 
-  .media-card { flex: 0 0 84vw; height: 280px; }
+  .media-card { flex: 0 0 84vw; height: auto; min-height: 220px; }
   .media-card__body { left: 20px; right: 20px; bottom: 20px; }
 
   .article__cover { margin-bottom: 28px; }
