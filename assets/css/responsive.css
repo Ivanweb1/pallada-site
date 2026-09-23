@@ -122,7 +122,9 @@
     bottom: 0;
     z-index: 2;
     display: block;
-    padding: 12px var(--gutter) 40px;
+    /* сверху оставляем место под логотип: он свисает из шапки на 44px
+       и иначе упирается в первый пункт */
+    padding: 56px var(--gutter) 40px;
     background: var(--white);
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -829,14 +831,25 @@
   .contacts-home { padding: 48px 0; }
   .contacts-home__form-wrap { padding: 22px 16px 26px; }
 
-  /* соцкнопки в столбик во всю ширину: подпись помещается в одну строку */
+  /* соцкнопки идут парой в ряд и делят ширину поровну;
+     чтобы подпись встала в одну строку, берём короткий вариант текста */
   .contacts-home__socials,
-  .contacts-page__socials {
-    flex-direction: column;
-    align-items: stretch;
+  .contacts-page__socials { gap: 8px; }
+
+  .contacts-home__socials .social,
+  .contacts-page__socials .social {
+    flex: 1 1 0;
+    min-width: 0;
+    gap: 8px;
+    padding: 0 10px;
+    white-space: nowrap;
   }
 
-  .social { white-space: nowrap; }
+  .social__full { display: none; }
+  .social__short { display: inline; }
+  .social span { font-size: 13px; }
+
+  .contacts-page__socials .social img { width: 22px; height: 22px; }
 
   /* ---- Подвал ---- */
 
