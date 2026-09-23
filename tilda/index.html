@@ -49,9 +49,28 @@
   .hint { color: var(--muted); font-size: 13px; margin: 10px 0 0; }
 
   .row {
-    display: grid; grid-template-columns: 1fr auto; gap: 10px 16px; align-items: center;
+    display: grid; grid-template-columns: auto 1fr auto; gap: 10px 14px; align-items: center;
     padding: 12px 0; border-top: 1px solid var(--line);
   }
+  .row--head { grid-template-columns: 1fr auto; }
+
+  /* отметка «страница уже на Тильде» */
+  .done {
+    width: 20px; height: 20px; accent-color: #14803c; cursor: pointer;
+    margin: 0; flex: none;
+  }
+  .row--ready .row__name,
+  .row--ready .row__meta { opacity: .45; }
+  .row--ready .row__name { text-decoration: line-through; text-decoration-thickness: 1px; }
+
+  .counter { float: right; font-size: 13px; font-weight: 600; color: var(--muted);
+             text-transform: none; letter-spacing: 0; }
+  .counter button {
+    font: inherit; font-size: 12px; font-weight: 600; margin-left: 10px; padding: 2px 8px;
+    color: var(--muted); background: #fff; border: 1px solid var(--line);
+    border-radius: 999px; cursor: pointer;
+  }
+  .counter button:hover { border-color: #c9c3bb; }
   .row:first-of-type { border-top: 0; }
   .row__name { font-size: 15px; font-weight: 600; }
   .row__meta { color: var(--muted); font-size: 13px; margin-top: 2px; word-break: break-all; }
@@ -145,7 +164,7 @@
   </div>
 
   <div class="panel">
-    <h2>Страницы</h2>
+    <h2>Страницы <span class="counter" id="counter"></span></h2>
     <div id="rows"><p class="err" id="status">Загружаю…</p></div>
   </div>
 
@@ -167,6 +186,50 @@
       });
     }
     return CACHE[path];
+  }
+
+  /* отметки «страница уже на Тильде» держим в браузере: у каждого своя галочка */
+  var DONE_KEY = 'pallada-tilda-done';
+
+  function doneList() {
+    try { return JSON.parse(localStorage.getItem(DONE_KEY)) || []; } catch (e) { return []; }
+  }
+
+  function doneSave(list) {
+    try { localStorage.setItem(DONE_KEY, JSON.stringify(list)); } catch (e) {}
+  }
+
+  function doneSet(slug, on) {
+    var list = doneList();
+    var at = list.indexOf(slug);
+    if (on && at === -1) list.push(slug);
+    if (!on && at !== -1) list.splice(at, 1);
+    doneSave(list);
+    counter();
+  }
+
+  function counter() {
+    var box = document.getElementById('counter');
+    if (!box || !DATA) return;
+    var total = DATA.pages.length;
+    var done = doneList().filter(function (slug) {
+      return DATA.pages.some(function (p) { return p.slug === slug; });
+    }).length;
+    box.textContent = 'перенесено ' + done + ' из ' + total;
+    if (done) {
+      var reset = document.createElement('button');
+      reset.type = 'button';
+      reset.textContent = 'снять отметки';
+      reset.addEventListener('click', function () {
+        doneSave([]);
+        Array.prototype.forEach.call(document.querySelectorAll('.done'), function (cb) {
+          cb.checked = false;
+          cb.closest('.row').classList.remove('row--ready');
+        });
+        counter();
+      });
+      box.appendChild(reset);
+    }
   }
 
   function opt(name) { return document.getElementById('o-' + name).checked; }
@@ -312,6 +375,20 @@
     var el = document.createElement('div');
     el.className = 'row' + (opts.head ? ' row--head' : '');
 
+    if (!opts.head) {
+      var done = document.createElement('input');
+      done.type = 'checkbox';
+      done.className = 'done';
+      done.title = 'Отметить: страница уже добавлена на Тильду';
+      done.checked = doneList().indexOf(page.slug) !== -1;
+      el.classList.toggle('row--ready', done.checked);
+      done.addEventListener('change', function () {
+        el.classList.toggle('row--ready', done.checked);
+        doneSet(page.slug, done.checked);
+      });
+      el.appendChild(done);
+    }
+
     var left = document.createElement('div');
     var name = document.createElement('div');
     name.className = 'row__name';
@@ -412,6 +489,7 @@
     });
     document.getElementById('o-prefix').addEventListener('input', weighSoon);
 
+    counter();
     weigh();
   }).catch(function (e) {
     document.getElementById('status').textContent =
