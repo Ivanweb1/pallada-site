@@ -90,7 +90,11 @@
   padding-bottom: 10px;
 }
 
-.hero__cta .btn { min-width: 200px; }
+/* две кнопки делят ширину контейнера поровну */
+.hero__cta .btn {
+  flex: 1 1 0;
+  min-width: 0;
+}
 
 .hero__counter {
   position: absolute;
