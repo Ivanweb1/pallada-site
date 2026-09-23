@@ -952,6 +952,8 @@
   .proc-steps,
   .sci-edu { padding-top: 48px; padding-bottom: 56px; }
 
+  .article__cover--portrait img { height: auto; width: 100%; }
+
   .contacts-page { padding-bottom: 56px; }
   .pf-page { padding-bottom: 56px; }
   .prod-block--last { padding-bottom: 56px; }

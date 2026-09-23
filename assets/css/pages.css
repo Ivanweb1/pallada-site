@@ -650,13 +650,29 @@ a.pf-item:hover .pf-item__title { color: var(--accent); }
 
 .article__cover { margin: 0 0 55px; }
 
-/* Обложка занимает всю ширину колонки, а в экран её вводит подрезка
-   сверху и снизу — как у широкого кадра на странице проекта. */
+/* Горизонтальный кадр занимает всю ширину колонки, в экран его вводит
+   подрезка сверху и снизу — как у широкого кадра на странице проекта. */
 .article__cover img {
   width: 100%;
   height: 520px;
   object-fit: cover;
   display: block;
+}
+
+/* Вертикальный кадр в такую полосу не кадрируется: от афиши 905x1280
+   осталась бы средняя треть без заголовка. Такие показываем целиком,
+   по центру колонки, на светлой подложке. */
+.article__cover--portrait {
+  display: flex;
+  justify-content: center;
+  background: var(--sand);
+}
+
+.article__cover--portrait img {
+  width: auto;
+  max-width: 100%;
+  height: 640px;
+  object-fit: contain;
 }
 
 .article__grid {
