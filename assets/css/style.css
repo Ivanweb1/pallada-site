@@ -253,11 +253,16 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
   transform: translateX(-50%);
 }
 
+/* Пять колонок по смыслу: услуги — компания — наука — витрина — связь.
+   Внутри колонки разделы идут группами, у каждой свой заголовок. */
 .footer__cols {
   display: grid;
-  grid-template-columns: 234px 172px 240px 268px 140px 1fr;
+  grid-template-columns: 1.15fr 1fr 1.25fr .7fr .95fr;
+  column-gap: 30px;
   padding-bottom: 52px;
 }
+
+.footer__group + .footer__group { margin-top: 24px; }
 
 .footer__col-title a { opacity: 1; display: inline; }
 
@@ -282,7 +287,22 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
 
 .footer__col a:hover { opacity: 1; }
 
-.footer__col--last .footer__col-title + .footer__col-title { margin-top: -10px; margin-bottom: 0; }
+/* Телефоны и почта — тем же кеглем, что ссылки, но без приглушения:
+   это то, ради чего в подвал и заходят. */
+.footer__phone,
+.footer__mail {
+  display: block;
+  font-family: var(--font-head);
+  font-size: 13px;
+  line-height: 1.5;
+  transition: opacity .2s ease;
+}
+
+.footer__phone + .footer__phone { margin-top: 2px; }
+.footer__mail { margin-top: 8px; opacity: .6; }
+
+.footer__phone:hover,
+.footer__mail:hover { opacity: .6; }
 
 .footer__bottom {
   background: var(--white);
@@ -431,6 +451,13 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
 .social:hover { background: #7a1c1e; }
 
 .social img { filter: saturate(0%); }
+
+.social__icon {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  display: block;
+}
 
 .social span {
   font-size: 14px;

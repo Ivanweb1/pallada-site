@@ -422,7 +422,13 @@ a.pf-card:hover .h-card { color: var(--accent); }
 .contacts-home__grid {
   display: grid;
   grid-template-columns: 570px 550px;
-  align-items: start;
+  align-items: stretch;
+}
+
+/* соцкнопки прижаты к низу колонки — вровень с нижним краем формы */
+.contacts-home__info {
+  display: flex;
+  flex-direction: column;
 }
 
 .contacts-home__row { margin-bottom: 20px; }
@@ -451,7 +457,8 @@ a.pf-card:hover .h-card { color: var(--accent); }
 .contacts-home__socials {
   display: flex;
   gap: 10px;
-  margin-top: 82px;
+  margin-top: auto;
+  padding-top: 40px;
 }
 
 .contacts-home__form-wrap {

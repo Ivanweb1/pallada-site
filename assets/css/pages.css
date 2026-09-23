@@ -943,10 +943,8 @@ a.sci-timeline__text:hover { opacity: .6; }
    и форма на акцентном фоне — серый тут выбивался из палитры сайта. */
 .contacts-page__socials .social {
   gap: 10px;
-  padding: 0 10px;
+  padding: 0 14px;
 }
-
-.contacts-page__socials .social img { width: 30px; height: 30px; }
 
 .contacts-page__form-wrap {
   background: var(--accent);
