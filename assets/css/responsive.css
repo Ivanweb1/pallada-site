@@ -780,7 +780,13 @@
     padding-top: 16px;
   }
 
-  .hero__cta .btn { width: 100%; min-width: 0; }
+  /* в столбик flex-basis: 0 с десктопа стал бы нулевой высотой —
+     возвращаем кнопкам их собственный рост */
+  .hero__cta .btn {
+    flex: 0 0 auto;
+    width: 100%;
+    min-width: 0;
+  }
 
   .hero__counter {
     right: var(--gutter);
