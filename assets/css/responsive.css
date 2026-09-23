@@ -959,7 +959,8 @@
   .prj-text__body .prj-text__lead { font-size: 18px; }
 
   .contacts-page__phone { font-size: 26px; }
-  .contacts-page__row { margin-top: 32px; }
+  .contacts-page__phone-second { font-size: 17px; }
+  .contacts-page__row { margin-top: 26px; }
   .contacts-page__socials { margin-top: 32px; }
   .contacts-page__form-wrap { padding: 22px 16px 26px; }
 

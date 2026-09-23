@@ -919,7 +919,21 @@ a.sci-timeline__text:hover { opacity: .6; }
   line-height: 1.55;
 }
 
-.contacts-page__row { margin-top: 50px; }
+/* второй номер — под основным, тише по кеглю: рядом два по 40px
+   в колонку 570 не помещаются */
+.contacts-page__phone-second {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.55;
+  opacity: .6;
+  transition: opacity .2s ease;
+}
+
+.contacts-page__phone-second:hover { opacity: 1; }
+
+.contacts-page__row { margin-top: 36px; }
 
 .contacts-page__value {
   display: inline-block;
