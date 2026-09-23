@@ -157,8 +157,8 @@
     color: var(--accent);
   }
 /* подчёркивание по бокам от логотипа — одной линией на всю ширину */
-.pallada .inner .header__inner::before { width: 100%; }
-.pallada .inner .header__inner::after { display: none; }
+.pallada.inner .header__inner::before { width: 100%; }
+.pallada.inner .header__inner::after { display: none; }
 /* ---- Карусели: нативный свайп вместо стрелок ---- */
 .pallada .carousel,
 .pallada .media-pubs__viewport {

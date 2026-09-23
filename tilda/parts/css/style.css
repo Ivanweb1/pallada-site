@@ -190,8 +190,8 @@
   z-index: 2;
 }
 /* Подчёркивание по бокам от логотипа на внутренних страницах */
-.pallada .inner .header__inner::before,
-.pallada .inner .header__inner::after {
+.pallada.inner .header__inner::before,
+.pallada.inner .header__inner::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -199,8 +199,8 @@
   height: 1px;
   background: rgba(0, 0, 0, .1);
 }
-.pallada .inner .header__inner::before { left: 0; }
-.pallada .inner .header__inner::after { right: 0; }
+.pallada.inner .header__inner::before { left: 0; }
+.pallada.inner .header__inner::after { right: 0; }
 /* --------------------------------------------------------------------------
    Подвал
    -------------------------------------------------------------------------- */

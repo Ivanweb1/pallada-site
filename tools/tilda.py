@@ -31,6 +31,11 @@ FONTS = ("@import url('https://fonts.googleapis.com/css2?family=Manrope:"
 # обёртка скрипта: %(body)s подставляется внутрь init(SCOPE)
 JS_WRAPPER = open(os.path.join(ROOT, 'tools/tilda-wrapper.js'), encoding='utf-8').read()
 
+# Классы <body> прототипа (сейчас это .inner на внутренних страницах).
+# На Тильде <body> чужой, поэтому такие классы переезжают на контейнер блока,
+# а селекторы вроде «.inner .header__inner» склеиваются со скоупом.
+BODY_CLASSES = set()
+
 # Тильда не сохраняет вайб-блок тяжелее этого (байт)
 LIMIT = 100 * 1024
 
@@ -134,8 +139,12 @@ def scope_selectors(prelude):
         sel = raw.strip()
         if not sel:
             continue
+        first = re.match(r'^((?:\.[A-Za-z0-9_-]+)+)(\s|$)', sel)
         if sel in (':root', 'html', 'body'):
             new = [SCOPE]
+        elif first and all(c in BODY_CLASSES for c in first.group(1).split('.')[1:]):
+            # «.inner .header__inner» → «.pallada.inner .header__inner»
+            new = [SCOPE + first.group(1) + sel[len(first.group(1)):]]
         elif sel.startswith('body.') or sel.startswith('html.'):
             # блокировка прокрутки страницы — она про настоящий body
             new = [sel]
@@ -254,9 +263,18 @@ def short(full, file):
     return full.split(' — ')[0].strip()
 
 
+def body_class(src):
+    m = re.search(r'<body(?:\s+class="([^"]*)")?\s*>', src)
+    return (m.group(1) or '').strip() if m else ''
+
+
 def main():
     os.makedirs(PARTS, exist_ok=True)
     os.makedirs(os.path.join(PARTS, 'css'), exist_ok=True)
+
+    # классы <body> нужны раньше стилей — селекторы с ними склеиваются со скоупом
+    for path in glob.glob(os.path.join(ROOT, '*.html')):
+        BODY_CLASSES.update(body_class(open(path, encoding='utf-8').read()).split())
 
     # общие стили
     for rel in glob.glob(os.path.join(ROOT, 'assets/css/*.css')):
@@ -296,6 +314,7 @@ def main():
             'title': short(full, file),
             'seo_title': full,
             'descr': descr(src),
+            'body_class': body_class(src),
             'url': BASE + ('' if file == 'index.html' else file),
             'css': page_css(src),
         })

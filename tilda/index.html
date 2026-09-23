@@ -228,7 +228,9 @@
       var out = ['<!-- ГК «Паллада» — ' + page.title + ' -->'];
       if (res[0].length) out.push('<style>\n' + res[0].join('\n') + '\n</style>');
 
-      var body = ['<div class="pallada">'];
+      /* класс <body> прототипа (.inner) переезжает на контейнер блока:
+         на нём держатся линии по бокам логотипа на внутренних страницах */
+      var body = ['<div class="' + ('pallada ' + (page.body_class || '')).trim() + '">'];
       body.push(res[1].map(relink).join('\n\n'));
       if (res[2]) body.push('<script>\n' + res[2] + '\n<\/script>');
       body.push('</div>');
@@ -389,7 +391,8 @@
       { file: 'header.html', part: 'header.html', solo: true, css: ['style', 'responsive'],
         title: 'Шапка (отдельный блок)', url: '' },
       { head: true, codeOnly: true,
-        meta: 'если шапка выносится в отдельный блок на всех страницах' }));
+        meta: 'если шапка выносится в отдельный блок; на внутренних страницах допишите класс inner — ' +
+              '<div class="pallada inner">, тогда появятся линии по бокам логотипа' }));
 
     common.appendChild(row(
       { file: 'footer.html', part: 'footer.html', solo: true, css: ['style', 'pages', 'responsive'],
