@@ -13,7 +13,7 @@
 Собирает код блока уже сам пульт — tilda/index.html: там галочками
 включается шапка, подвал, CSS и JS, и код копируется одной кнопкой.
 """
-import glob, json, os, re
+import glob, json, os, re, subprocess
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'tilda')
@@ -27,6 +27,12 @@ SCOPE = '.pallada'
 
 FONTS = ("@import url('https://fonts.googleapis.com/css2?family=Manrope:"
          "wght@300;400;500;600;700&display=swap&subset=latin,cyrillic');\n")
+
+# обёртка скрипта: %(body)s подставляется внутрь init(SCOPE)
+JS_WRAPPER = open(os.path.join(ROOT, 'tools/tilda-wrapper.js'), encoding='utf-8').read()
+
+# Тильда не сохраняет вайб-блок тяжелее этого (байт)
+LIMIT = 100 * 1024
 
 # страницы, скрытые с сайта, на Тильду не переносим
 SKIP = {'process.html', 'proizvodstvokeramiki.html'}
@@ -181,16 +187,13 @@ def absolutize(text):
 # ---------------------------------------------------------------- JS
 
 def scope_js(js):
-    """Привязывает скрипт к своему блоку: на странице их может быть несколько."""
-    head = (
-        "/* Скрипт работает только внутри своего блока: на странице Тильды\n"
-        "   рядом могут стоять другие блоки с этим же кодом. */\n"
-        "(function () {\n"
-        "  var SCOPE = (document.currentScript && document.currentScript.closest('%s'))\n"
-        "    || document.querySelector('%s');\n"
-        "  if (!SCOPE) return;\n"
-        "  function PL_byId(id) { return SCOPE.querySelector('#' + id); }\n" % (SCOPE, SCOPE)
-    )
+    """Привязывает скрипт к блоку.
+
+    Скрипт работает в двух режимах: внутри блока (заводит свой .pallada)
+    и подключённый в HTML-код в HEAD сайта — тогда заводит все блоки
+    страницы. Второй режим нужен, чтобы вайб-блок остался лёгким:
+    Тильда не сохраняет блок тяжелее 100 КБ.
+    """
     body = js
     body = body.replace(
         "document.documentElement.style.setProperty('--zoom', w > 1200 ? (w / 1200) : 1);",
@@ -198,7 +201,26 @@ def scope_js(js):
     body = body.replace('document.querySelectorAll(', 'SCOPE.querySelectorAll(')
     body = body.replace('document.querySelector(', 'SCOPE.querySelector(')
     body = body.replace('document.getElementById(', 'PL_byId(')
-    return head + body + '\n})();\n'
+    body = '\n'.join('  ' + line if line.strip() else line for line in body.split('\n'))
+    return JS_WRAPPER % {'scope': SCOPE, 'body': body}
+
+
+def minify(path, loader):
+    """Сжимает файл esbuild'ом. Нет esbuild — сжатая версия просто не обновится."""
+    out = os.path.join(PARTS, 'min', os.path.relpath(path, PARTS))
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    try:
+        res = subprocess.run(['npx', '--yes', 'esbuild@0.24.0',
+                              '--minify', '--loader=' + loader, '--charset=utf8'],
+                             stdin=open(path, 'rb'), capture_output=True, timeout=300)
+    except Exception as err:
+        print('esbuild недоступен (%s) — сжатые версии оставлены как есть' % err)
+        return False
+    if res.returncode != 0:
+        print('esbuild не справился с', path, res.stderr.decode()[:200])
+        return False
+    open(out, 'wb').write(res.stdout)
+    return True
 
 
 # ---------------------------------------------------------------- страницы
@@ -243,11 +265,15 @@ def main():
         css = absolutize(css)
         if name == 'style.css':
             css = FONTS + css
-        open(os.path.join(PARTS, 'css', name), 'w', encoding='utf-8').write(css)
+        out = os.path.join(PARTS, 'css', name)
+        open(out, 'w', encoding='utf-8').write(css)
+        minify(out, 'css')
 
     # общий скрипт
     js = scope_js(open(os.path.join(ROOT, 'assets/js/main.js'), encoding='utf-8').read())
-    open(os.path.join(PARTS, 'main.js'), 'w', encoding='utf-8').write(js)
+    out = os.path.join(PARTS, 'main.js')
+    open(out, 'w', encoding='utf-8').write(js)
+    minify(out, 'js')
 
     # шапка и подвал — их можно вынести в отдельные блоки Тильды
     for part in ('header', 'footer'):
@@ -280,7 +306,7 @@ def main():
                               p['file']))
 
     open(os.path.join(OUT, 'pages.json'), 'w', encoding='utf-8').write(
-        json.dumps({'base': BASE, 'scope': SCOPE, 'pages': pages},
+        json.dumps({'base': BASE, 'scope': SCOPE, 'limit': LIMIT, 'pages': pages},
                    ensure_ascii=False, indent=2) + '\n')
     print('страниц:', len(pages))
 

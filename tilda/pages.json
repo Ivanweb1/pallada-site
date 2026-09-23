@@ -1,6 +1,7 @@
 {
   "base": "https://ivanweb1.github.io/pallada-site/",
   "scope": ".pallada",
+  "limit": 102400,
   "pages": [
     {
       "file": "index.html",

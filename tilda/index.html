@@ -75,6 +75,12 @@
            border-radius: 999px; padding: 2px 8px; margin-left: 8px; vertical-align: 2px; }
   .err { color: var(--accent); font-size: 14px; }
 
+  .size {
+    margin-left: 10px; font-size: 12px; font-weight: 600; color: var(--muted);
+    border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; vertical-align: 1px;
+  }
+  .size--over { color: #fff; background: var(--accent); border-color: var(--accent); }
+
   ol.steps { margin: 0; padding-left: 20px; font-size: 14px; color: var(--muted); }
   ol.steps li { margin-bottom: 6px; }
   ol.steps b { color: var(--ink); font-weight: 600; }
@@ -100,9 +106,9 @@
       <li>В Тильде создайте страницу и добавьте <b>вайб-блок</b> (или T123 «HTML-код») во всю ширину.</li>
       <li>Нажмите здесь <b>«Код блока»</b> у нужной страницы и вставьте код в блок.
         Рядом кнопки для настроек страницы в Тильде: <b>Название</b>, <b>Title</b>, <b>Описание</b>, <b>URL</b> прототипа.</li>
-      <li>Если ставите галочку <b>«CSS отдельно»</b> — код стилей копируется один раз
-        и вставляется в <b>Настройки сайта → Дополнительно → HTML-код в HEAD</b>,
-        тогда блоки страниц получаются в разы легче.</li>
+      <li><b>Один раз на сайт:</b> скопируйте «Общий CSS» и «Общий скрипт» из блока ниже
+        и вставьте их в <b>Настройки сайта → Дополнительно → HTML-код в HEAD</b>.
+        Без этого код страницы весит больше 100 КБ и Тильда его не сохранит.</li>
       <li>Шапку и подвал удобно вынести отдельными блоками и переиспользовать на всех страницах —
         снимите обе галочки и скопируйте их коды ниже.</li>
       <li><b>Формы.</b> На страницах с формой (главная, контакты) добавьте обычный
@@ -118,15 +124,19 @@
     <div class="opts">
       <label class="opt"><input type="checkbox" id="o-header" checked> шапка в коде страницы</label>
       <label class="opt"><input type="checkbox" id="o-footer" checked> подвал в коде страницы</label>
-      <label class="opt"><input type="checkbox" id="o-css" checked> CSS внутри блока</label>
-      <label class="opt"><input type="checkbox" id="o-js" checked> скрипт внутри блока</label>
+      <label class="opt"><input type="checkbox" id="o-css"> CSS внутри блока</label>
+      <label class="opt"><input type="checkbox" id="o-js"> скрипт внутри блока</label>
+      <label class="opt"><input type="checkbox" id="o-min" checked> сжатый код</label>
       <label class="field">ссылки внутри сайта:
         <input type="text" id="o-prefix" placeholder="напр. /" value="">
       </label>
     </div>
-    <p class="hint">Пустое поле — ссылки остаются как в прототипе (<code>company.html</code>).
+    <p class="hint">Ссылки: пустое поле — остаются как в прототипе (<code>company.html</code>).
       Введите префикс адресов Тильды — например <code>/</code>, и ссылки станут <code>/company</code>,
-      главная — <code>/</code>.</p>
+      главная — <code>/</code>.<br>
+      CSS и скрипт по умолчанию вынесены в HEAD сайта: со стилями внутри блок весит 110–170 КБ,
+      а <b>Тильда не сохраняет вайб-блок тяжелее 100 КБ</b>. Вес готового кода показан у каждой
+      строки, красным — если не влезет.</p>
   </div>
 
   <div class="panel" id="common">
@@ -147,6 +157,7 @@
 
   var CACHE = {};
   var DATA = null;
+  var ROWS = [];          // строки таблицы: { page, sizeEl }
 
   function get(path) {
     if (!CACHE[path]) {
@@ -161,6 +172,13 @@
   function opt(name) { return document.getElementById('o-' + name).checked; }
   function prefix() { return document.getElementById('o-prefix').value.trim(); }
 
+  /* сжатый вариант лежит рядом — в parts/min/ */
+  function part(name) { return 'parts/' + (opt('min') ? 'min/' : '') + name; }
+
+  function cssFiles(page) {
+    return (page.css || []).map(function (n) { return part('css/' + n + '.css'); });
+  }
+
   /* ссылки прототипа (company.html) → адреса страниц на Тильде */
   function relink(html) {
     var p = prefix();
@@ -174,15 +192,25 @@
       });
   }
 
-  function cssFiles(page) {
-    return (page.css || []).map(function (n) { return 'parts/css/' + n + '.css'; });
+  /* все стили сайта в одном куске — для HTML-кода в HEAD */
+  function allCssFiles() {
+    var used = {};
+    DATA.pages.forEach(function (p) { (p.css || []).forEach(function (n) { used[n] = true; }); });
+    return ['style', 'pages', 'home', 'responsive']
+      .filter(function (n) { return used[n]; })
+      .map(function (n) { return part('css/' + n + '.css'); });
   }
 
   /* собирает код одного блока */
   function build(page) {
-    if (page.file === '__css__') {
-      return Promise.all(page.all.map(get)).then(function (list) {
+    if (page.kind === 'css') {
+      return Promise.all(allCssFiles().map(get)).then(function (list) {
         return '<style>\n' + list.join('\n') + '\n</style>\n';
+      });
+    }
+    if (page.kind === 'js') {
+      return get(part('main.js')).then(function (js) {
+        return '<script>\n' + js + '\n<\/script>\n';
       });
     }
 
@@ -195,7 +223,7 @@
     return Promise.all([
       Promise.all(styles.map(get)),
       Promise.all(seq.map(get)),
-      opt('js') ? get('parts/main.js') : Promise.resolve(null)
+      opt('js') ? get(part('main.js')) : Promise.resolve(null)
     ]).then(function (res) {
       var out = ['<!-- ГК «Паллада» — ' + page.title + ' -->'];
       if (res[0].length) out.push('<style>\n' + res[0].join('\n') + '\n</style>');
@@ -209,7 +237,7 @@
     });
   }
 
-  function copy(text, btn, label) {
+  function copy(text, btn) {
     function done() {
       var was = btn.textContent;
       btn.textContent = 'Скопировано';
@@ -238,12 +266,22 @@
     /* окно открываем сразу по клику, иначе браузер посчитает его всплывающим
        и заблокирует; готовый код подкладываем в него отдельным файлом */
     var w = window.open('', '_blank');
-    build(page).then(function (code) {
+    Promise.all([
+      build(page),
+      opt('css') ? Promise.resolve('') : Promise.all(allCssFiles().map(get)).then(function (l) {
+        return '<style>' + l.join('\n') + '</style>';
+      }),
+      opt('js') ? Promise.resolve('') : get(part('main.js')).then(function (js) {
+        return '<script>' + js + '<\/script>';
+      })
+    ]).then(function (res) {
       if (!w) { alert('Браузер заблокировал окно предпросмотра — разрешите всплывающие окна.'); return; }
+      /* в предпросмотре подставляем то, что на Тильде лежит в HEAD */
       var doc = '<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8">' +
         '<meta name="viewport" content="width=device-width, initial-scale=1">' +
         '<title>Проверка блока — ' + page.title + '</title>' +
-        '<style>body{margin:0}</style></head><body>\n' + code + '\n</body></html>';
+        '<style>body{margin:0}</style>' + res[1] + '</head><body>\n' +
+        res[0] + '\n' + res[2] + '\n</body></html>';
       w.location.href = URL.createObjectURL(new Blob([doc], { type: 'text/html' }));
     }, function (e) {
       if (w) w.close();
@@ -269,12 +307,11 @@
     var name = document.createElement('div');
     name.className = 'row__name';
     name.textContent = page.title;
-    if (opts.badge) {
-      var b = document.createElement('span');
-      b.className = 'badge';
-      b.textContent = opts.badge;
-      name.appendChild(b);
-    }
+
+    var size = document.createElement('span');
+    size.className = 'size';
+    name.appendChild(size);
+
     var meta = document.createElement('div');
     meta.className = 'row__meta';
     meta.textContent = opts.meta || page.url;
@@ -303,30 +340,50 @@
 
     el.appendChild(left);
     el.appendChild(btns);
+    ROWS.push({ page: page, sizeEl: size, limited: !opts.noLimit });
     return el;
+  }
+
+  /* вес готового кода: Тильда не сохранит вайб-блок тяжелее 100 КБ */
+  function weigh() {
+    ROWS.forEach(function (item) {
+      item.sizeEl.textContent = '…';
+      item.sizeEl.className = 'size';
+      build(item.page).then(function (code) {
+        var kb = new Blob([code]).size / 1024;
+        item.sizeEl.textContent = (kb < 10 ? kb.toFixed(1) : Math.round(kb)) + ' КБ';
+        if (item.limited && kb * 1024 > DATA.limit) {
+          item.sizeEl.className = 'size size--over';
+          item.sizeEl.title = 'Тильда не сохранит блок тяжелее 100 КБ — вынесите CSS и скрипт в HEAD';
+        }
+      }, function () { item.sizeEl.textContent = ''; });
+    });
+  }
+
+  var weighTimer;
+  function weighSoon() {
+    window.clearTimeout(weighTimer);
+    weighTimer = window.setTimeout(weigh, 120);
   }
 
   fetch('pages.json').then(function (r) { return r.json(); }).then(function (data) {
     DATA = data;
+    DATA.limit = DATA.limit || 100 * 1024;
+
     var rows = document.getElementById('rows');
     rows.innerHTML = '';
     data.pages.forEach(function (p) { rows.appendChild(row(p)); });
 
     var common = document.getElementById('common-rows');
-
-    // порядок важен: сначала база и переменные, адаптив — последним
-    var used = {};
-    data.pages.forEach(function (p) {
-      (p.css || []).forEach(function (n) { used[n] = true; });
-    });
-    var allCss = ['style', 'pages', 'home', 'responsive']
-      .filter(function (n) { return used[n]; })
-      .map(function (n) { return 'parts/css/' + n + '.css'; });
+    common.appendChild(row(
+      { kind: 'css', title: 'Общий CSS (в HEAD сайта)', url: '' },
+      { head: true, codeOnly: true, noPreview: true, noLimit: true,
+        meta: 'вставить один раз в Настройки сайта → Дополнительно → HTML-код в HEAD; галочка «CSS внутри блока» при этом снята' }));
 
     common.appendChild(row(
-      { file: '__css__', title: 'Общий CSS (в HEAD сайта)', all: allCss, url: '' },
-      { head: true, codeOnly: true, noPreview: true,
-        meta: 'вставить один раз в Настройки сайта → Дополнительно → HTML-код в HEAD; тогда снимите галочку «CSS внутри блока»' }));
+      { kind: 'js', title: 'Общий скрипт (в HEAD сайта)', url: '' },
+      { head: true, codeOnly: true, noPreview: true, noLimit: true,
+        meta: 'туда же, следом за стилями; сам найдёт все блоки на странице' }));
 
     common.appendChild(row(
       { file: 'header.html', part: 'header.html', solo: true, css: ['style', 'responsive'],
@@ -339,6 +396,13 @@
         title: 'Подвал (отдельный блок)', url: '' },
       { head: true, codeOnly: true,
         meta: 'подвал + плашка про cookie' }));
+
+    ['header', 'footer', 'css', 'js', 'min'].forEach(function (name) {
+      document.getElementById('o-' + name).addEventListener('change', weighSoon);
+    });
+    document.getElementById('o-prefix').addEventListener('input', weighSoon);
+
+    weigh();
   }).catch(function (e) {
     document.getElementById('status').textContent =
       'Не удалось загрузить данные (' + e.message + '). Пульт работает по адресу ' +
