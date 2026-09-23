@@ -273,8 +273,9 @@
       return b;
     }
 
-    var prev = arrow('prev', 'Предыдущий кадр', 'M15 5l-7 7 7 7');
-    var next = arrow('next', 'Следующий кадр', 'M9 5l7 7-7 7');
+    /* тот же шеврон, что у остальных стрелок сайта: поворот задаёт CSS */
+    var prev = arrow('prev', 'Предыдущий кадр', 'M6 9l6 6 6-6');
+    var next = arrow('next', 'Следующий кадр', 'M6 9l6 6 6-6');
     panels.appendChild(prev);
     panels.appendChild(next);
 
@@ -434,7 +435,7 @@
         '</button>' +
         '<button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Предыдущий кадр">' +
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">' +
-            '<path d="M15 5l-7 7 7 7"/></svg>' +
+            '<path d="M6 9l6 6 6-6"/></svg>' +
         '</button>' +
         '<figure class="lightbox__figure">' +
           '<img class="lightbox__img" alt="">' +
@@ -442,7 +443,7 @@
         '</figure>' +
         '<button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Следующий кадр">' +
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">' +
-            '<path d="M9 5l7 7-7 7"/></svg>' +
+            '<path d="M6 9l6 6 6-6"/></svg>' +
         '</button>';
       document.body.appendChild(lbox);
 

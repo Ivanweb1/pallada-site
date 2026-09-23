@@ -134,6 +134,17 @@
     transition: opacity .25s ease, transform .25s ease, visibility .25s;
   }
 
+  /* Пока меню открыто, body получает overflow: hidden — и sticky-шапка
+     теряет прокручиваемого предка, возвращаясь в поток к началу
+     документа, то есть уезжая за верх экрана. На время открытия
+     прибиваем её к окну. */
+  .header.is-open {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
   .header.is-open .header__menu {
     opacity: 1;
     visibility: visible;

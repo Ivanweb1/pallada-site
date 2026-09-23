@@ -1378,7 +1378,6 @@ a.sci-timeline__text:hover { opacity: .6; }
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
   line-height: 1;
   color: var(--ink);
   background: var(--white);
@@ -1395,6 +1394,11 @@ a.sci-timeline__text:hover { opacity: .6; }
 
 .prj-stages__arrow--prev { left: -24px; }
 .prj-stages__arrow--next { right: -24px; }
+
+/* один и тот же шеврон, что в лентах: поворачиваем его по направлению */
+.prj-stages__arrow svg { width: 20px; height: 20px; display: block; }
+.prj-stages__arrow--prev svg { transform: rotate(90deg); }
+.prj-stages__arrow--next svg { transform: rotate(-90deg); }
 
 /* стрелки, добавленные скриптом обычным панелям: они лежат в контейнере
    панелей, поэтому ему нужна точка отсчёта */
@@ -1734,7 +1738,11 @@ a.sci-timeline__text:hover { opacity: .6; }
 .lightbox__nav[hidden] { display: none; }
 
 .lightbox__close svg { width: 20px; height: 20px; }
+
+/* тот же шеврон, что у стрелок лент — доворачиваем по направлению */
 .lightbox__nav svg { width: 22px; height: 22px; }
+.lightbox__nav--prev svg { transform: rotate(90deg); }
+.lightbox__nav--next svg { transform: rotate(-90deg); }
 
 /* страница под окном не прокручивается вместе с ним */
 body.is-lightbox-open { overflow: hidden; }
