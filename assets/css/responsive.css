@@ -356,7 +356,13 @@
 
   /* колонки тут уже не равняются по высоте формы, прижимать кнопки
      к низу незачем — держим их сразу под контактами */
-  .contacts-home__socials { margin-top: 0; padding-top: 20px; }
+  /* Колонка — флекс, поэтому интервалы задаём gap, а не отступами строк:
+     у последней строки собственный margin складывался с отступом блока
+     соцкнопок, и до плашек выходило 40px вместо 20. */
+  .contacts-home__info { gap: 20px; }
+  .contacts-home__row,
+  .contacts-home__row:first-child { margin-bottom: 0; }
+  .contacts-home__socials { margin-top: 0; padding-top: 0; }
   .contacts-home__phones { flex-wrap: wrap; gap: 8px 24px; }
   .contacts-home__form-wrap { padding: 26px 24px 30px; }
 
@@ -574,7 +580,10 @@
   .contacts-page__phones { flex-wrap: wrap; gap: 8px 24px; }
   /* колонки уже не растягиваются на всю высоту формы, прижимать кнопки
      к низу незачем — держим их сразу под контактами */
-  .contacts-page__socials { margin-top: 0; padding-top: 28px; flex-wrap: wrap; }
+  .contacts-page__info { gap: 20px; }
+  .contacts-page__row,
+  .contacts-page__row:first-child { margin-bottom: 0; }
+  .contacts-page__socials { margin-top: 0; padding-top: 0; flex-wrap: wrap; }
   .contacts-page__form-wrap { padding: 26px 24px 30px; }
 
   /* ---- Страница проекта / направления ---- */
@@ -684,7 +693,7 @@
   .film__meta { padding-top: 0; }
 
   .contacts-home__grid { grid-template-columns: minmax(0, 1fr); row-gap: 32px; }
-  .contacts-home__socials { margin-top: 0; padding-top: 16px; }
+  .contacts-home__socials { margin-top: 0; padding-top: 0; }
 
   /* ---- Подвал ---- */
 
@@ -1038,8 +1047,8 @@
   .prj-text__lead,
   .prj-text__body .prj-text__lead { font-size: 18px; }
 
-  .contacts-page__row { margin-bottom: 16px; }
-  .contacts-page__socials { margin-top: 0; padding-top: 22px; }
+  .contacts-page__row { margin-bottom: 0; }
+  .contacts-page__socials { margin-top: 0; padding-top: 0; }
   .contacts-page__form-wrap { padding: 22px 16px 26px; }
 
   /* ---- Страница проекта ---- */
