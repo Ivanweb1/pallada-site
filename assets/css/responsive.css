@@ -354,7 +354,9 @@
     column-gap: 24px;
   }
 
-  .contacts-home__socials { margin-top: 40px; }
+  /* колонки тут уже не равняются по высоте формы, прижимать кнопки
+     к низу незачем — держим их сразу под контактами */
+  .contacts-home__socials { margin-top: 0; padding-top: 20px; }
   .contacts-home__phones { flex-wrap: wrap; gap: 8px 24px; }
   .contacts-home__form-wrap { padding: 26px 24px 30px; }
 
@@ -682,7 +684,7 @@
   .film__meta { padding-top: 0; }
 
   .contacts-home__grid { grid-template-columns: minmax(0, 1fr); row-gap: 32px; }
-  .contacts-home__socials { margin-top: 28px; }
+  .contacts-home__socials { margin-top: 0; padding-top: 16px; }
 
   /* ---- Подвал ---- */
 
