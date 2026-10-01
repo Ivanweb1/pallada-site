@@ -762,7 +762,7 @@
 .pallada .sci-block__photo img { display: block; width: 100%; height: auto; }
 .pallada .sci-photos {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 20px;
   margin-top: 25px;
 }
@@ -770,10 +770,12 @@
 .pallada .sci-photos img {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: auto;
+  aspect-ratio: 3 / 4;
   object-fit: cover;
   background: var(--grey);
 }
+.pallada .sci-photos .sci-photos__poster { object-fit: contain; }
 .pallada .sci-photos figcaption {
   margin-top: 10px;
   font-size: 14px;
