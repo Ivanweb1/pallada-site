@@ -111,8 +111,13 @@
   line-height: 1.55;
   opacity: .6;
 }
-.pallada .cmp-science__btn {
+.pallada .cmp-science__btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
   margin-top: 33px;
+}
+.pallada .cmp-science__btn {
   width: 200px;
   height: 50px;
   padding: 0;
@@ -793,6 +798,7 @@
   transition: opacity .2s ease;
 }
 .pallada a.sci-timeline__text:hover { opacity: .6; }
+.pallada .sci-timeline__text + .sci-timeline__text { display: block; margin-top: 12px; }
 .pallada .sci-list { margin-top: 35px; }
 .pallada .sci-list li {
   width: 481px;
@@ -992,6 +998,20 @@
   opacity: 1;
 }
 .pallada .prj-text__part p + p { margin-top: 14px; }
+.pallada .prj-text__list li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 16px;
+  line-height: 1.55;
+  opacity: .8;
+}
+.pallada .prj-text__list li + li { margin-top: 6px; }
+.pallada .prj-text__list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  opacity: .5;
+}
 /* Врезка со ссылкой на источник */
 /* врезка едет вместе со скроллом, пока слева идёт текст */
 .pallada .prj-aside {

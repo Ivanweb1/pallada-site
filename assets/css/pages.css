@@ -141,8 +141,14 @@
   opacity: .6;
 }
 
-.cmp-science__btn {
+.cmp-science__btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
   margin-top: 33px;
+}
+
+.cmp-science__btn {
   width: 200px;
   height: 50px;
   padding: 0;
@@ -989,6 +995,8 @@ a.pf-item:hover .pf-item__title { color: var(--accent); }
 
 a.sci-timeline__text:hover { opacity: .6; }
 
+.sci-timeline__text + .sci-timeline__text { display: block; margin-top: 12px; }
+
 .sci-list { margin-top: 35px; }
 
 .sci-list li {
@@ -1235,6 +1243,23 @@ a.sci-timeline__text:hover { opacity: .6; }
 }
 
 .prj-text__part p + p { margin-top: 14px; }
+
+.prj-text__list li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 16px;
+  line-height: 1.55;
+  opacity: .8;
+}
+
+.prj-text__list li + li { margin-top: 6px; }
+
+.prj-text__list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  opacity: .5;
+}
 
 /* Врезка со ссылкой на источник */
 
