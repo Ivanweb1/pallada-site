@@ -43,7 +43,37 @@ LIMIT = 100 * 1024
 # перенесли на Тильду. Пульт снимет с них отметку «перенесено» у тех, кто
 # отмечал страницы до появления проверки по хэшу. Дальше проверка идёт
 # сама, и список больше не нужен.
-LEGACY_STALE = ['index', 'portfolio', 'science', 'project-metlahskaya-plitka', '__css__']
+LEGACY_STALE = [
+    'index',
+    'company',
+    'portfolio',
+    'science',
+    'news',
+    'contacts',
+    'privacy',
+    '404',
+    'direction-cherepitsa',
+    'direction-fasadnye-materialy',
+    'direction-metlahskaya-plitka',
+    'direction-pechi-i-kaminy',
+    'direction-restavratsiya',
+    'direction-tserkovnaya-keramika',
+    'news-dom-severova',
+    'news-prorestavraciyu',
+    'news-vichuga-panno',
+    'project-biblioteka-iem',
+    'project-dlt',
+    'project-dom-severova',
+    'project-hanskiy-dvorets',
+    'project-ikonostas-matrony',
+    'project-kaminnyy-ekran',
+    'project-kitayskaya-kuhnya',
+    'project-mechet',
+    'project-metlahskaya-plitka',
+    'project-vichuga',
+    '__css__',
+    '__footer__',
+]
 
 # страницы, скрытые с сайта, на Тильду не переносим
 SKIP = {'process.html', 'proizvodstvokeramiki.html'}
