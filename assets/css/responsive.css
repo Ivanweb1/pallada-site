@@ -561,6 +561,8 @@
   .sci-timeline__row,
   .sci-edu__head { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 24px; }
 
+  .sci-block__photo { width: auto; }
+
   .sci-block__title,
   .sci-block__text,
   .sci-timeline__text,

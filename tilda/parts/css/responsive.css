@@ -436,6 +436,7 @@
 .pallada .sci-block__grid,
 .pallada .sci-timeline__row,
 .pallada .sci-edu__head { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 24px; }
+.pallada .sci-block__photo { width: auto; }
 .pallada .sci-block__title,
 .pallada .sci-block__text,
 .pallada .sci-timeline__text,

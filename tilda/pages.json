@@ -5,7 +5,7 @@
   "hashes": {
     "header": "f49d230f45",
     "footer": "d0378d7bee",
-    "css": "e87db1175e",
+    "css": "9a99d5e0d7",
     "js": "d31847c841"
   },
   "legacy_stale": [
@@ -56,7 +56,7 @@
       "descr": "Проекты ГК «Паллада»: реставрация, метлахская плитка, черепица, фасадные материалы, печи и камины, панно, церковная керамика.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "a1a8505dfc",
+      "hash": "4e1d1a7341",
       "url": "https://ivanweb1.github.io/pallada-site/portfolio.html",
       "css": [
         "style",
@@ -72,7 +72,7 @@
       "descr": "Музей «Керамарх», исследования и публикации, галерея современной керамики «573», образовательные программы: как «Паллада» работает с наследием.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "b19c915ece",
+      "hash": "906d1ba7af",
       "url": "https://ivanweb1.github.io/pallada-site/science.html",
       "css": [
         "style",
@@ -88,7 +88,7 @@
       "descr": "Новости группы компаний «Паллада» и публикации в СМИ.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "e1da574cb9",
+      "hash": "ab372174f2",
       "url": "https://ivanweb1.github.io/pallada-site/news.html",
       "css": [
         "style",
@@ -281,7 +281,7 @@
       "descr": "В издательстве «Серебряный век» вышла книга Андрея Роденкова «Керамическое производство в Кикерине».",
       "body_class": "inner",
       "body_css": true,
-      "hash": "403fdb4b2f",
+      "hash": "aadb5b903f",
       "url": "https://ivanweb1.github.io/pallada-site/news-kikerino.html",
       "css": [
         "style",
@@ -345,7 +345,7 @@
       "descr": "Реставрация и воссоздание майолики, плитки и керамической кровли. Усадьба «Знаменское-Губайлово», Красногорск, 2020–2024.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "bd229532c4",
+      "hash": "732786a374",
       "url": "https://ivanweb1.github.io/pallada-site/project-chasovnya-polyakovyh.html",
       "css": [
         "style",
@@ -425,7 +425,7 @@
       "descr": "Фарфоровые образы мастерских «Финист». Москва, 2017.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "681031899b",
+      "hash": "d8293daab7",
       "url": "https://ivanweb1.github.io/pallada-site/project-ikony-sretenskiy.html",
       "css": [
         "style",
@@ -441,7 +441,7 @@
       "descr": "Авторский камин в русском стиле по проекту архитектора Игоря Старощука. Частный дом.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "64a5736181",
+      "hash": "35c16a8eac",
       "url": "https://ivanweb1.github.io/pallada-site/project-kamin-terem.html",
       "css": [
         "style",
@@ -457,7 +457,7 @@
       "descr": "Керамическая копия майоликового камина по музейному оригиналу. Особняк Н. Т. Каштанова, Москва, 2024–2025.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "ea361c5bf9",
+      "hash": "7841c56ab6",
       "url": "https://ivanweb1.github.io/pallada-site/project-kamin-vrubel.html",
       "css": [
         "style",
@@ -537,7 +537,7 @@
       "descr": "Точная копия исторической модели конца XIX — начала XX века. Музей «Керамарх», 2018.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "0f8dbbd235",
+      "hash": "380fc4feab",
       "url": "https://ivanweb1.github.io/pallada-site/project-pech-drezden.html",
       "css": [
         "style",
@@ -553,7 +553,7 @@
       "descr": "Керамический ансамбль из русской печи с лежанкой и многоярусного камина. Частный интерьер, 2010.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "20c3a5e22b",
+      "hash": "f6a2912cab",
       "url": "https://ivanweb1.github.io/pallada-site/project-russkaya-pech.html",
       "css": [
         "style",
@@ -569,7 +569,7 @@
       "descr": "Рельефные майоликовые панно и фасадные вставки мастерских «Финист». Салоники, Греция, 2019–2022.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "a438469fdb",
+      "hash": "97555f8f93",
       "url": "https://ivanweb1.github.io/pallada-site/project-saloniki.html",
       "css": [
         "style",
@@ -601,7 +601,7 @@
       "descr": "Керамические пластины 19 цветов для восполнения утрат мозаики. Улан-Батор, Монголия, 2024.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "844c7f29a1",
+      "hash": "1fbb929fa9",
       "url": "https://ivanweb1.github.io/pallada-site/project-zaysan.html",
       "css": [
         "style",
@@ -617,7 +617,7 @@
       "descr": "Фарфоровые плитки по историческому фрагменту. Екатерининский дворец, ГМЗ «Царское Село», 2024.",
       "body_class": "inner",
       "body_css": true,
-      "hash": "0e02069bc5",
+      "hash": "93b01a9459",
       "url": "https://ivanweb1.github.io/pallada-site/project-zubovskiy-fligel.html",
       "css": [
         "style",

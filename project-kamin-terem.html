@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap&subset=latin,cyrillic" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css?v=55805474">
-<link rel="stylesheet" href="assets/css/pages.css?v=d9b2a710">
-<link rel="stylesheet" href="assets/css/responsive.css?v=8308dde3">
+<link rel="stylesheet" href="assets/css/pages.css?v=91d9e35f">
+<link rel="stylesheet" href="assets/css/responsive.css?v=25becd02">
 </head>
 <body class="inner">
 
@@ -85,9 +85,10 @@
       </dl>
     </div>
 
-    <!-- TODO: обложка — https://cloud.keramarch.ru/s/3zEHKy7FincHaJR -->
-    <div class="container prj-head__cover">
-      <figure class="ph ph--ratio" style="flex: 1; --ratio: 50%"></figure>
+    <div class="container prj-head__cover prj-head__cover--single">
+      <figure style="--r: 0.667">
+        <img src="assets/img/projects/kamin-terem/kamin-terem-cover.jpg" alt="Камин «Терем»">
+      </figure>
     </div>
   </section>
 
@@ -115,6 +116,51 @@
             современным каминным оборудованием.</p>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- КАК ШЛИ РАБОТЫ -->
+  <section class="prj-stages">
+    <div class="container">
+      <div class="prj-stages__head">
+        <h2 class="h-section prj-stages__title">Камин в интерьере</h2>
+      </div>
+
+      <div class="prj-stages__panels">
+        <div class="prj-stages__panel prj-stages__panel--slider is-active">
+          <div class="prj-stages__slider js-slider">
+            <div class="prj-stages__track js-slider-track">
+              <figure style="--r: 0.667">
+                <img src="assets/img/projects/kamin-terem/kamin-terem-01.jpg" alt="Камин «Терем» в интерьере" loading="lazy">
+                <figcaption>Камин «Терем» в интерьере</figcaption>
+              </figure>
+              <figure style="--r: 0.613">
+                <img src="assets/img/projects/kamin-terem/kamin-terem-02.jpg" alt="Верхние ярусы камина" loading="lazy">
+                <figcaption>Верхние ярусы камина</figcaption>
+              </figure>
+              <figure style="--r: 1.429">
+                <img src="assets/img/projects/kamin-terem/kamin-terem-03.jpg" alt="Центральное панно со львами. Художница Анна Куприянова" loading="lazy">
+                <figcaption>Центральное панно со львами. Художница Анна Куприянова</figcaption>
+              </figure>
+              <figure style="--r: 0.667">
+                <img src="assets/img/projects/kamin-terem/kamin-terem-04.jpg" alt="Арочная топка с латунным обрамлением" loading="lazy">
+                <figcaption>Арочная топка с латунным обрамлением</figcaption>
+              </figure>
+              <figure style="--r: 0.667">
+                <img src="assets/img/projects/kamin-terem/kamin-terem-05.jpg" alt="Рельефные изразцы и колонки" loading="lazy">
+                <figcaption>Рельефные изразцы и колонки</figcaption>
+              </figure>
+              <figure style="--r: 0.667">
+                <img src="assets/img/projects/kamin-terem/kamin-terem-06.jpg" alt="Детали декора" loading="lazy">
+                <figcaption>Детали декора</figcaption>
+              </figure>
+            </div>
+
+            <button class="prj-stages__arrow prj-stages__arrow--prev js-slider-prev" type="button" aria-label="Предыдущий кадр" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg></button>
+            <button class="prj-stages__arrow prj-stages__arrow--next js-slider-next" type="button" aria-label="Следующий кадр"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg></button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
