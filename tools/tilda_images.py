@@ -122,6 +122,18 @@ def short(path):
     return (abbr + '-' + name)[:TILDA_STEM].strip('-')
 
 
+def tagged(path, name):
+    """Тильда узнаёт уже загруженный файл по содержимому и подставляет
+    его старое имя. Вписываем в JPEG комментарий с новым именем — картинка
+    та же, а файл для Тильды новый."""
+    data = open(path, 'rb').read()
+    if data[:2] != b'\xff\xd8':
+        return data + b'\0' + name.encode()      # PNG и др.: хвост игнорируется
+    text = ('pallada:' + name).encode()
+    seg = b'\xff\xfe' + (len(text) + 2).to_bytes(2, 'big') + text
+    return data[:2] + seg + data[2:]
+
+
 def repack():
     urls = load('urls.json')
     need = sorted(set(load('map.json').values()) - set(urls))
@@ -136,7 +148,7 @@ def repack():
     z = os.path.join(OUT, 'pallada-images-2.zip')
     with zipfile.ZipFile(z, 'w', zipfile.ZIP_STORED) as zf:
         for n, p in mapping.items():
-            zf.write(p, n)
+            zf.writestr(n, tagged(p, n))
     json.dump(mapping, open(os.path.join(OUT, 'map2.json'), 'w', encoding='utf-8'),
               ensure_ascii=False, indent=1)
     print('файлов:', len(mapping), ' архив: %.1f МБ' % (os.path.getsize(z) / 1e6))
