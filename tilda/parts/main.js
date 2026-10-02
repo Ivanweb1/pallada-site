@@ -913,6 +913,79 @@
         });
       }
     }
+
+    /* ---- Возврат к тому же месту списка ----
+       Из карточки портфолио, направления или новости «← Назад» возвращает
+       туда, откуда пришли, а не в начало страницы.
+       На Тильде скрипт запускается на каждый блок — обработчики на document
+       ставим один раз. */
+    if (window.palladaBackNav) return;
+    window.palladaBackNav = true;
+
+    function samePage(a, b) {
+      function key(u) {
+        return u.origin + u.pathname.replace(/\.html$/, '').replace(/\/index$/, '').replace(/\/$/, '');
+      }
+      return key(a) === key(b);
+    }
+
+    /* ссылка «← Портфолио» и т. п.: если пришли именно оттуда — шаг назад
+       по истории, браузер вернёт и прокрутку, и выбранный фильтр */
+    document.addEventListener('click', function (e) {
+      var back = e.target.closest && e.target.closest('.prj-head__back');
+      if (!back || !document.referrer || history.length < 2) return;
+      var from, to;
+      try { from = new URL(document.referrer); to = new URL(back.href, location.href); } catch (err) { return; }
+      if (samePage(from, to)) {
+        e.preventDefault();
+        history.back();
+      }
+    });
+
+    /* Запоминаем прокрутку страницы и лент-каруселей. Обычно браузер
+       возвращает место сам, но если страница собирается заново (Тильда,
+       медленная сеть) — восстанавливаем по сохранённому. */
+    var SCROLL_KEY = 'pallada-scroll:' + location.pathname + location.search;
+
+    /* все ленты страницы, а не только этого блока Тильды (поэтому без
+       document.querySelectorAll — сборщик для Тильды сужает его до блока) */
+    function lanes() { return document['querySelectorAll']('.carousel'); }
+
+    function saveScroll() {
+      try {
+        sessionStorage.setItem(SCROLL_KEY, JSON.stringify({
+          y: window.scrollY,
+          x: Array.prototype.map.call(lanes(), function (el) { return el.scrollLeft; })
+        }));
+      } catch (err) {}
+    }
+
+    window.addEventListener('pagehide', saveScroll);
+    document.addEventListener('click', function (e) {
+      if (e.target.closest && e.target.closest('a[href]')) saveScroll();
+    }, true);
+
+    var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    if (nav && nav.type === 'back_forward') {
+      var saved = null;
+      try { saved = JSON.parse(sessionStorage.getItem(SCROLL_KEY)); } catch (err) {}
+      if (saved) {
+        var touched = false;
+        var stop = function () { touched = true; };
+        window.addEventListener('touchstart', stop, { passive: true, once: true });
+        window.addEventListener('wheel', stop, { passive: true, once: true });
+        var restore = function () {
+          if (touched) return;
+          Array.prototype.forEach.call(lanes(), function (el, i) {
+            if (saved.x && saved.x[i]) el.scrollLeft = saved.x[i];
+          });
+          if (Math.abs(window.scrollY - saved.y) > 2) window.scrollTo(0, saved.y);
+        };
+        /* страница может дорисовываться — повторяем, пока раскладка не устоится */
+        [0, 150, 500, 1200].forEach(function (t) { setTimeout(restore, t); });
+        window.addEventListener('load', restore);
+      }
+    }
   })();
 
   }
