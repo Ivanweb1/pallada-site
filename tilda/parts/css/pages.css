@@ -1351,12 +1351,18 @@
   gap: 28px;
   align-items: start;
 }
-.pallada .bio__photo { margin: 0; }
+.pallada .bio__photo { margin: 0; overflow: hidden; background: var(--grey); }
+/* в исходном кадре вокруг героя много стены и печи — кадрируем 3:4
+   и приближаем так, чтобы он оказался по центру */
 .pallada .bio__photo img {
   width: 100%;
   height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: 48% 100%;
+  transform: scale(1.45);
+  transform-origin: 48% 80%;
   display: block;
-  background: var(--grey);
 }
 .pallada .bio__name {
   line-height: 1.2;

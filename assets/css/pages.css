@@ -1673,13 +1673,19 @@ a.sci-timeline__text:hover { opacity: .6; }
   align-items: start;
 }
 
-.bio__photo { margin: 0; }
+.bio__photo { margin: 0; overflow: hidden; background: var(--grey); }
 
+/* в исходном кадре вокруг героя много стены и печи — кадрируем 3:4
+   и приближаем так, чтобы он оказался по центру */
 .bio__photo img {
   width: 100%;
   height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: 48% 100%;
+  transform: scale(1.45);
+  transform-origin: 48% 80%;
   display: block;
-  background: var(--grey);
 }
 
 .bio__name {
