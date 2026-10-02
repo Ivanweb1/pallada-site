@@ -16,7 +16,8 @@ apply: FILE — любой текст, где встречаются ссылк�
 Тильда обрезает имя файла до 20 символов. Поэтому сопоставляем по
 обрезанному имени и только однозначные совпадения; для остальных
 `python tools/tilda_images.py repack` собирает архив pallada-images-2.zip
-с короткими уникальными именами (карта map2.json).
+с короткими уникальными именами (карта map2.json), а `full` — архив
+pallada-images-all.zip со всеми картинками сразу.
 """
 import glob, json, os, re, sys, zipfile
 
@@ -134,10 +135,13 @@ def tagged(path, name):
     return data[:2] + seg + data[2:]
 
 
-def repack():
-    urls = load('urls.json')
+def repack(full=False):
+    urls = {} if full else load('urls.json')
     need = sorted(set(load('map.json').values()) - set(urls))
-    mapping = {}
+    # уже выданные короткие имена сохраняем: тот же файл — та же ссылка
+    given = {p: n for n, p in load('map2.json').items()}
+    mapping = {given[p]: p for p in need if p in given}
+    need = [p for p in need if p not in given]
     for p in need:
         base = short(p); ext = os.path.splitext(p)[1].lower().replace('.jpeg', '.jpg')
         n, i = base, 2
@@ -145,7 +149,7 @@ def repack():
             tail = '-%d' % i
             n = base[:TILDA_STEM - len(tail)] + tail; i += 1
         mapping[n + ext] = p
-    z = os.path.join(OUT, 'pallada-images-2.zip')
+    z = os.path.join(OUT, 'pallada-images-all.zip' if full else 'pallada-images-2.zip')
     with zipfile.ZipFile(z, 'w', zipfile.ZIP_STORED) as zf:
         for n, p in mapping.items():
             zf.writestr(n, tagged(p, n))
@@ -158,4 +162,5 @@ if __name__ == '__main__':
     cmd = sys.argv[1] if len(sys.argv) > 1 else 'pack'
     if cmd == 'pack': pack()
     elif cmd == 'repack': repack()
+    elif cmd == 'full': repack(full=True)
     else: apply(sys.argv[2])
