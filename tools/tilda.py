@@ -247,6 +247,8 @@ def absolutize(text):
     """Пути к статике — абсолютные, иначе Тильда будет искать их у себя."""
     # не только src/href: у сканов лицензий полный размер лежит в data-full
     text = re.sub(r'([a-zA-Z-]+)="assets/', r'\1="' + BASE + 'assets/', text)
+    # в srcset адресов несколько, через запятую
+    text = re.sub(r'(,\s*)assets/', r'\1' + BASE + 'assets/', text)
     text = re.sub(r'url\((["\']?)assets/', r'url(\1' + BASE + 'assets/', text)
     text = re.sub(r'url\((["\']?)\.\./', r'url(\1' + BASE + 'assets/', text)
     return text

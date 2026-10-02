@@ -822,8 +822,9 @@
         var src = shots[lcurrent];
         var img = lbox.querySelector('.lightbox__img');
         /* у сканов документов в карточке лежит миниатюра, а в data-full —
-           версия, на которой читается текст */
-        img.src = src.dataset.full || src.currentSrc || src.src;
+           версия, на которой читается текст. У остальных в src полный JPG,
+           а currentSrc — уменьшенная под карточку копия из srcset */
+        img.src = src.dataset.full || src.src;
         img.alt = src.alt || '';
 
         /* подпись берём у кадра на странице, если она есть */
