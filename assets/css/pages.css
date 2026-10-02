@@ -88,8 +88,9 @@
   font-size: 16px;
   line-height: 1.55;
   width: 564px;
-  height: 60px;
 }
+
+.cmp-structure__list li + li { margin-top: 14px; }
 
 .cmp-structure__photos {
   display: grid;

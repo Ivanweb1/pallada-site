@@ -70,8 +70,8 @@
   font-size: 16px;
   line-height: 1.55;
   width: 564px;
-  height: 60px;
 }
+.pallada .cmp-structure__list li + li { margin-top: 14px; }
 .pallada .cmp-structure__photos {
   display: grid;
   grid-template-columns: repeat(3, 360px);
