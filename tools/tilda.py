@@ -243,8 +243,50 @@ def body_rules(scoped, cls):
     return '\n'.join(out)
 
 
+# Картинки, залитые на CDN Тильды: путь на сайте -> static.tildacdn.com/…
+# (собирает tools/tilda_images.py). Чего здесь нет — берётся с GitHub Pages.
+_URLS = os.path.join(ROOT, 'tilda', 'upload', 'urls.json')
+TILDA_IMG = json.load(open(_URLS, encoding='utf-8')) if os.path.exists(_URLS) else {}
+
+# Ресайзер Тильды: из одного загруженного файла отдаёт копию нужной ширины
+# в WebP. Если он перестанет работать — False, и srcset просто уберётся,
+# картинки пойдут целиком с static.tildacdn.com.
+THB_SRCSET = True
+_VARIANT = re.compile(r'-\d+\.webp$')
+
+
+def thb(url, width):
+    m = re.match(r'https://static\.tildacdn\.(?:com|info)/(tild[^/]+)/(.+)$', url)
+    return 'https://thb.tildacdn.com/%s/-/resize/%dx/-/format/webp/%s' % (m.group(1), width, m.group(2))
+
+
+def tilda_images(text):
+    """Картинки — с CDN Тильды, srcset — через её ресайзер."""
+    if not TILDA_IMG:
+        return text
+
+    def srcset(m):
+        out = []
+        for part in m.group(1).split(','):
+            u, w = part.strip().rsplit(' ', 1)
+            base = _VARIANT.sub('', u)
+            orig = next((base + e for e in ('.jpg', '.jpeg', '.png') if base + e in TILDA_IMG), None)
+            if not orig:
+                return m.group(0)
+            out.append('%s %s' % (thb(TILDA_IMG[orig], int(w[:-1])), w))
+        return 'srcset="%s"' % ', '.join(out)
+
+    if THB_SRCSET:
+        text = re.sub(r'srcset="([^"]+)"', srcset, text)
+    else:
+        text = re.sub(r'\s(?:srcset|sizes)="[^"]*"', '', text)
+    return re.sub(r'assets/img/[^"\'\)\s?,]+',
+                  lambda m: TILDA_IMG.get(m.group(0), m.group(0)), text)
+
+
 def absolutize(text):
     """Пути к статике — абсолютные, иначе Тильда будет искать их у себя."""
+    text = tilda_images(text)
     # не только src/href: у сканов лицензий полный размер лежит в data-full
     text = re.sub(r'([a-zA-Z-]+)="assets/', r'\1="' + BASE + 'assets/', text)
     # в srcset адресов несколько, через запятую
