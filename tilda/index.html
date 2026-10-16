@@ -91,7 +91,7 @@
   .row--head { background: #fbf9f7; }
 
   .badge--stale { color: #fff; background: #b8770f; border-color: #b8770f; }
-  .badge.badge--new { color: #fff; background: #1f6fb2; border-color: #1f6fb2; }
+  .badge.badge--todo { color: #fff; background: #1f6fb2; border-color: #1f6fb2; }
   .row--stale .row__name { color: #8a5a06; }
   .badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .04em;
            text-transform: uppercase; color: var(--muted); border: 1px solid var(--line);
@@ -199,25 +199,36 @@
     return CACHE[path];
   }
 
-  /* Отметки «уже на Тильде» держим в браузере вместе с хэшем кода, который
-     переносили. Правим вёрстку — хэш меняется, и галочка слетает сама:
-     видно, что блок пора обновить. */
-  /* страницы, которых на Тильде не было: созданы пустыми (вайб-блок без кода,
-     название, описание и адрес уже стоят) — в них код вставляется впервые */
-  var TILDA_NEW = {
-    'news-kikerino': 313027109,
-    'project-chasovnya-polyakovyh': 313027209,
-    'project-ikony-sretenskiy': 313027309,
-    'project-kamin-terem': 313027409,
-    'project-kamin-vrubel': 313027509,
-    'project-pech-drezden': 313027609,
-    'project-russkaya-pech': 313027709,
-    'project-saloniki': 313027809,
-    'project-zaysan': 313027909,
-    'project-zubovskiy-fligel': 313028009
+  /* страницы, где на Тильде ещё старый код: вставить новый код блока и опубликовать.
+     Число — id страницы на Тильде, для ссылки в редактор */
+  var TILDA_TODO = {
+    'direction-restavratsiya': 261858609,
+    'direction-tserkovnaya-keramika': 261859509,
+    'company': 113497146,
+    'portfolio': 113533876,
+    'news': 113527676,
+    'science': 115496926,
+    'privacy': 261851509,
+    '404': 262022509,
+    'news-dom-severova': 261891709,
+    'news-prorestavraciyu': 261893709,
+    'news-vichuga-panno': 261896709,
+    'project-biblioteka-iem': 261918609,
+    'project-dlt': 261919709,
+    'project-dom-severova': 261921709,
+    'project-hanskiy-dvorets': 261928409,
+    'project-ikonostas-matrony': 261930009,
+    'project-kaminnyy-ekran': 261931409,
+    'project-kitayskaya-kuhnya': 261932209,
+    'project-mechet': 261933109,
+    'project-metlahskaya-plitka': 261933809,
+    'project-vichuga': 261934609
   };
   var TILDA_PROJECT = 20565026;
 
+  /* Отметки «уже на Тильде» держим в браузере вместе с хэшем кода, который
+     переносили. Правим вёрстку — хэш меняется, и галочка слетает сама:
+     видно, что блок пора обновить. */
   var DONE_KEY = 'pallada-tilda-done';
   var MARKS = {};
 
@@ -453,12 +464,12 @@
       name.appendChild(flag);
     }
 
-    if (TILDA_NEW[page.slug]) {
-      var fresh = document.createElement('span');
-      fresh.className = 'badge badge--new';
-      fresh.textContent = 'новая';
-      fresh.title = 'Страница на Тильде создана пустой — вставьте код в её вайб-блок';
-      name.appendChild(fresh);
+    if (TILDA_TODO[page.slug]) {
+      var todo = document.createElement('span');
+      todo.className = 'badge badge--todo';
+      todo.textContent = 'обновить';
+      todo.title = 'На Тильде старый код — вставьте новый код блока и опубликуйте';
+      name.appendChild(todo);
     }
 
     var size = document.createElement('span');
@@ -481,9 +492,9 @@
       meta.appendChild(addr);
       meta.appendChild(document.createTextNode('  ·  '));
       meta.appendChild(link);
-      if (TILDA_NEW[page.slug]) {
+      if (TILDA_TODO[page.slug]) {
         var ed = document.createElement('a');
-        ed.href = 'https://tilda.ru/page/?pageid=' + TILDA_NEW[page.slug] + '&projectid=' + TILDA_PROJECT;
+        ed.href = 'https://tilda.ru/page/?pageid=' + TILDA_TODO[page.slug] + '&projectid=' + TILDA_PROJECT;
         ed.target = '_blank';
         ed.rel = 'noopener';
         ed.textContent = 'открыть в Тильде';
