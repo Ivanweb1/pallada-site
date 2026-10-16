@@ -76,16 +76,21 @@ def has_alpha(im):
 def stem(p): return os.path.splitext(p)[0]
 
 
+# на Windows glob отдаёт пути с обратным слэшем, а в ссылках они через «/» —
+# без приведения все картинки сочлись бы неиспользуемыми и удалились
+def files(pattern): return [p.replace(os.sep, '/') for p in glob.glob(pattern, recursive=True)]
+
+
 def main():
     refs = referenced()
 
     # 1. неиспользуемые
     removed = 0
-    for p in glob.glob(IMG + '**/*', recursive=True):
+    for p in files(IMG + '**/*'):
         if os.path.isfile(p) and is_raster(p) and p not in refs and not p.endswith('.webp'):
             os.remove(p); removed += 1
     # осиротевшие webp (их оригинал удалён)
-    for p in glob.glob(IMG + '**/*.webp', recursive=True):
+    for p in files(IMG + '**/*.webp'):
         base = VARIANT.sub('', p)
         if not any(os.path.exists(base + e) for e in ('.jpg', '.jpeg', '.png')):
             os.remove(p)

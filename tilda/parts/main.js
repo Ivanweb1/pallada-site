@@ -439,6 +439,8 @@
       donor: 'form.js-form-proccess',   // форма Тильды на странице
       hideDonor: true,
       timeout: 8000,
+      uploadTimeout: 120000,             // загрузка файла на Диск
+
       okText: 'Спасибо! Заявка отправлена — мы свяжемся с вами.',
       errText: 'Не удалось отправить заявку. Позвоните нам: 8 (812) 363-49-61'
     };
@@ -582,6 +584,45 @@
       });
     }
 
+    /* файл: отдаём его виджету загрузки Тильды (поле «Загрузка файла» в приёмнике).
+       Виджет сам грузит файл в подключённое хранилище (Яндекс Диск) и кладёт
+       ссылку в скрытое поле — только после этого форму можно отправлять.
+       Передаём через его обработчик перетаскивания файла на кнопку. */
+    function uploadToTilda(form, files) {
+      if (!files || !files.length) return Promise.resolve();
+
+      var box = form.querySelector('.t-upwidget-container');
+      var button = box && box.querySelector('.t-upwidget-container__button');
+      if (!button) {
+        console.warn('[pallada] В форме Тильды нет поля «Загрузка файла» — уйдёт только имя файла.');
+        return Promise.resolve();
+      }
+
+      return new Promise(function (resolve, reject) {
+        var done = false;
+        var started = Date.now();
+
+        function uploaded() { done = true; }
+        box.addEventListener('uwFileUploaded', uploaded);
+
+        var drop = new Event('drop', { bubbles: true, cancelable: true });
+        Object.defineProperty(drop, 'dataTransfer', { value: { files: files } });
+        button.dispatchEvent(drop);
+
+        (function wait() {
+          var error = button.classList.contains('t-upwidget-container__button_error');
+          if (done || error || Date.now() - started > FORM.uploadTimeout) {
+            box.removeEventListener('uwFileUploaded', uploaded);
+            if (done) resolve();
+            else reject(new Error(error ? 'Тильда не приняла файл: ' + button.textContent.trim()
+                                        : 'Файл не успел загрузиться'));
+          } else {
+            window.setTimeout(wait, 250);
+          }
+        })();
+      });
+    }
+
     function donorError(form) {
       var box = form.querySelector('.js-rule-error-all, .js-errorbox-all');
       return (box ? box.textContent.trim() : '') || 'причина не указана';
@@ -599,6 +640,16 @@
 
       hideDonor(form);
 
+      /* сначала файл, потом заявка; файл не загрузился — заявку всё равно шлём */
+      return uploadToTilda(form, data.files).catch(function (err) {
+        console.error('[pallada] ' + err.message);
+        data.details = (data.details ? data.details + '\n' : '') + 'Файл не загрузился: ' + err.message;
+      }).then(function () {
+        return submitDonor(form, data);
+      });
+    }
+
+    function submitDonor(form, data) {
       return new Promise(function (resolve, reject) {
         fillDonor(form, data);
 
@@ -722,7 +773,10 @@
         Array.prototype.forEach.call(form.querySelectorAll('input, textarea, select'), function (el) {
           if (!el.name || el.type === 'submit' || el.type === 'checkbox') return;
           if (el.type === 'file') {
-            if (el.files && el.files[0]) details.push(FIELD_LABELS.file + ': ' + el.files[0].name);
+            if (el.files && el.files[0]) {
+              details.push(FIELD_LABELS.file + ': ' + el.files[0].name);
+              data.files = el.files;
+            }
             return;
           }
           var value = (el.value || '').trim();

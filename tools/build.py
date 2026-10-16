@@ -27,7 +27,9 @@ for rel in ASSETS:
     full = os.path.join(ROOT, rel)
     if not os.path.exists(full):
         continue
-    digest = hashlib.sha1(open(full, 'rb').read()).hexdigest()[:8]
+    # переводы строк приводим к LF: на Windows с autocrlf рабочая копия в CRLF,
+    # и без этого хэш у неизменённого файла отличался бы от собранного в LF
+    digest = hashlib.sha1(open(full, 'rb').read().replace(b'\r\n', b'\n')).hexdigest()[:8]
     VERSIONS[rel] = digest
 
 

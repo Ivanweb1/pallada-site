@@ -13,7 +13,7 @@
 Собирает код блока уже сам пульт — tilda/index.html: там галочками
 включается шапка, подвал, CSS и JS, и код копируется одной кнопкой.
 """
-import glob, hashlib, json, os, re, subprocess
+import glob, hashlib, json, os, re, shutil, subprocess
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'tilda')
@@ -323,7 +323,8 @@ def minify(path, loader):
     out = os.path.join(PARTS, 'min', os.path.relpath(path, PARTS))
     os.makedirs(os.path.dirname(out), exist_ok=True)
     try:
-        res = subprocess.run(['npx', '--yes', 'esbuild@0.24.0',
+        # на Windows npx — это npx.cmd, без полного пути subprocess его не находит
+        res = subprocess.run([shutil.which('npx') or 'npx', '--yes', 'esbuild@0.24.0',
                               '--minify', '--loader=' + loader, '--charset=utf8'],
                              stdin=open(path, 'rb'), capture_output=True, timeout=300)
     except Exception as err:
