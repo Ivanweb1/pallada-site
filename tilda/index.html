@@ -91,6 +91,7 @@
   .row--head { background: #fbf9f7; }
 
   .badge--stale { color: #fff; background: #b8770f; border-color: #b8770f; }
+  .badge.badge--new { color: #fff; background: #1f6fb2; border-color: #1f6fb2; }
   .row--stale .row__name { color: #8a5a06; }
   .badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .04em;
            text-transform: uppercase; color: var(--muted); border: 1px solid var(--line);
@@ -201,6 +202,22 @@
   /* Отметки «уже на Тильде» держим в браузере вместе с хэшем кода, который
      переносили. Правим вёрстку — хэш меняется, и галочка слетает сама:
      видно, что блок пора обновить. */
+  /* страницы, которых на Тильде не было: созданы пустыми (вайб-блок без кода,
+     название, описание и адрес уже стоят) — в них код вставляется впервые */
+  var TILDA_NEW = {
+    'news-kikerino': 313027109,
+    'project-chasovnya-polyakovyh': 313027209,
+    'project-ikony-sretenskiy': 313027309,
+    'project-kamin-terem': 313027409,
+    'project-kamin-vrubel': 313027509,
+    'project-pech-drezden': 313027609,
+    'project-russkaya-pech': 313027709,
+    'project-saloniki': 313027809,
+    'project-zaysan': 313027909,
+    'project-zubovskiy-fligel': 313028009
+  };
+  var TILDA_PROJECT = 20565026;
+
   var DONE_KEY = 'pallada-tilda-done';
   var MARKS = {};
 
@@ -436,6 +453,14 @@
       name.appendChild(flag);
     }
 
+    if (TILDA_NEW[page.slug]) {
+      var fresh = document.createElement('span');
+      fresh.className = 'badge badge--new';
+      fresh.textContent = 'новая';
+      fresh.title = 'Страница на Тильде создана пустой — вставьте код в её вайб-блок';
+      name.appendChild(fresh);
+    }
+
     var size = document.createElement('span');
     size.className = 'size';
     name.appendChild(size);
@@ -456,6 +481,15 @@
       meta.appendChild(addr);
       meta.appendChild(document.createTextNode('  ·  '));
       meta.appendChild(link);
+      if (TILDA_NEW[page.slug]) {
+        var ed = document.createElement('a');
+        ed.href = 'https://tilda.ru/page/?pageid=' + TILDA_NEW[page.slug] + '&projectid=' + TILDA_PROJECT;
+        ed.target = '_blank';
+        ed.rel = 'noopener';
+        ed.textContent = 'открыть в Тильде';
+        meta.appendChild(document.createTextNode('  ·  '));
+        meta.appendChild(ed);
+      }
       if (page.seo_title) meta.title = page.seo_title;
     }
     left.appendChild(name);
